@@ -202,13 +202,18 @@ const XP_SCHEDULES = {
 };
 
 function getLevelXPRewards(level) {
+  const perfectTurns = 12 + (level - 1) * 2;
+  // A one-level game is a complete 200-XP campaign by itself.
+  if (MAX_GAME_LEVEL === 1) {
+    return { maxXP: 200, mediumXP: 160, lowXP: 120, perfectTurns };
+  }
   const rewards = XP_SCHEDULES[MAX_GAME_LEVEL] || [];
   const maxXP = rewards[level - 1] || 0;
   return {
     maxXP,
     mediumXP: Math.round(maxXP * 0.8),
     lowXP: Math.round(maxXP * 0.6),
-    perfectTurns: 12 + (level - 1) * 2,
+    perfectTurns,
   };
 }
 
@@ -220,10 +225,9 @@ function calculateXP(level, turns) {
 }
 
 function calculateCampaignStars(level, turns) {
-  const xp = calculateXP(level, turns);
   const rewards = getLevelXPRewards(level);
-  if (xp >= rewards.maxXP) return 3;
-  if (xp >= rewards.mediumXP) return 2;
+  if (turns <= rewards.perfectTurns) return 3;
+  if (turns <= rewards.perfectTurns + 4) return 2;
   return 1;
 }
 
