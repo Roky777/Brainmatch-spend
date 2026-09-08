@@ -220,7 +220,10 @@ function getLevelXPRewards(level) {
   };
 }
 
-function calculateXP(level, turns) {
+// Deliberately scoped with a game-specific name. The protected analytics
+// integration also declares calculateXP(), so a generic global name causes it
+// to replace the game's current 200-XP rules after this script loads.
+function calculateGameXP(level, turns) {
   const rewards = getLevelXPRewards(level);
   if (turns <= rewards.perfectTurns) return rewards.maxXP;
   if (turns <= rewards.mediumTurns) return rewards.mediumXP;
@@ -593,7 +596,7 @@ function handleCampaignWin() {
   const level = gameState.currentCampaignLevel;
   console.log(`handleCampaignWin called for level: ${level}`);
   const levelRewards = getLevelXPRewards(level);
-  const xp = Math.min(levelRewards.maxXP, Math.max(0, calculateXP(level, gameState.turns)));
+  const xp = Math.min(levelRewards.maxXP, Math.max(0, calculateGameXP(level, gameState.turns)));
   const stars = calculateCampaignStars(level, gameState.turns);
   totalCampaignTurns += gameState.turns;
   totalCampaignXP = Math.min(200, totalCampaignXP + xp);
@@ -965,6 +968,12 @@ function hidePauseTutorial() {
 }
 
 // --- Initial Event Listeners ---
+// Keep the protected analytics wrapper on the same scorer after it has loaded.
+// This changes no analytics payload fields; it only gives them the correct XP.
+window.addEventListener("load", () => {
+  window.calculateXP = calculateGameXP;
+});
+
 // Disable start button until content is loaded
 startCampaignButton.disabled = true;
 
