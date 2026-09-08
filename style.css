@@ -234,9 +234,12 @@ h1 {
 }
 .card .front-face.money-card {
     font-family: 'Mochiy Pop One', sans-serif;
-    font-size: clamp(1.2rem, 4vw, 1.75rem);
+    /* Keep the widest value (₹100) inside a four-column child-sized card. */
+    font-size: clamp(1rem, 2.8vw, 1.4rem);
     color: #4b4b4b;
     white-space: nowrap;
+    letter-spacing: -0.04em;
+    overflow: hidden;
 }
 .card .front-face img {
     max-width: 96%;
