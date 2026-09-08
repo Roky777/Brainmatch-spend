@@ -276,12 +276,14 @@ function getTextCardType(value) {
 
 // --- Board Creation with Multiple Content Types Support ---
 function createBoard(pairs) {
+  // Child-friendly boards always use four complete pairs: 8 cards in a 2 × 4 layout.
+  const boardPairs = pairs.slice(0, 4);
   cardGrid.innerHTML = "";
-  cardGrid.classList.toggle("card-grid--two-by-two", pairs.length === 2);
+  cardGrid.classList.toggle("card-grid--two-by-two", boardPairs.length === 2);
   const cardArray = [];
-  gameState.totalPairs = pairs.length;
+  gameState.totalPairs = boardPairs.length;
 
-  pairs.forEach((pair) => {
+  boardPairs.forEach((pair) => {
     if (pair.a !== undefined) {
       // Text to Text mode
       if (pair.b !== undefined) {
