@@ -13,15 +13,15 @@
         "level1": {
             "pairs": [
                 {
-                    "firstImage": "images/circle_red.png",
+                    "firstImage": "images/circle_red.webp",
                     "firstImageAlt": "Red circle",
-                    "secondImage": "images/circle_blue.png",
+                    "secondImage": "images/circle_blue.webp",
                     "secondImageAlt": "Blue circle"
                 },
                 {
-                    "firstImage": "images/square_red.png",
+                    "firstImage": "images/square_red.webp",
                     "firstImageAlt": "Red square",
-                    "secondImage": "images/square_blue.png",
+                    "secondImage": "images/square_blue.webp",
                     "secondImageAlt": "Blue square"
                 }
             ],
@@ -33,12 +33,12 @@
             "pairs": [
                 {
                     "word": "Dog",
-                    "image": "images/dog.png",
+                    "image": "images/dog.webp",
                     "imageAlt": "A friendly dog"
                 },
                 {
                     "word": "Cat",
-                    "image": "images/cat.png",
+                    "image": "images/cat.webp",
                     "imageAlt": "A cute cat"
                 }
             ],

@@ -23,7 +23,7 @@
                         "pairs": [
                             {
                                 "word": "Lion",
-                                "image": "images/lion.png",
+                                "image": "images/lion.webp",
                                 "imageAlt": "A majestic lion" 
                             }
                         ],
@@ -39,9 +39,9 @@
                     "level1": {
                         "pairs": [
                             {
-                                "firstImage": "images/lion.png",
+                                "firstImage": "images/lion.webp",
                                 "firstImageAlt": "A lion",
-                                "secondImage": "images/savanna.png",
+                                "secondImage": "images/savanna.webp",
                                 "secondImageAlt": "African savanna"
                             }
                         ],
@@ -66,12 +66,12 @@
                         "pairs": [
                             {
                                 "word": "Lion",
-                                "image": "images/lion.png",
+                                "image": "images/lion.webp",
                                 "imageAlt": "A majestic lion"
                             },
                             {
                                 "word": "Elephant",
-                                "image": "images/elephant.png",
+                                "image": "images/elephant.webp",
                                 "imageAlt": "An African elephant"
                             }
                         ],
@@ -84,15 +84,15 @@
                     "level1": {
                         "pairs": [
                             {
-                                "firstImage": "images/circle_red.png",
+                                "firstImage": "images/circle_red.webp",
                                 "firstImageAlt": "Red circle",
-                                "secondImage": "images/circle_blue.png",
+                                "secondImage": "images/circle_blue.webp",
                                 "secondImageAlt": "Blue circle"
                             },
                             {
-                                "firstImage": "images/square_red.png",
+                                "firstImage": "images/square_red.webp",
                                 "firstImageAlt": "Red square",
-                                "secondImage": "images/square_blue.png",
+                                "secondImage": "images/square_blue.webp",
                                 "secondImageAlt": "Blue square"
                             }
                         ]
