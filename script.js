@@ -295,12 +295,15 @@ function createBoard(pairs) {
   shuffle(cardArray).forEach((item) => {
     const card = document.createElement("div");
     card.classList.add("card");
+    const isCurrencyNote =
+      item.type === "image" && String(item.value).includes("rbi-note-");
+    if (isCurrencyNote) card.classList.add("currency-card");
     card.dataset.value = item.value;
     card.dataset.match = item.match;
 
     const frontFaceContent =
       item.type === "image"
-        ? `<img src="${item.value}" alt="${item.alt || ""}" />`
+        ? `<img${isCurrencyNote ? ' class="currency-note"' : ""} src="${item.value}" alt="${item.alt || ""}" />`
         : item.value;
 
     card.innerHTML = `
