@@ -5,7 +5,7 @@
 
 class StorageManager {
   constructor(options = {}) {
-    this.storageKey = options.storageKey || 'brainMatch-periodic_progress';
+    this.storageKey = options.storageKey || 'brainMatch-money-match_progress';
     this.useAsyncStorage = options.useAsyncStorage || false;
     this.asyncStorage = options.asyncStorage || null;
   }
