@@ -107,9 +107,15 @@
             <span class="star">★</span><span class="star">★</span><span class="star">★</span>
         </div>
         <div class="win-stats">
-            <div><span id="win-stats-label">TURNS</span>: <span id="win-stats-value">0</span></div>
-            <div id="win-xp-container">XP: <span id="win-xp">0</span></div>
-            <div id="win-campaign-xp-container">CAMPAIGN XP: <span id="win-campaign-xp">0</span> / 200</div>
+            <div class="result-turns"><span id="win-stats-label">TURNS</span>: <span id="win-stats-value">0</span></div>
+            <div id="win-xp-container" class="xp-result-row">
+                <span class="xp-result-label">XP EARNED THIS LEVEL</span>
+                <strong><span id="win-xp">0</span> / <span id="win-level-max-xp">0</span> XP</strong>
+            </div>
+            <div id="win-campaign-xp-container" class="xp-result-row">
+                <span class="xp-result-label">CAMPAIGN XP</span>
+                <strong><span id="win-campaign-xp">0</span> / 200 XP</strong>
+            </div>
         </div>
         <button id="next-action-button" class="mode-button">Next Level</button>
     </div>
@@ -121,7 +127,11 @@
         </div>
         <div class="win-stats">
             <div><span>TOTAL TURNS</span>: <span id="final-turns-value">0</span></div>
-            <div><span>TOTAL XP</span>: <span id="final-xp-value">0</span></div>
+            <div class="xp-result-row">
+                <span class="xp-result-label">TOTAL XP EARNED</span>
+                <strong><span id="final-xp-value">0</span> / 200 XP</strong>
+            </div>
+            <div class="xp-maximum-note">Maximum campaign reward: 200 XP</div>
         </div>
         <button id="main-menu-button" class="mode-button">Main Menu</button>
     </div>
@@ -165,7 +175,7 @@
     <script src="progress files/gameManager.js"></script>
     
     <!-- Main Game Script -->
-    <script src="script.js?v=xp200-campaign-v2"></script>
+    <script src="script.js?v=xp-ui-v3"></script>
     
     <!-- Analytics Integration (loads after game script) -->
     <script src="analytics-integration.js"></script>

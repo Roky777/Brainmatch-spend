@@ -29,6 +29,7 @@ const winStatsLabel = document.getElementById("win-stats-label");
 const winStatsValue = document.getElementById("win-stats-value");
 const winXpContainer = document.getElementById("win-xp-container");
 const winXpDisplay = document.getElementById("win-xp");
+const winLevelMaxXpDisplay = document.getElementById("win-level-max-xp");
 const winCampaignXpContainer = document.getElementById("win-campaign-xp-container");
 const winCampaignXpDisplay = document.getElementById("win-campaign-xp");
 const winStarsContainer = document.getElementById("win-stars-container");
@@ -584,10 +585,11 @@ function handleCampaignWin() {
   clearAllTimers();
   const level = gameState.currentCampaignLevel;
   console.log(`handleCampaignWin called for level: ${level}`);
-  const xp = calculateXP(level, gameState.turns);
+  const levelRewards = getLevelXPRewards(level);
+  const xp = Math.min(levelRewards.maxXP, Math.max(0, calculateXP(level, gameState.turns)));
   const stars = calculateCampaignStars(level, gameState.turns);
   totalCampaignTurns += gameState.turns;
-  totalCampaignXP += xp;
+  totalCampaignXP = Math.min(200, totalCampaignXP + xp);
   
   // Update highest level played using GameManager
   if (gameManager) {
@@ -629,6 +631,7 @@ function handleCampaignWin() {
     winStatsLabel.textContent = "TURNS";
     winStatsValue.textContent = gameState.turns;
     winXpDisplay.textContent = xp;
+    winLevelMaxXpDisplay.textContent = levelRewards.maxXP;
     winCampaignXpDisplay.textContent = totalCampaignXP;
     const starElements = winStarsContainer.querySelectorAll(".star");
     starElements.forEach((star, index) =>
