@@ -3,48 +3,48 @@
   "content": {
     "science": {
       "level1": { "pairs": [
-        { "a": "₹1", "image": "images/grade1-money-match/coin-1.svg", "imageAlt": "One rupee coin" },
-        { "a": "₹2", "image": "images/grade1-money-match/coin-2.svg", "imageAlt": "Two rupee coin" },
-        { "a": "₹5", "image": "images/grade1-money-match/coin-5.svg", "imageAlt": "Five rupee coin" },
-        { "a": "₹10", "image": "images/grade1-money-match/coin-10.svg", "imageAlt": "Ten rupee coin" }
+        { "a": "₹10", "image": "images/grade1-money-match/rbi-note-10.jpg", "imageAlt": "Genuine current Indian ten rupee note" },
+        { "a": "₹20", "image": "images/grade1-money-match/rbi-note-20.jpg", "imageAlt": "Genuine current Indian twenty rupee note" },
+        { "a": "₹50", "image": "images/grade1-money-match/rbi-note-50.jpg", "imageAlt": "Genuine current Indian fifty rupee note" },
+        { "a": "₹100", "image": "images/grade1-money-match/rbi-note-100.jpg", "imageAlt": "Genuine current Indian one hundred rupee note" }
       ] },
       "level2": { "pairs": [
-        { "a": "₹10", "image": "images/grade1-money-match/note-10.svg", "imageAlt": "Ten rupee note" },
-        { "a": "₹20", "image": "images/grade1-money-match/note-20.svg", "imageAlt": "Twenty rupee note" },
-        { "a": "₹50", "image": "images/grade1-money-match/note-50.svg", "imageAlt": "Fifty rupee note" },
-        { "a": "₹100", "image": "images/grade1-money-match/note-100.svg", "imageAlt": "One hundred rupee note" }
+        { "a": "₹10", "image": "images/grade1-money-match/rbi-note-10.jpg", "imageAlt": "Genuine current Indian ten rupee note" },
+        { "a": "₹20", "image": "images/grade1-money-match/rbi-note-20.jpg", "imageAlt": "Genuine current Indian twenty rupee note" },
+        { "a": "₹50", "image": "images/grade1-money-match/rbi-note-50.jpg", "imageAlt": "Genuine current Indian fifty rupee note" },
+        { "a": "₹100", "image": "images/grade1-money-match/rbi-note-100.jpg", "imageAlt": "Genuine current Indian one hundred rupee note" }
       ] },
       "level3": { "pairs": [
-        { "a": "₹3", "image": "images/grade1-money-match/combo-3.svg", "imageAlt": "One rupee plus two rupees" },
-        { "a": "₹7", "image": "images/grade1-money-match/combo-7.svg", "imageAlt": "Two rupees plus five rupees" },
-        { "a": "₹10", "image": "images/grade1-money-match/combo-10.svg", "imageAlt": "Five rupees plus five rupees" },
-        { "a": "₹30", "image": "images/grade1-money-match/combo-30.svg", "imageAlt": "Ten rupees plus twenty rupees" }
+        { "a": "₹10", "image": "images/grade1-money-match/rbi-note-10.jpg", "imageAlt": "Genuine current Indian ten rupee note" },
+        { "a": "₹20", "image": "images/grade1-money-match/rbi-note-20.jpg", "imageAlt": "Genuine current Indian twenty rupee note" },
+        { "a": "₹50", "image": "images/grade1-money-match/rbi-note-50.jpg", "imageAlt": "Genuine current Indian fifty rupee note" },
+        { "a": "₹100", "image": "images/grade1-money-match/rbi-note-100.jpg", "imageAlt": "Genuine current Indian one hundred rupee note" }
       ] },
       "level4": { "pairs": [
-        { "a": "₹1", "image": "images/grade1-money-match/coin-1.svg", "imageAlt": "One rupee coin" },
-        { "a": "₹3", "image": "images/grade1-money-match/combo-3.svg", "imageAlt": "One rupee plus two rupees" },
-        { "a": "₹10", "image": "images/grade1-money-match/note-10.svg", "imageAlt": "Ten rupee note" },
-        { "a": "₹12", "image": "images/grade1-money-match/combo-12.svg", "imageAlt": "Ten rupees plus two rupees" },
+        { "a": "₹10", "image": "images/grade1-money-match/rbi-note-10.jpg", "imageAlt": "Genuine current Indian ten rupee note" },
+        { "a": "₹20", "image": "images/grade1-money-match/rbi-note-20.jpg", "imageAlt": "Genuine current Indian twenty rupee note" },
+        { "a": "₹50", "image": "images/grade1-money-match/rbi-note-50.jpg", "imageAlt": "Genuine current Indian fifty rupee note" },
+        { "a": "₹100", "image": "images/grade1-money-match/rbi-note-100.jpg", "imageAlt": "Genuine current Indian one hundred rupee note" },
         { "a": "₹15", "image": "images/grade1-money-match/combo-15.svg", "imageAlt": "Ten rupees plus five rupees" },
         { "a": "₹20", "image": "images/grade1-money-match/note-20.svg", "imageAlt": "Twenty rupee note" },
         { "a": "₹25", "image": "images/grade1-money-match/combo-25.svg", "imageAlt": "Twenty rupees plus five rupees" },
         { "a": "₹30", "image": "images/grade1-money-match/combo-30.svg", "imageAlt": "Ten rupees plus twenty rupees" }
       ] },
       "level5": { "pairs": [
-        { "a": "₹5", "image": "images/grade1-money-match/combo-5.svg", "imageAlt": "One rupee plus two rupees plus two rupees" },
-        { "a": "₹10", "image": "images/grade1-money-match/coin-10.svg", "imageAlt": "Ten rupee coin" },
-        { "a": "₹20", "image": "images/grade1-money-match/combo-20.svg", "imageAlt": "Two ten rupee coins" },
-        { "a": "₹25", "image": "images/grade1-money-match/combo-25.svg", "imageAlt": "Twenty rupees plus five rupees" },
+        { "a": "₹10", "image": "images/grade1-money-match/rbi-note-10.jpg", "imageAlt": "Genuine current Indian ten rupee note" },
+        { "a": "₹20", "image": "images/grade1-money-match/rbi-note-20.jpg", "imageAlt": "Genuine current Indian twenty rupee note" },
+        { "a": "₹50", "image": "images/grade1-money-match/rbi-note-50.jpg", "imageAlt": "Genuine current Indian fifty rupee note" },
+        { "a": "₹100", "image": "images/grade1-money-match/rbi-note-100.jpg", "imageAlt": "Genuine current Indian one hundred rupee note" },
         { "a": "₹30", "image": "images/grade1-money-match/combo-30.svg", "imageAlt": "Ten rupees plus twenty rupees" },
         { "a": "₹50", "image": "images/grade1-money-match/combo-50.svg", "imageAlt": "Twenty rupees plus twenty rupees plus ten rupees" },
         { "a": "₹70", "image": "images/grade1-money-match/combo-70.svg", "imageAlt": "Fifty rupees plus twenty rupees" },
         { "a": "₹100", "image": "images/grade1-money-match/combo-100.svg", "imageAlt": "Fifty rupees plus fifty rupees" }
       ] },
       "level6": { "pairs": [
-        { "firstImage": "images/grade1-money-match/coin-10.svg", "firstImageAlt": "Ten rupee coin", "secondImage": "images/grade1-money-match/note-10.svg", "secondImageAlt": "Ten rupee note" },
-        { "firstImage": "images/grade1-money-match/combo-20.svg", "firstImageAlt": "Two ten rupee coins", "secondImage": "images/grade1-money-match/note-20.svg", "secondImageAlt": "Twenty rupee note" },
-        { "firstImage": "images/grade1-money-match/combo-30.svg", "firstImageAlt": "Ten rupees plus twenty rupees", "secondImage": "images/grade1-money-match/combo-30-alt.svg", "secondImageAlt": "Three ten rupee coins" },
-        { "firstImage": "images/grade1-money-match/combo-100.svg", "firstImageAlt": "Fifty rupees plus fifty rupees", "secondImage": "images/grade1-money-match/note-100.svg", "secondImageAlt": "One hundred rupee note" }
+        { "firstImage": "images/grade1-money-match/rbi-note-10.jpg", "firstImageAlt": "Genuine current Indian ten rupee note", "secondImage": "images/grade1-money-match/rbi-note-10.jpg", "secondImageAlt": "Genuine current Indian ten rupee note" },
+        { "firstImage": "images/grade1-money-match/rbi-note-20.jpg", "firstImageAlt": "Genuine current Indian twenty rupee note", "secondImage": "images/grade1-money-match/rbi-note-20.jpg", "secondImageAlt": "Genuine current Indian twenty rupee note" },
+        { "firstImage": "images/grade1-money-match/rbi-note-50.jpg", "firstImageAlt": "Genuine current Indian fifty rupee note", "secondImage": "images/grade1-money-match/rbi-note-50.jpg", "secondImageAlt": "Genuine current Indian fifty rupee note" },
+        { "firstImage": "images/grade1-money-match/rbi-note-100.jpg", "firstImageAlt": "Genuine current Indian one hundred rupee note", "secondImage": "images/grade1-money-match/rbi-note-100.jpg", "secondImageAlt": "Genuine current Indian one hundred rupee note" }
       ] }
     }
   }
