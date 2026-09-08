@@ -202,10 +202,12 @@ const XP_SCHEDULES = {
 };
 
 function getLevelXPRewards(level) {
-  const perfectTurns = 12 + (level - 1) * 2;
+  // Each child-friendly board has four pairs (eight cards).
+  const perfectTurns = 4;
+  const mediumTurns = 6;
   // A one-level game is a complete 200-XP campaign by itself.
   if (MAX_GAME_LEVEL === 1) {
-    return { maxXP: 200, mediumXP: 160, lowXP: 120, perfectTurns };
+    return { maxXP: 200, mediumXP: 160, lowXP: 120, perfectTurns, mediumTurns };
   }
   const rewards = XP_SCHEDULES[MAX_GAME_LEVEL] || [];
   const maxXP = rewards[level - 1] || 0;
@@ -214,20 +216,21 @@ function getLevelXPRewards(level) {
     mediumXP: Math.round(maxXP * 0.8),
     lowXP: Math.round(maxXP * 0.6),
     perfectTurns,
+    mediumTurns,
   };
 }
 
 function calculateXP(level, turns) {
   const rewards = getLevelXPRewards(level);
   if (turns <= rewards.perfectTurns) return rewards.maxXP;
-  if (turns <= rewards.perfectTurns + 4) return rewards.mediumXP;
+  if (turns <= rewards.mediumTurns) return rewards.mediumXP;
   return rewards.lowXP;
 }
 
 function calculateCampaignStars(level, turns) {
   const rewards = getLevelXPRewards(level);
   if (turns <= rewards.perfectTurns) return 3;
-  if (turns <= rewards.perfectTurns + 4) return 2;
+  if (turns <= rewards.mediumTurns) return 2;
   return 1;
 }
 
@@ -633,7 +636,7 @@ function handleCampaignWin() {
       level < MAX_GAME_LEVEL ? `LEVEL ${level} COMPLETE!` : "GAME COMPLETE!";
     winStatsLabel.textContent = "TURNS";
     winStatsValue.textContent = gameState.turns;
-    winXpDisplay.textContent = xp;
+    winXpDisplay.textContent = `${xp} / ${levelRewards.maxXP}`;
     const starElements = winStarsContainer.querySelectorAll(".star");
     starElements.forEach((star, index) =>
       star.classList.toggle("filled", index < stars)
@@ -681,7 +684,7 @@ function showFinalScoreScreen
 
   // Update the values on the final screen
   finalTurnsDisplay.textContent = totalCampaignTurns;
-  finalXpDisplay.textContent = totalCampaignXP;
+  finalXpDisplay.textContent = `${totalCampaignXP} / 200`;
 
   finalScoreScreen.classList.remove("hidden"); // Show the final score screen
 }
