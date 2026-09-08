@@ -29,9 +29,6 @@ const winStatsLabel = document.getElementById("win-stats-label");
 const winStatsValue = document.getElementById("win-stats-value");
 const winXpContainer = document.getElementById("win-xp-container");
 const winXpDisplay = document.getElementById("win-xp");
-const winLevelMaxXpDisplay = document.getElementById("win-level-max-xp");
-const winCampaignXpContainer = document.getElementById("win-campaign-xp-container");
-const winCampaignXpDisplay = document.getElementById("win-campaign-xp");
 const winStarsContainer = document.getElementById("win-stars-container");
 
 const finalScoreScreen = document.querySelector(".final-score-screen");
@@ -624,15 +621,12 @@ function handleCampaignWin() {
     winScreen.classList.remove("hidden");
     winStarsContainer.classList.remove("hidden");
     winXpContainer.classList.remove("hidden");
-    winCampaignXpContainer.classList.remove("hidden");
     console.log(`Playing sound for level: ${level}`);
     winTitle.textContent =
       level < MAX_GAME_LEVEL ? `LEVEL ${level} COMPLETE!` : "GAME COMPLETE!";
     winStatsLabel.textContent = "TURNS";
     winStatsValue.textContent = gameState.turns;
     winXpDisplay.textContent = xp;
-    winLevelMaxXpDisplay.textContent = levelRewards.maxXP;
-    winCampaignXpDisplay.textContent = totalCampaignXP;
     const starElements = winStarsContainer.querySelectorAll(".star");
     starElements.forEach((star, index) =>
       star.classList.toggle("filled", index < stars)
@@ -704,7 +698,6 @@ function handleReflexModeEnd() {
     winStatsLabel.textContent = "TOTAL MOVES";
     winStatsValue.textContent = gameState.turns;
     winXpContainer.classList.add("hidden");
-    winCampaignXpContainer.classList.add("hidden");
     winStarsContainer.classList.remove("hidden");
     const starElements = winStarsContainer.querySelectorAll(".star");
     starElements.forEach((star, index) =>
