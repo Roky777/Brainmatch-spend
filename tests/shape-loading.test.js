@@ -25,8 +25,10 @@ test('all variants load the shared loading screen and versioned runtime', async 
     let html;
     try {html=await readFile(new URL(`../${folder}/index.html`,import.meta.url),'utf8');}
     catch(error){if(error.code==='ENOENT'&&folder!=='shape-friends')continue;throw error;}
-    assert.match(html,/loading.css\?v=1/);
-    assert.match(html,/app.js\?v=20/);
+    assert.match(html,/loading.css\?v=2/);
+    assert.match(html,/bootstrap.js\?v=1/);
+    assert.match(html,/id="loading-critical"/);
+    assert.match(html,/class="loading-mascot"/);
   }
   const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
   assert.doesNotMatch(app,/settingsUI\(\); startRound/);
@@ -42,10 +44,11 @@ test('startup gives assets time to load and bounds external font waiting', async
   assert.match(loader,/app.removeAttribute\('aria-busy'\)/);
 });
 test('opening screen remains blocked until the startup hold completes', async () => {
-  const previousDocument=globalThis.document, previousStyle=globalThis.getComputedStyle;
+  const previousDocument=globalThis.document, previousStyle=globalThis.getComputedStyle,previousImage=globalThis.Image;
   const attrs=new Map();
   const app={inert:false,setAttribute:(name,value)=>attrs.set(name,value),removeAttribute:name=>attrs.delete(name)};
-  globalThis.document={body:{},getElementById:id=>id==='app'?app:null,querySelector:()=>null,fonts:{load:async()=>[]}};
+  globalThis.document={baseURI:'http://localhost/shape-friends/',body:{},getElementById:id=>id==='app'?app:null,querySelector:()=>null,fonts:{load:async()=>[]}};
+  globalThis.Image=class {naturalWidth=100;set src(value){queueMicrotask(()=>this.onload());}async decode(){}};
   globalThis.getComputedStyle=()=>({backgroundImage:'none'});
   try {
     const {finishStartup,STARTUP_MIN_MS}=await import('../shape-friends/loading.js');
@@ -54,5 +57,29 @@ test('opening screen remains blocked until the startup hold completes', async ()
     await ready;
     assert.ok(performance.now()-began>=STARTUP_MIN_MS-20);
     assert.equal(app.inert,false);assert.equal(attrs.has('aria-busy'),false);
-  } finally {globalThis.document=previousDocument;globalThis.getComputedStyle=previousStyle;}
+  } finally {globalThis.document=previousDocument;globalThis.getComputedStyle=previousStyle;globalThis.Image=previousImage;}
+});
+test('a screen transition waits for every asset and blocks interaction', async () => {
+  const previous=globalThis.document;
+  let release,removed=false;
+  const progress={value:0,max:1};
+  const app={inert:false};
+  const screen={querySelector:()=>progress,remove:()=>{removed=true;}};
+  globalThis.document={getElementById:id=>id==='app'?app:screen};
+  try {
+    const {readyScreen}=await import('../shape-friends/loading.js');
+    const pending=readyScreen([Promise.resolve(true),new Promise(resolve=>{release=resolve;})]);
+    await Promise.resolve();
+    assert.equal(app.inert,true);assert.equal(removed,false);
+    release(true);assert.equal(await pending,true);
+    assert.equal(removed,true);assert.equal(app.inert,false);assert.equal(progress.value,2);
+  } finally {globalThis.document=previous;}
+});
+test('repository export creates direct game entrypoints instead of redirect links',async()=>{
+  // Export helper lives in the development repo, not the standalone game repos.
+  let source;
+  try{source=await readFile(new URL('../scripts/export-variant.mjs',import.meta.url),'utf8');}
+  catch(error){if(error.code==='ENOENT')return;throw error;}
+  assert.match(source,/writeFile\(join\(target,'index.html'\),entry\)/);
+  assert.match(source,/<base href="\.\/shape-friends\/">/);
 });

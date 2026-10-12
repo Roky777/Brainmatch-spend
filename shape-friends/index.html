@@ -6,17 +6,32 @@
   <meta name="theme-color" content="#8ad7e9">
   <meta name="description" content="Pick two cards and find shape friends in a dreamy Grade 1 memory game.">
   <title>Shape Friends · Dream Brainmatch</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+<style id="loading-critical">.game-loading,.variant-loading{position:fixed!important;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;margin:0!important;padding:28px;background:radial-gradient(ellipse at top,#d3edff,#fff9eb 65%);color:#203975;font:600 20px/1.4 Fredoka,system-ui,sans-serif;text-align:center}
+.game-loading::before{content:'';position:absolute;inset:-20px;background:#fff9eb url('assets/dream-heaven-v1.webp') center/cover;filter:blur(10px);opacity:.8;z-index:-1}
+.game-loading{isolation:isolate;overflow:hidden;background:#fff9eb}
+.loading-mascot{position:relative;width:min(300px,72vw);height:230px;animation:loading-float 3s ease-in-out infinite}
+.loading-cloud{position:absolute;inset:90px 0 0;background:url('assets/sparky-seat-cloud-v1.webp') center/contain no-repeat;filter:drop-shadow(0 12px 16px #20397526)}
+.loading-sparky{position:absolute;width:210px;height:210px;left:50%;top:0;transform:translateX(-50%);background:url('assets/new_sparky_sheets/sparky_wall_idle_blink_formal_atlas_v1.png') 0 0/400% 400% no-repeat}
+.game-loading strong{display:none}
+.game-loading p{font-size:22px!important;color:#203975!important}
+.game-loading strong{font-size:30px}.game-loading p{max-width:320px;margin:0;color:#526694;font-size:17px}
+.game-loading progress{width:min(240px,70vw);height:12px;border:2px solid #203975;border-radius:6px;overflow:hidden;background:#e2e8f5;accent-color:#ffc943}
+.game-loading progress::-webkit-progress-bar{background:#e2e8f5}.game-loading progress::-webkit-progress-value{background:#ffc943;transition:width .2s}
+.game-loading button{border:3px solid #203975;border-radius:16px;background:#ffd65c;color:#203975;padding:12px 24px;font:inherit;cursor:pointer}
+@keyframes loading-float{50%{transform:translateY(-8px) rotate(8deg)}}
+@media(prefers-reduced-motion:reduce){.loading-mascot{animation:none}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="studio.css?v=4">
-  <link rel="stylesheet" href="prototype.css?v=14">
-  <link rel="stylesheet" href="loading.css?v=1">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet" data-game-style media="print" onload="this.media='all'">
+  <link rel="stylesheet" data-game-style media="print" onload="this.media='all'" href="studio.css?v=4">
+  <link rel="stylesheet" data-game-style media="print" onload="this.media='all'" href="prototype.css?v=14">
+  <link rel="stylesheet" data-game-style media="print" onload="this.media='all'" href="loading.css?v=2">
   <link rel="preload" href="assets/garden.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23ffbd45'/%3E%3Ccircle cx='38' cy='45' r='5'/%3E%3Ccircle cx='62' cy='45' r='5'/%3E%3Cpath d='M35 60Q50 75 65 60' fill='none' stroke='%23634329' stroke-width='5'/%3E%3C/svg%3E">
 </head>
 <body>
-  <section id="game-loading" class="game-loading" role="status" aria-live="polite"><strong>A little magic is loading…</strong><p>Getting your game ready</p><progress aria-label="Loading game pictures" max="1" value="0"></progress></section>
+  <section id="game-loading" class="game-loading" role="status" aria-live="polite"><div class="loading-mascot" aria-hidden="true"><span class="loading-cloud"></span><span class="loading-sparky"></span></div><p>Just a little magic…</p><progress aria-label="Loading game pictures" max="1" value="0"></progress></section>
   <div class="garden-background" aria-hidden="true"></div>
   <div id="cloud-curtain" class="cloud-curtain" aria-hidden="true" hidden><canvas id="cloud-veil"></canvas></div>
   <div class="portrait-gate" role="status"><span class="portrait-gate__phone" aria-hidden="true"></span><h2>Turn your phone upright</h2><p>The dream plays best in portrait.</p></div>
@@ -93,6 +108,6 @@
   <dialog id="theme-unlock-dialog" class="theme-unlock-dialog" aria-labelledby="theme-unlock-title"><div class="theme-unlock-heading"><p>New world unlocked!</p><h2 id="theme-unlock-title">Season Parade</h2></div><span id="theme-unlock-preview" class="theme-picture theme-picture--seasons" aria-hidden="true"></span><p id="theme-unlock-message">A new matching adventure is ready.</p><div class="theme-unlock-actions"><button id="unlock-visit" class="primary-button" type="button">Play this world <span aria-hidden="true">→</span></button><button id="unlock-later" class="secondary-button" type="button">Keep playing here</button></div><small class="theme-unlock-note">Use the Worlds button on the home screen whenever you want to switch.</small></dialog>
   <dialog id="level-dialog" aria-labelledby="level-dialog-title" aria-describedby="level-objective"><button id="level-close" class="dialog-close" type="button" aria-label="Close level choices">×</button><h2 id="level-dialog-title">Pick a board</h2><p id="level-mode-label">Practice</p><p id="level-objective" class="level-objective">Find two things with the same overall shape.</p><div class="difficulty-choices" role="group" aria-label="Choose difficulty"><button type="button" data-level="gentle" aria-label="Easy, 2 pairs, 4 cards"><img loading="lazy" decoding="async" class="difficulty-face" src="assets/difficulty-easy.svg" alt=""><span class="difficulty-copy"><strong>Easy</strong><small>2 pairs · 4 cards</small></span><span class="difficulty-arrow" aria-hidden="true">›</span></button><button type="button" data-level="growing" aria-label="Medium, 3 pairs, 6 cards"><img loading="lazy" decoding="async" class="difficulty-face" src="assets/difficulty-medium.svg" alt=""><span class="difficulty-copy"><strong>Medium</strong><small>3 pairs · 6 cards</small></span><span class="difficulty-arrow" aria-hidden="true">›</span></button><button type="button" data-level="clever" aria-label="Hard, 4 pairs, 8 cards"><img loading="lazy" decoding="async" class="difficulty-face" src="assets/difficulty-hard.svg" alt=""><span class="difficulty-copy"><strong>Hard</strong><small>4 pairs · 8 cards</small></span><span class="difficulty-arrow" aria-hidden="true">›</span></button></div></dialog>
   <dialog id="settings-dialog" aria-labelledby="settings-title"><button class="dialog-close toy-button" data-close type="button" aria-label="Close settings">×</button><span class="pause-star" aria-hidden="true">✦</span><h2 id="settings-title">A little break</h2><p>Your cards will wait.</p><button class="primary-button" data-close type="button">Keep playing <span aria-hidden="true">▶</span></button><div class="settings-list" aria-label="Audio settings"><button id="voice-toggle" class="settings-row" type="button" aria-pressed="true" data-setting-label="Voice"><span class="setting-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 9h10a6 6 0 0 1 6 6v1a6 6 0 0 1-6 6h-4l-5 4v-4H7a5 5 0 0 1-5-5v-3a5 5 0 0 1 5-5Z"/><path d="M9 14h7M9 18h5"/></svg></span><strong>Voice</strong><span class="setting-control"><span class="setting-state">On</span><span class="setting-switch" aria-hidden="true"><i></i></span></span></button><button id="music-toggle" class="settings-row" type="button" aria-pressed="true" data-setting-label="Music"><span class="setting-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M12 22V8l14-3v14"/><ellipse cx="8" cy="23" rx="4" ry="3"/><ellipse cx="22" cy="20" rx="4" ry="3"/></svg></span><strong>Music</strong><span class="setting-control"><span class="setting-state">On</span><span class="setting-switch" aria-hidden="true"><i></i></span></span></button></div><button id="settings-home" class="secondary-button settings-home" type="button"><span class="settings-home-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m5 15 11-9 11 9v12H5Z"/><path d="M12 27v-8h8v8"/></svg></span><strong>Choose a game</strong><span aria-hidden="true">›</span></button></dialog>
-  <script type="module" src="app.js?v=20"></script>
+  <script type="module" data-game-variant="shape-friends" src="bootstrap.js?v=1"></script>
 </body>
 </html>

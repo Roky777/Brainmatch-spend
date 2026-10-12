@@ -286,6 +286,7 @@ export function spriteFrame(pose, elapsed, reduced=false) {
   return {sheet:clip.sheet,frame:clip.frames.at(-1)};
 }
 export function sparkyArt(){return '<span class="sparky-mini-frame" aria-hidden="true"></span>';}
+import {loadImage} from './loading.js?v=3';
 export class Sparky {
   constructor(element, { seated = false } = {}) {
     this.element=element;this.seated=seated;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -307,8 +308,11 @@ export class Sparky {
     this.tick=this.tick.bind(this);this.timer=requestAnimationFrame(this.tick);
   }
   preparePlay() {
-    if(this.playPrepared)return;
+    if(this.playPrepared)return this.playReady;
     this.playPrepared=true;
+    this.playReady=Promise.all(this.sources.map(loadImage)).then(results=>{
+      const ok=results.every(Boolean);if(!ok)this.playPrepared=false;return ok;
+    });
     this.images.push(...this.sources.map(src=>{const image=new Image();image.src=src;return image;}));
     if(this.seated){
       const yesNodImage=new Image();
@@ -320,6 +324,7 @@ export class Sparky {
       noNodImage.onerror=()=>{this.nodNoAvailable=false;};
       noNodImage.src=SEATED_NOD_NO_SHEET;this.images.push(noNodImage);
     }
+    return this.playReady;
   }
   tick(now) {
     const delta=Math.min(100,now-this.last);this.last=now;

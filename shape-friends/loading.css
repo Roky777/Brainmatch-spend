@@ -1,8 +1,14 @@
 .game-loading,.variant-loading{position:fixed!important;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;margin:0!important;padding:28px;background:radial-gradient(ellipse at top,#d3edff,#fff9eb 65%);color:#203975;font:600 20px/1.4 Fredoka,system-ui,sans-serif;text-align:center}
-.game-loading::before,.variant-loading::before{content:'✦';display:block;font-size:76px;line-height:1;color:#ffc943;text-shadow:0 4px 0 #bf8528;animation:loading-float 1.8s ease-in-out infinite}
+.game-loading::before{content:'';position:absolute;inset:-20px;background:#fff9eb url('assets/dream-heaven-v1.webp') center/cover;filter:blur(10px);opacity:.8;z-index:-1}
+.game-loading{isolation:isolate;overflow:hidden;background:#fff9eb}
+.loading-mascot{position:relative;width:min(300px,72vw);height:230px;animation:loading-float 3s ease-in-out infinite}
+.loading-cloud{position:absolute;inset:90px 0 0;background:url('assets/sparky-seat-cloud-v1.webp') center/contain no-repeat;filter:drop-shadow(0 12px 16px #20397526)}
+.loading-sparky{position:absolute;width:210px;height:210px;left:50%;top:0;transform:translateX(-50%);background:url('assets/new_sparky_sheets/sparky_wall_idle_blink_formal_atlas_v1.png') 0 0/400% 400% no-repeat}
+.game-loading strong{display:none}
+.game-loading p{font-size:22px!important;color:#203975!important}
 .game-loading strong{font-size:30px}.game-loading p{max-width:320px;margin:0;color:#526694;font-size:17px}
 .game-loading progress{width:min(240px,70vw);height:12px;border:2px solid #203975;border-radius:6px;overflow:hidden;background:#e2e8f5;accent-color:#ffc943}
 .game-loading progress::-webkit-progress-bar{background:#e2e8f5}.game-loading progress::-webkit-progress-value{background:#ffc943;transition:width .2s}
 .game-loading button{border:3px solid #203975;border-radius:16px;background:#ffd65c;color:#203975;padding:12px 24px;font:inherit;cursor:pointer}
 @keyframes loading-float{50%{transform:translateY(-8px) rotate(8deg)}}
-@media(prefers-reduced-motion:reduce){.game-loading::before,.variant-loading::before{animation:none}}
+@media(prefers-reduced-motion:reduce){.loading-mascot{animation:none}}

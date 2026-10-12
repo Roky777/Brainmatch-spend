@@ -5,7 +5,7 @@ import { Timeline } from './timeline.js';
 import { readSave, writeSave, discover } from './save.js';
 import { GameAudio } from './audio.js';
 import { MusicLoop } from './music.js';
-import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=5';
+import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=6';
 import { LivingGarden } from './garden.js';
 import { Picnic } from './picnic.js';
 import { icon } from './art.js';
@@ -13,7 +13,7 @@ import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
 import { CloudReveal } from './cloud-reveal.js';
 import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js';
-import { loadImage, finishStartup } from './loading.js?v=2';
+import { loadImage, finishStartup, readyScreen, worldAssets } from './loading.js?v=3';
 
 const $ = id => document.getElementById(id);
 // Board, rim controls and collection drawer form one responsive play object.
@@ -251,8 +251,8 @@ function dockSparkyAtResult(){
   if(sparkyAnchor.parentElement!==resultCharacterSpace)resultCharacterSpace.append(sparkyAnchor);
   $('sparky').tabIndex=-1;
 }
-function startRound(id) {
-  sparky.preparePlay();
+async function startRound(id) {
+  const characterReady=sparky.preparePlay();
   const enteringPlay = mode !== 'match';
   if (!roundById(id, pack) || !unlocked(id)) id = '1';
   run++; timeline.cancel(); audio.stop(); clearEffects(); picnic.cancelDrag();
@@ -266,6 +266,9 @@ function startRound(id) {
     ? shuffle(round.pairs.map(pair=>({pair}))).map(entry=>entry.pair)
     : round.pairs;
   const activePairs=pairPool.slice(0, level.pairs);
+  const ticket=run;
+  const ready=await readyScreen([characterReady,...worldAssets(theme.id).map(loadImage),...activePairs.flatMap(pair=>pair.slice(1)).map(preloadArt)]);
+  if(!ready||ticket!==run)return;
   board = new MatchBoard(cardsFor({ pairs: activePairs }), { mode: options.mode });
   memory = new CompanionMemory({ capacity: level.capacity, accuracy: level.accuracy }); guideMemory = new CompanionMemory();
   // Decode all possible round art away from the DOM. Hidden card positions and
@@ -711,7 +714,8 @@ function showSetup() {
   applyTheme(); renderXP(); setupUI(); updatePause(); menuSparky.set('idle');
   document.querySelector('button[data-play-mode="practice"]').focus({ preventScroll:true });
 }
-function showLevels(playMode) {
+async function showLevels(playMode) {
+  if(!await readyScreen(['easy','medium','hard'].map(level=>loadImage(`assets/difficulty-${level}.svg`))))return;
   options = playOptions(playMode, options.level); setupUI();
   $('level-mode-label').textContent = options.mode === 'practice' ? 'Practice' : 'Beat Sparky';
   const groups=difficultyGroups();
@@ -747,8 +751,9 @@ function showLevels(playMode) {
 }
 document.querySelectorAll('button[data-play-mode]').forEach(button => button.addEventListener('click', () => showLevels(button.dataset.playMode)));
 $('level-close').addEventListener('click',()=>$('level-dialog').close());
-$('menu-sparky').addEventListener('click',()=>{
-  menuSparky.preparePlay();
+$('menu-sparky').addEventListener('click',async()=>{
+  activateAudio();
+  if(!await readyScreen([menuSparky.preparePlay()]))return;
   activateAudio();menuSparky.nodYes();
   $('menu-caption').textContent=VARIANT.menuGreeting||(theme.id === 'seasons' ? 'Let’s find which season each picture belongs to!' : theme.id==='neon' ? 'Let’s light up shapes that belong together!' : 'Hi, friend! Ready to find some shape pairs?');
   audio.say($('menu-caption').textContent,{onStart:meta=>{music.setDucked(true);menuSparky.speak($('menu-caption').textContent,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{menuSparky.finishSpeaking();music.setDucked(false);}});
@@ -759,10 +764,13 @@ document.querySelectorAll('button[data-level]').forEach(button => button.addEven
 }));
 $('play-again').addEventListener('click', () => { activateAudio(); startRound(nextRoundId()); });
 $('choose-game').addEventListener('click', showSetup);
-function openThemes() { applyTheme(); if (!$('theme-dialog').open) $('theme-dialog').showModal(); }
+async function openThemes() {
+  if(!await readyScreen(['dream','seasons','neon'].flatMap(worldAssets).map(loadImage)))return;
+  applyTheme(); if (!$('theme-dialog').open) $('theme-dialog').showModal();
+}
 $('theme-open').addEventListener('click', openThemes);
 $('theme-close').addEventListener('click', () => $('theme-dialog').close());
-document.querySelectorAll('[data-theme-choice]').forEach(button => button.addEventListener('click', () => {
+document.querySelectorAll('[data-theme-choice]').forEach(button => button.addEventListener('click', async () => {
   const id = button.dataset.themeChoice;
   if (!themeUnlocked(id)) {
     button.classList.remove('needs-stars'); void button.offsetWidth; button.classList.add('needs-stars');
@@ -773,11 +781,15 @@ document.querySelectorAll('[data-theme-choice]').forEach(button => button.addEve
       : `Play ${left} more ${left===1?'match':'matches'} to open Season Parade.`;
     return;
   }
-  save.theme=id; save.activeRound='1'; persist(); applyTheme(); $('theme-dialog').close(); showSetup();
+  $('theme-dialog').close();
+  if(!await readyScreen(worldAssets(id).map(loadImage)))return;
+  save.theme=id; save.activeRound='1'; persist(); applyTheme(); showSetup();
 }));
-$('unlock-visit').addEventListener('click',()=>{
+$('unlock-visit').addEventListener('click',async()=>{
   const dialog=$('theme-unlock-dialog');
-  save.theme=$('unlock-visit').dataset.theme||'seasons';save.activeRound='1';persist();dialog.close();applyTheme();showSetup();
+  const id=$('unlock-visit').dataset.theme||'seasons';dialog.close();
+  if(!await readyScreen(worldAssets(id).map(loadImage)))return;
+  save.theme=id;save.activeRound='1';persist();applyTheme();showSetup();
 });
 $('unlock-later').addEventListener('click',()=>{$('theme-unlock-dialog').close();$('play-again').focus({preventScroll:true});});
 document.querySelector('.home-button').addEventListener('click', event => { event.preventDefault(); if ($('settings-dialog').open) $('settings-dialog').close(); showSetup(); });

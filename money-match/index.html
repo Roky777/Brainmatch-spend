@@ -3,24 +3,26 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fff7dc"><title>Money Match · Dream Brainmatch</title>
   <base href="../shape-friends/">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="studio.css?v=4"><link rel="stylesheet" href="prototype.css?v=14">
-  <link rel="stylesheet" href="loading.css?v=1">
-  <link rel="stylesheet" href="../money-match/money-match.css?v=1">
+<style id="loading-critical">.game-loading,.variant-loading{position:fixed!important;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;margin:0!important;padding:28px;background:radial-gradient(ellipse at top,#d3edff,#fff9eb 65%);color:#203975;font:600 20px/1.4 Fredoka,system-ui,sans-serif;text-align:center}
+.game-loading::before{content:'';position:absolute;inset:-20px;background:#fff9eb url('assets/dream-heaven-v1.webp') center/cover;filter:blur(10px);opacity:.8;z-index:-1}
+.game-loading{isolation:isolate;overflow:hidden;background:#fff9eb}
+.loading-mascot{position:relative;width:min(300px,72vw);height:230px;animation:loading-float 3s ease-in-out infinite}
+.loading-cloud{position:absolute;inset:90px 0 0;background:url('assets/sparky-seat-cloud-v1.webp') center/contain no-repeat;filter:drop-shadow(0 12px 16px #20397526)}
+.loading-sparky{position:absolute;width:210px;height:210px;left:50%;top:0;transform:translateX(-50%);background:url('assets/new_sparky_sheets/sparky_wall_idle_blink_formal_atlas_v1.png') 0 0/400% 400% no-repeat}
+.game-loading strong{display:none}
+.game-loading p{font-size:22px!important;color:#203975!important}
+.game-loading strong{font-size:30px}.game-loading p{max-width:320px;margin:0;color:#526694;font-size:17px}
+.game-loading progress{width:min(240px,70vw);height:12px;border:2px solid #203975;border-radius:6px;overflow:hidden;background:#e2e8f5;accent-color:#ffc943}
+.game-loading progress::-webkit-progress-bar{background:#e2e8f5}.game-loading progress::-webkit-progress-value{background:#ffc943;transition:width .2s}
+.game-loading button{border:3px solid #203975;border-radius:16px;background:#ffd65c;color:#203975;padding:12px 24px;font:inherit;cursor:pointer}
+@keyframes loading-float{50%{transform:translateY(-8px) rotate(8deg)}}
+@media(prefers-reduced-motion:reduce){.loading-mascot{animation:none}}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet" data-game-style media="print" onload="this.media='all'">
+  <link rel="stylesheet" data-game-style media="print" onload="this.media='all'" href="studio.css?v=4"><link rel="stylesheet" data-game-style media="print" onload="this.media='all'" href="prototype.css?v=14">
+  <link rel="stylesheet" data-game-style media="print" onload="this.media='all'" href="loading.css?v=2">
+  <link rel="stylesheet" data-game-style media="print" onload="this.media='all'" href="../money-match/money-match.css?v=1">
 </head><body>
-  <p class="variant-loading" role="status">Getting your money matches ready…</p>
-  <script type="module">
-    try {
-      const manifestURL=new URL('game-content.json',location.href).href;
-      const response=await fetch('../shape-friends/index.html');
-      if(!response.ok)throw Error('Template unavailable');
-      const template=new DOMParser().parseFromString(await response.text(),'text/html');
-      template.body.querySelectorAll('script').forEach(script=>script.remove());
-      document.body.replaceChildren(...template.body.childNodes);
-      document.documentElement.dataset.contentManifest=manifestURL;
-      await import(new URL('../shape-friends/app.js?v=20',location.href).href);
-    } catch(error) {
-      document.body.textContent='Money Match could not start. Please reload the page.';
-    }
-  </script>
+  <section id="game-loading" class="game-loading" role="status" aria-live="polite"><div class="loading-mascot" aria-hidden="true"><span class="loading-cloud"></span><span class="loading-sparky"></span></div><p>Just a little magic…</p><progress aria-label="Loading game pictures" max="1" value="0"></progress></section>
+  <script type="module" data-game-variant="money-match" src="bootstrap.js?v=1"></script>
 </body></html>
