@@ -293,8 +293,24 @@ export class Sparky {
     const observeSources=OBSERVE_VARIANTS.map(seatedObserveSource);
     const wandSources=OBSERVE_VARIANTS.map(seatedWandSource);
     const sources=seated?[SEATED_IDLE_SHEET,SEATED_TALK_SHEET,SEATED_ARRIVE_SHEET,SEATED_JOY_SHEET,SEATED_MISS_SHEET,SEATED_RESULT_SHEET,MOUTH_VISEME_SHEET,MOUTH_CLEANUP_SHEET,...observeSources,...wandSources]:['peek','expressions','reach','reactions'].map(sheet=>`assets/sparky/kimono-${sheet}-v1.webp`);
-    this.images=sources.map(src=>{const image=new Image();image.src=src;return image;});
+    this.sources=sources;this.images=[];
+    // Only idle is needed on the welcome screen. Warm animation sheets when
+    // the child actually starts playing, not while the menu is downloading.
+    if(seated){const image=new Image();image.src=SEATED_IDLE_SHEET;this.images.push(image);}
+    element.replaceChildren();
     if(seated){
+      const cleanup=document.createElement('span');cleanup.className='sparky-mouth-cleanup';cleanup.setAttribute('aria-hidden','true');
+      const mouth=document.createElement('span');mouth.className='sparky-mouth';mouth.setAttribute('aria-hidden','true');
+      element.append(cleanup,mouth);
+    }
+    this.set('idle');
+    this.tick=this.tick.bind(this);this.timer=requestAnimationFrame(this.tick);
+  }
+  preparePlay() {
+    if(this.playPrepared)return;
+    this.playPrepared=true;
+    this.images.push(...this.sources.map(src=>{const image=new Image();image.src=src;return image;}));
+    if(this.seated){
       const yesNodImage=new Image();
       yesNodImage.onload=()=>{this.nodYesAvailable=true;};
       yesNodImage.onerror=()=>{this.nodYesAvailable=false;};
@@ -304,14 +320,6 @@ export class Sparky {
       noNodImage.onerror=()=>{this.nodNoAvailable=false;};
       noNodImage.src=SEATED_NOD_NO_SHEET;this.images.push(noNodImage);
     }
-    element.replaceChildren();
-    if(seated){
-      const cleanup=document.createElement('span');cleanup.className='sparky-mouth-cleanup';cleanup.setAttribute('aria-hidden','true');
-      const mouth=document.createElement('span');mouth.className='sparky-mouth';mouth.setAttribute('aria-hidden','true');
-      element.append(cleanup,mouth);
-    }
-    this.set('idle');
-    this.tick=this.tick.bind(this);this.timer=requestAnimationFrame(this.tick);
   }
   tick(now) {
     const delta=Math.min(100,now-this.last);this.last=now;

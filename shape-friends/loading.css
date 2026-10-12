@@ -1,0 +1,8 @@
+.game-loading,.variant-loading{position:fixed!important;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;margin:0!important;padding:28px;background:radial-gradient(ellipse at top,#d3edff,#fff9eb 65%);color:#203975;font:600 20px/1.4 Fredoka,system-ui,sans-serif;text-align:center}
+.game-loading::before,.variant-loading::before{content:'✦';display:block;font-size:76px;line-height:1;color:#ffc943;text-shadow:0 4px 0 #bf8528;animation:loading-float 1.8s ease-in-out infinite}
+.game-loading strong{font-size:30px}.game-loading p{max-width:320px;margin:0;color:#526694;font-size:17px}
+.game-loading progress{width:min(240px,70vw);height:12px;border:2px solid #203975;border-radius:6px;overflow:hidden;background:#e2e8f5;accent-color:#ffc943}
+.game-loading progress::-webkit-progress-bar{background:#e2e8f5}.game-loading progress::-webkit-progress-value{background:#ffc943;transition:width .2s}
+.game-loading button{border:3px solid #203975;border-radius:16px;background:#ffd65c;color:#203975;padding:12px 24px;font:inherit;cursor:pointer}
+@keyframes loading-float{50%{transform:translateY(-8px) rotate(8deg)}}
+@media(prefers-reduced-motion:reduce){.game-loading::before,.variant-loading::before{animation:none}}

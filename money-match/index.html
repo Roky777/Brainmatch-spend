@@ -5,6 +5,7 @@
   <base href="../shape-friends/">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="studio.css?v=4"><link rel="stylesheet" href="prototype.css?v=14">
+  <link rel="stylesheet" href="loading.css?v=1">
   <link rel="stylesheet" href="../money-match/money-match.css?v=1">
 </head><body>
   <p class="variant-loading" role="status">Getting your money matches ready…</p>
@@ -17,7 +18,7 @@
       template.body.querySelectorAll('script').forEach(script=>script.remove());
       document.body.replaceChildren(...template.body.childNodes);
       document.documentElement.dataset.contentManifest=manifestURL;
-      await import(new URL('../shape-friends/app.js?v=19',location.href).href);
+      await import(new URL('../shape-friends/app.js?v=20',location.href).href);
     } catch(error) {
       document.body.textContent='Money Match could not start. Please reload the page.';
     }

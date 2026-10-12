@@ -5,7 +5,7 @@ import { Timeline } from './timeline.js';
 import { readSave, writeSave, discover } from './save.js';
 import { GameAudio } from './audio.js';
 import { MusicLoop } from './music.js';
-import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=4';
+import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=5';
 import { LivingGarden } from './garden.js';
 import { Picnic } from './picnic.js';
 import { icon } from './art.js';
@@ -13,6 +13,7 @@ import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
 import { CloudReveal } from './cloud-reveal.js';
 import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js';
+import { loadImage, finishStartup } from './loading.js?v=2';
 
 const $ = id => document.getElementById(id);
 // Board, rim controls and collection drawer form one responsive play object.
@@ -121,11 +122,7 @@ function applyTheme() {
 }
 function preloadArt(item) {
   const src=assetURL(item);
-  if(!artCache.has(src))artCache.set(src,new Promise(resolve=>{
-    const image=new Image();
-    image.onload=async()=>{try{await image.decode?.();}catch{}resolve(image.naturalWidth>0);};
-    image.onerror=()=>resolve(false);image.src=src;
-  }));
+  if(!artCache.has(src))artCache.set(src,loadImage(src).then(ok=>{if(!ok)artCache.delete(src);return ok;}));
   return artCache.get(src);
 }
 function activateAudio() {
@@ -255,6 +252,7 @@ function dockSparkyAtResult(){
   $('sparky').tabIndex=-1;
 }
 function startRound(id) {
+  sparky.preparePlay();
   const enteringPlay = mode !== 'match';
   if (!roundById(id, pack) || !unlocked(id)) id = '1';
   run++; timeline.cancel(); audio.stop(); clearEffects(); picnic.cancelDrag();
@@ -299,8 +297,13 @@ function startRound(id) {
       if(!await wait(arrivalMs,ticket)||mode!=='match')return;
       const welcomeVoice=speakLine(sparky,openingLine);
       if(!await waitForVoice(welcomeVoice,ticket)||mode!=='match')return;
-      await artReady;
+      $('caption').textContent='Getting your pictures ready…';
+      const loadedArt=await artReady;
       if(ticket!==run||mode!=='match')return;
+      if(loadedArt.some(ok=>!ok)){
+        $('caption').textContent='Pictures could not load. Go home and try this board again.';
+        return;
+      }
       previewing=true;$('caption').textContent='Take a good look!';renderBoard();
       if(!await wait(BOARD_PREVIEW_HOLD_MS,ticket)||mode!=='match')return;
       previewing=false;$('caption').textContent=VARIANT.matchPrompt||'Now find the matching pairs!';renderBoard();
@@ -705,7 +708,7 @@ function showSetup() {
   $('setup-view').hidden = false; $('play-layout').hidden = true; $('explore-view').hidden = true;
   $('result-view').hidden = true; $('discovery-strip').hidden = true;
   $('setup-view').dataset.step = 'menu'; $('mode-panel').hidden = false;
-  applyTheme(); renderXP(); setupUI(); updatePause(); menuSparky.nodYes();
+  applyTheme(); renderXP(); setupUI(); updatePause(); menuSparky.set('idle');
   document.querySelector('button[data-play-mode="practice"]').focus({ preventScroll:true });
 }
 function showLevels(playMode) {
@@ -745,6 +748,7 @@ function showLevels(playMode) {
 document.querySelectorAll('button[data-play-mode]').forEach(button => button.addEventListener('click', () => showLevels(button.dataset.playMode)));
 $('level-close').addEventListener('click',()=>$('level-dialog').close());
 $('menu-sparky').addEventListener('click',()=>{
+  menuSparky.preparePlay();
   activateAudio();menuSparky.nodYes();
   $('menu-caption').textContent=VARIANT.menuGreeting||(theme.id === 'seasons' ? 'Let’s find which season each picture belongs to!' : theme.id==='neon' ? 'Let’s light up shapes that belong together!' : 'Hi, friend! Ready to find some shape pairs?');
   audio.say($('menu-caption').textContent,{onStart:meta=>{music.setDucked(true);menuSparky.speak($('menu-caption').textContent,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{menuSparky.finishSpeaking();music.setDucked(false);}});
@@ -777,4 +781,5 @@ $('unlock-visit').addEventListener('click',()=>{
 });
 $('unlock-later').addEventListener('click',()=>{$('theme-unlock-dialog').close();$('play-again').focus({preventScroll:true});});
 document.querySelector('.home-button').addEventListener('click', event => { event.preventDefault(); if ($('settings-dialog').open) $('settings-dialog').close(); showSetup(); });
-applyTheme(); renderXP(); settingsUI(); startRound(save.activeRound); showSetup();
+applyTheme(); renderXP(); settingsUI(); showSetup();
+await finishStartup(['assets/new_sparky_sheets/sparky_wall_idle_blink_formal_atlas_v1.png', `assets/${theme.cloudAsset}`]);
