@@ -2,7 +2,9 @@
 // page, and no dependency on the address having a trailing slash.
 const entry=document.querySelector('script[data-game-variant]');
 const variant=entry.dataset.gameVariant;
-document.documentElement.dataset.contentManifest=new URL(`../${variant}/game-content.json`,import.meta.url).href;
+const manifestURL=new URL(`../${variant}/game-content.json`,import.meta.url);
+manifestURL.searchParams.set('v','card-art-2');
+document.documentElement.dataset.contentManifest=manifestURL.href;
 try {
   await Promise.all([...document.querySelectorAll('link[data-game-style]')].map(link=>{
     if(link.sheet)return Promise.resolve();
@@ -24,7 +26,7 @@ try {
     template.getElementById('game-loading')?.remove();
     document.body.replaceChildren(loader,...template.body.childNodes);
   }
-  await import('./app.js?v=21');
+  await import('./app.js?v=22');
 } catch(error) {
   const screen=document.getElementById('game-loading');
   screen.querySelector('p').textContent='A little hiccup. Shall we try again?';

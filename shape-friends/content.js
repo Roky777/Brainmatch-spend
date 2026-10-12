@@ -100,7 +100,9 @@ export function assetURL(id) {
   const item=itemFor(id);
   if(!item)throw new Error(`Unknown card item: ${id}`);
   const assetBase=new URL(manifest.variant.assetBase||'./assets/',manifestURL);
-  return new URL(item.asset,assetBase).href;
+  const url=new URL(item.asset,assetBase);
+  if(manifest.variant.artVersion)url.searchParams.set('v',manifest.variant.artVersion);
+  return url.href;
 }
 export function roundById(id, pack = PACK) { return pack.rounds.find(round => round.id === String(id)); }
 export function cardsFor(round) {

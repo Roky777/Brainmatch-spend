@@ -1,18 +1,18 @@
-import { ITEMS, CATEGORIES, GAME_CONTENT, VARIANT, assetURL, cardsFor, roundById, getWorld, itemFor } from './content.js';
+import { ITEMS, CATEGORIES, GAME_CONTENT, VARIANT, assetURL, cardsFor, roundById, getWorld, itemFor } from './content.js?v=2';
 import { MatchBoard, shuffle } from './engine.js';
 import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
-import { readSave, writeSave, discover } from './save.js';
+import { readSave, writeSave, discover } from './save.js?v=2';
 import { GameAudio } from './audio.js';
 import { MusicLoop } from './music.js';
 import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=6';
 import { LivingGarden } from './garden.js';
-import { Picnic } from './picnic.js';
+import { Picnic } from './picnic.js?v=2';
 import { icon } from './art.js';
 import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
 import { CloudReveal } from './cloud-reveal.js';
-import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js';
+import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js?v=2';
 import { loadImage, finishStartup, readyScreen, worldAssets } from './loading.js?v=3';
 
 const $ = id => document.getElementById(id);
@@ -331,6 +331,8 @@ function renderBoard() {
     // preview deliberately renders every card without teaching Sparky's AI.
     if (shown && !front.firstChild) {
       const img = new Image();
+      const scale=Math.min(1.25,Math.max(1,Number(itemFor(card.item).artScale)||1));
+      if(scale!==1)img.style.transform=`scale(${scale})`;
       front.classList.add('is-loading');img.alt='';img.draggable=false;img.hidden=true;
       const show=()=>{
         if(!front.contains(img)||!(board.snapshot()[index].visible||previewing))return;
