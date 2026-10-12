@@ -6,6 +6,10 @@ const manifestURL=new URL(`../${variant}/game-content.json`,import.meta.url);
 manifestURL.searchParams.set('v','card-art-2');
 document.documentElement.dataset.contentManifest=manifestURL.href;
 try {
+  // Fetch and decode the loader art first, independently of game styles and
+  // modules. Reveal the background, cloud and mascot together, never in pieces.
+  const {warmLoadingArt}=await import('./loading.js?v=4');
+  void warmLoadingArt();
   await Promise.all([...document.querySelectorAll('link[data-game-style]')].map(link=>{
     if(link.sheet)return Promise.resolve();
     return new Promise((resolve,reject)=>{
@@ -26,7 +30,7 @@ try {
     template.getElementById('game-loading')?.remove();
     document.body.replaceChildren(loader,...template.body.childNodes);
   }
-  await import('./app.js?v=22');
+  await import('./app.js?v=23');
 } catch(error) {
   const screen=document.getElementById('game-loading');
   screen.querySelector('p').textContent='A little hiccup. Shall we try again?';

@@ -286,7 +286,7 @@ export function spriteFrame(pose, elapsed, reduced=false) {
   return {sheet:clip.sheet,frame:clip.frames.at(-1)};
 }
 export function sparkyArt(){return '<span class="sparky-mini-frame" aria-hidden="true"></span>';}
-import {loadImage} from './loading.js?v=3';
+import {loadImage} from './loading.js?v=4';
 export class Sparky {
   constructor(element, { seated = false } = {}) {
     this.element=element;this.seated=seated;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -313,7 +313,8 @@ export class Sparky {
     this.playReady=Promise.all(this.sources.map(loadImage)).then(results=>{
       const ok=results.every(Boolean);if(!ok)this.playPrepared=false;return ok;
     });
-    this.images.push(...this.sources.map(src=>{const image=new Image();image.src=src;return image;}));
+    // loadImage retains decoded sheets for the session; don't create another
+    // image per sheet here when the welcome screen has already warmed them.
     if(this.seated){
       const yesNodImage=new Image();
       yesNodImage.onload=()=>{this.nodYesAvailable=true;};

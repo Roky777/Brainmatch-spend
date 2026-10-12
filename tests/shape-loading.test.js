@@ -25,10 +25,13 @@ test('all variants load the shared loading screen and versioned runtime', async 
     let html;
     try {html=await readFile(new URL(`../${folder}/index.html`,import.meta.url),'utf8');}
     catch(error){if(error.code==='ENOENT'&&folder!=='shape-friends')continue;throw error;}
-    assert.match(html,/loading.css\?v=2/);
-    assert.match(html,/bootstrap.js\?v=2/);
+    assert.match(html,/loading.css\?v=3/);
+    assert.match(html,/bootstrap.js\?v=3/);
     assert.match(html,/id="loading-critical"/);
     assert.match(html,/class="loading-mascot"/);
+    assert.match(html,/data-art-ready="true"/);
+    assert.match(html,/data:image\/png;base64,/);
+    assert.match(html,/data:image\/webp;base64,/);
   }
   const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
   assert.doesNotMatch(app,/settingsUI\(\); startRound/);
@@ -59,7 +62,7 @@ test('opening screen remains blocked until the startup hold completes', async ()
     assert.equal(app.inert,false);assert.equal(attrs.has('aria-busy'),false);
   } finally {globalThis.document=previousDocument;globalThis.getComputedStyle=previousStyle;globalThis.Image=previousImage;}
 });
-test('a screen transition waits for every asset and blocks interaction', async () => {
+test('post-entry readiness never creates a loader or blocks the current screen', async () => {
   const previous=globalThis.document;
   let release,removed=false;
   const progress={value:0,max:1};
@@ -70,10 +73,21 @@ test('a screen transition waits for every asset and blocks interaction', async (
     const {readyScreen}=await import('../shape-friends/loading.js');
     const pending=readyScreen([Promise.resolve(true),new Promise(resolve=>{release=resolve;})]);
     await Promise.resolve();
-    assert.equal(app.inert,true);assert.equal(removed,false);
+    assert.equal(app.inert,false);assert.equal(removed,false);
     release(true);assert.equal(await pending,true);
-    assert.equal(removed,true);assert.equal(app.inert,false);assert.equal(progress.value,2);
+    assert.equal(removed,false);assert.equal(app.inert,false);assert.equal(progress.value,0);
   } finally {globalThis.document=previous;}
+});
+test('entry preloads all cards, worlds and character sheets; mascot reveals atomically',async()=>{
+  const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
+  assert.match(app,/Object.keys\(GAME_CONTENT.items\).map\(assetURL\)/);
+  assert.match(app,/flatMap\(worldAssets\)/);assert.match(app,/\.\.\.sparky.sources/);
+  const loader=await readFile(new URL('../shape-friends/loading.js',import.meta.url),'utf8');
+  assert.doesNotMatch(loader,/document.createElement\('section'\)/);
+  assert.match(loader,/decodedImages.set\(url,image\)/);
+  const css=await readFile(new URL('../shape-friends/loading.css',import.meta.url),'utf8');
+  assert.match(css,/data-art-ready="true"\] .loading-cloud/);
+  assert.match(css,/data-art-ready="true"\] .loading-sparky/);
 });
 test('repository export creates direct game entrypoints instead of redirect links',async()=>{
   // Export helper lives in the development repo, not the standalone game repos.

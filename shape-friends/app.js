@@ -5,7 +5,7 @@ import { Timeline } from './timeline.js';
 import { readSave, writeSave, discover } from './save.js?v=2';
 import { GameAudio } from './audio.js';
 import { MusicLoop } from './music.js';
-import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=6';
+import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=7';
 import { LivingGarden } from './garden.js';
 import { Picnic } from './picnic.js?v=2';
 import { icon } from './art.js';
@@ -13,7 +13,7 @@ import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
 import { CloudReveal } from './cloud-reveal.js';
 import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js?v=2';
-import { loadImage, finishStartup, readyScreen, worldAssets } from './loading.js?v=3';
+import { loadImage, finishStartup, readyScreen, worldAssets } from './loading.js?v=4';
 
 const $ = id => document.getElementById(id);
 // Board, rim controls and collection drawer form one responsive play object.
@@ -796,4 +796,13 @@ $('unlock-visit').addEventListener('click',async()=>{
 $('unlock-later').addEventListener('click',()=>{$('theme-unlock-dialog').close();$('play-again').focus({preventScroll:true});});
 document.querySelector('.home-button').addEventListener('click', event => { event.preventDefault(); if ($('settings-dialog').open) $('settings-dialog').close(); showSetup(); });
 applyTheme(); renderXP(); settingsUI(); showSetup();
-await finishStartup(['assets/new_sparky_sheets/sparky_wall_idle_blink_formal_atlas_v1.png', `assets/${theme.cloudAsset}`]);
+// One entry load for the entire variant: no network-dependent image reveals
+// when the child chooses another board, difficulty, world, or result screen.
+await finishStartup([
+  ...Object.keys(GAME_CONTENT.items).map(assetURL),
+  ...['dream','seasons','neon'].flatMap(worldAssets),
+  ...sparky.sources,
+  'assets/new_sparky_sheets/sparky_wall_nod_no/atlas.png',
+  'assets/cloud-veil-v1.png',
+  ...['easy','medium','hard'].map(level=>`assets/difficulty-${level}.svg`),
+]);
