@@ -1,0 +1,4 @@
+body[data-variant="money-match"] #level-dialog{width:min(430px,calc(100% - 28px));max-height:calc(100svh - 28px);overflow:auto}
+body[data-variant="money-match"] .difficulty-choices{grid-template-columns:1fr}
+body[data-variant="money-match"] #app[data-mode="match"] .card-front{padding:4%}
+.variant-loading{position:fixed;inset:50% auto auto 50%;translate:-50% -50%;color:#19366f;font:700 22px/1.3 "Fredoka",sans-serif;text-align:center}

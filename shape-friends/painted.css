@@ -1,0 +1,76 @@
+@import url('clean.css');
+/* Shared paper, ink and shallow edge treatment. Layout stays in clean.css. */
+:root{--ink:#62594e;--paper:#fff6df;--line:#998972;--focus:#725491;--painted-paper:url('assets/ivory-paper.webp')}
+.memory-card,.card-face{border-radius:15px}
+.card-back{background:#81aaa4 url('assets/painted-star-card.webp') center/100% 100% no-repeat;border:1.5px solid #817b65;box-shadow:0 3px #a29a7e,0 5px 7px #60634926}
+.card-back:after,.card-emblem{display:none}
+.card-front{background:var(--paper) var(--painted-paper) center/cover;border:1.5px solid var(--line);box-shadow:0 3px #ada185,0 5px 7px #60634926;padding:10%}
+.card-front img{filter:none}
+.memory-card.is-matched .card-front{background:#f2f0d2 var(--painted-paper) center/cover;border-color:#829674;box-shadow:0 3px #8eaa81}
+.match-check{background:#84a07b;border:1.5px solid #f9f0d7;font-size:19px;width:28px;height:28px}
+.turn-banner,.scene-controls .toy-button,.match-area .discovery-basket,.speech-bubble,.primary-button,.garden-activities button,.more-toys,dialog,.explore-caption p{
+  background-color:var(--paper);background-image:var(--painted-paper);background-size:cover;
+  border:1.5px solid var(--line);box-shadow:0 2px #b0a184,0 4px 7px #65594015;color:var(--ink);
+}
+.turn-banner{border-radius:15px 18px 14px 17px}
+.turn-chip strong,.speech-bubble p,.explore-caption p{color:var(--ink)}
+.pair-progress i{background:#e8dfc2;border-color:#a6997a;box-shadow:none}
+.pair-progress i.found{background:#dfbe6e;border-color:#a38750;box-shadow:none}
+.pair-progress i:before{display:none}
+.scene-controls .toy-button{border-radius:15px 17px 14px 16px}
+.scene-controls .toy-button svg,.hint-button svg,.speech-bubble button svg{stroke:#746958;stroke-width:1.8;filter:saturate(.72)}
+.match-area .discovery-basket{border-radius:14px 17px 15px 13px}
+.basket-button svg{filter:saturate(.68);opacity:.95}
+.speech-bubble{border-radius:17px 22px 18px 7px}
+.speech-bubble:after{background:#f6ecd5;left:-11px;width:12px}
+.speech-bubble button{opacity:.85}
+.discovery-basket .hint-button{background:none;border-left:1px solid #c4b99d}
+.tray-item,.picnic-toy img,.zone-discovery{filter:none}
+.picnic-blanket{background:var(--paper) var(--painted-paper) center/cover;border:1.5px solid var(--line);box-shadow:0 3px #b0a184}
+.play-zone svg{filter:saturate(.7);stroke-width:2}
+.primary-button{border-radius:16px}.pair-celebration{background:var(--paper) var(--painted-paper) center/cover;border:2px solid #b5a382;color:var(--ink);box-shadow:0 3px #b0a184}
+@media(max-width:700px){.memory-card,.card-face{border-radius:11px}.match-check{width:23px;height:23px;font-size:16px}}
+
+/* Mode selection belongs before play, never around the live board. */
+.setup-view{height:100%;width:min(760px,90%);margin:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:19px;text-align:center;padding:24px 0}
+.setup-view h2,.result-view h2{font-size:clamp(28px,3cqw,44px);color:var(--ink)}
+.setup-view>p{font-size:17px}.setup-view .text-link{font-size:14px}
+.mode-choices{display:flex;gap:18px;width:100%}
+.mode-choices button,.level-choices button{background:var(--paper) var(--painted-paper) center/cover;border:2px solid #b1a087;border-radius:18px;padding:20px 15px;box-shadow:0 3px #b0a184;color:var(--ink);flex:1;min-width:0}
+.mode-choices strong,.level-choices strong{display:block;font-size:25px}.mode-choices span,.level-choices span{display:block;font-family:'Trebuchet MS',sans-serif;font-weight:600;font-size:16px;margin-top:9px}
+.mode-choices [aria-pressed=true],.level-choices [aria-pressed=true]{outline:3px solid #668d7a;outline-offset:3px;border-color:#668d7a}
+.level-choices{border:0;padding:0;display:flex;gap:15px;width:100%;margin:4px 0}.level-choices legend{margin:auto;padding:0 0 15px;font-size:20px}.level-choices button{padding:14px 10px}.level-choices strong{font-size:18px}
+#level-description{font-family:'Trebuchet MS',sans-serif;font-size:15px;min-height:19px}
+#app[data-mode=setup] .scene-controls,#app[data-mode=setup] .rotate-tip{display:none}
+#discovery-strip,#visit-picnic{display:none!important}
+.rotate-tip{display:none!important}
+.memory-board{grid-template-columns:repeat(var(--columns,4),minmax(0,1fr))}
+.companion{margin-top:14px;height:clamp(105px,14cqw,185px)}
+.match-area{width:min(57%,780px)}
+#app[data-level=gentle] .match-area{width:min(34%,480px)}
+#app[data-level=growing] .match-area{width:min(44%,620px)}
+#match-score{font-size:15px;color:var(--ink);white-space:nowrap}
+.result-view{text-align:center;max-width:90%;padding:22px;background:var(--paper) var(--painted-paper) center/cover;border:1.5px solid var(--line);border-radius:24px}
+.result-view p{margin:16px 0;font-size:23px}.result-view>div{display:flex;justify-content:center;gap:15px;flex-wrap:wrap}
+#app[data-mode=result] .companion{margin-top:20px}
+@media(orientation:landscape) and (max-height:500px){
+ .companion{height:85px;margin-top:10px}.match-area{width:54%}#app[data-level=gentle] .match-area{width:29%}
+ #app[data-level=growing] .match-area{width:43%}
+ .setup-view{gap:9px;padding:10px 0;width:74%}.setup-view h2{font-size:25px}.setup-view>p{font-size:13px}
+ .mode-choices button{padding:10px}.mode-choices strong{font-size:19px}.mode-choices span{font-size:13px;margin-top:3px}
+ .level-choices{gap:12px;margin:0}.level-choices legend{font-size:16px;padding-bottom:8px}.level-choices button{padding:7px}.level-choices strong{font-size:14px}.level-choices span{font-size:12px;margin-top:3px}
+ #level-description{font-size:12px}.setup-view .primary-button{padding:7px 20px;font-size:17px}.setup-view .text-link{font-size:11px}
+ #match-score{font-size:12px}.turn-banner{gap:9px}.turn-chip strong{font-size:14px}
+}
+@media(orientation:portrait){
+ .play-layout{top:21%}.match-area{width:92%}#app[data-level=gentle] .match-area{width:66%}
+ #app[data-level=growing] .match-area{width:92%}
+ .companion{width:94%;margin-top:16px;height:130px}.speech-bubble p{font-size:15px}
+ .setup-view{gap:18px;width:88%;padding:25px 0}.mode-choices{gap:12px}.mode-choices button{padding:17px 9px}.mode-choices strong{font-size:22px}.mode-choices span{font-size:14px}
+ .level-choices{gap:10px}.level-choices strong{font-size:15px}.level-choices button{padding:14px 5px}.level-choices span{font-size:13px}
+ .setup-view h2{font-size:34px}.setup-view>p{font-size:15px}#match-score{font-size:12px}.turn-banner{gap:9px}
+}
+@media(orientation:portrait) and (max-height:700px){
+ .play-layout{top:20%}.companion{height:105px;margin-top:12px}.speech-bubble p{font-size:13px}
+ .setup-view{gap:13px}.setup-view h2{font-size:29px}.mode-choices strong{font-size:20px}.mode-choices span{font-size:12px}.level-choices strong{font-size:13px}
+}

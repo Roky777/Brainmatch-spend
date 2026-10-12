@@ -1,0 +1,18 @@
+{
+  "frames": 20,
+  "canvas512": true,
+  "atlasSize": [
+    2560,
+    2048
+  ],
+  "finalFramePixelIdenticalToIdle000": true,
+  "minimumPaddingPx": 26,
+  "fixedPelvisPatchAfterSeatContact": true,
+  "uniqueRasterFrames": 20,
+  "facialActing": "original eye art with local downward-gaze deformation; no independent facial-acting drawings",
+  "transparentAPNGDelay": {
+    "numerator": 1,
+    "denominator": 24,
+    "frameCount": 20
+  }
+}

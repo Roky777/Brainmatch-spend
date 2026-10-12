@@ -1,0 +1,477 @@
+{
+  "package": "sparky_wall_mouth_visemes",
+  "canvas": [
+    256,
+    256
+  ],
+  "alpha": "straight RGBA",
+  "colorSpace": "sRGB",
+  "coordinateSystem": "top-left, canvas-local pixels",
+  "measuredReferenceMouthAnchor512": [
+    261.4228274417345,
+    180.60743138236063
+  ],
+  "legacyBodyDarkSmileCentroid512": [
+    261.4842105263158,
+    180.68421052631578
+  ],
+  "overlayScaleOn512Master": 0.25,
+  "mouthAnchorConvention": "Each glyph is registered by its measured alpha-weighted centroid, at128,128 to within0.12px. runtimePivot128,128. Source-face pivot measured by unmatting the approved closed smile.",
+  "glyphs": {
+    "REST": {
+      "file": "mouths/REST.png",
+      "mouthAnchor": [
+        128.0009,
+        128.0
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        63,
+        95,
+        191,
+        150
+      ],
+      "strokeNominalPixels": null
+    },
+    "MBP": {
+      "file": "mouths/MBP.png",
+      "mouthAnchor": [
+        127.9997,
+        127.9997
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        65,
+        113,
+        192,
+        143
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "A": {
+      "file": "mouths/A.png",
+      "mouthAnchor": [
+        127.9998,
+        127.9995
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        79,
+        79,
+        178,
+        178
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "E": {
+      "file": "mouths/E.png",
+      "mouthAnchor": [
+        128.0011,
+        127.9975
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        69,
+        100,
+        189,
+        161
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "O": {
+      "file": "mouths/O.png",
+      "mouthAnchor": [
+        128.0003,
+        128.0
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        85,
+        85,
+        172,
+        172
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "U": {
+      "file": "mouths/U.png",
+      "mouthAnchor": [
+        128.0,
+        128.0011
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        95,
+        95,
+        163,
+        161
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "FV": {
+      "file": "mouths/FV.png",
+      "mouthAnchor": [
+        128.0007,
+        127.9988
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        73,
+        106,
+        185,
+        154
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "LTH": {
+      "file": "mouths/LTH.png",
+      "mouthAnchor": [
+        127.9991,
+        128.0003
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        75,
+        92,
+        182,
+        172
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "S": {
+      "file": "mouths/S.png",
+      "mouthAnchor": [
+        128.0002,
+        127.9994
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        73,
+        108,
+        184,
+        150
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "SMILE_OPEN": {
+      "file": "mouths/SMILE_OPEN.png",
+      "mouthAnchor": [
+        127.9995,
+        128.0004
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        71,
+        89,
+        186,
+        171
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "GASP": {
+      "file": "mouths/GASP.png",
+      "mouthAnchor": [
+        127.9986,
+        128.0004
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        83,
+        75,
+        174,
+        181
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "REST_A_1": {
+      "file": "mouths/REST_A_1.png",
+      "mouthAnchor": [
+        127.9996,
+        128.0
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        75,
+        101,
+        184,
+        156
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "REST_A_2": {
+      "file": "mouths/REST_A_2.png",
+      "mouthAnchor": [
+        127.999,
+        127.9984
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        78,
+        94,
+        180,
+        167
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "A_O_1": {
+      "file": "mouths/A_O_1.png",
+      "mouthAnchor": [
+        127.9986,
+        128.0002
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        81,
+        81,
+        176,
+        176
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "A_O_2": {
+      "file": "mouths/A_O_2.png",
+      "mouthAnchor": [
+        128.0008,
+        127.9984
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        83,
+        83,
+        174,
+        174
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "O_REST_1": {
+      "file": "mouths/O_REST_1.png",
+      "mouthAnchor": [
+        127.9996,
+        127.9991
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        83,
+        97,
+        175,
+        162
+      ],
+      "strokeNominalPixels": 14.0
+    },
+    "O_REST_2": {
+      "file": "mouths/O_REST_2.png",
+      "mouthAnchor": [
+        127.9982,
+        127.998
+      ],
+      "runtimePivot": [
+        128,
+        128
+      ],
+      "bounds": [
+        78,
+        104,
+        182,
+        153
+      ],
+      "strokeNominalPixels": 14.0
+    }
+  },
+  "runtimeAtlas": {
+    "file": "mouth_runtime_atlas.png",
+    "columns": 5,
+    "rows": 4,
+    "cellSize": [
+      256,
+      256
+    ],
+    "emptyCells": [
+      17,
+      18,
+      19
+    ]
+  },
+  "integration": {
+    "baseRepair": "integration/base_mouth_cleanup.png",
+    "cleanupMask": "integration/mouth_cleanup_mask.png",
+    "cleanupBounds512": [
+      246,
+      172,
+      279,
+      188
+    ],
+    "order": "approved body \u2192 separate base smile cleanup \u2192 mouth glyph",
+    "warning": "Do not layer visemes directly over the baked closed smile. Cleanup plate is separate from the mouth overlays. For moving/scaled faces, align the clean plate with the same source frame mouth region.",
+    "exactNeutralReturn": "Hide both cleanup and mouth overlay to reveal the untouched master smile."
+  },
+  "recommendedTransitions": {
+    "REST_to_A": [
+      "REST",
+      "REST_A_1",
+      "REST_A_2",
+      "A"
+    ],
+    "A_to_O": [
+      "A",
+      "A_O_1",
+      "A_O_2",
+      "O"
+    ],
+    "O_to_REST": [
+      "O",
+      "O_REST_1",
+      "O_REST_2",
+      "REST"
+    ],
+    "transitionFrameDurationMs": [
+      35,
+      60
+    ],
+    "visemeTypicalHoldMs": [
+      60,
+      140
+    ],
+    "speechEnd": "Always return toREST; audio timing should choose phonetic visemes, not a constant-rate looping mouth."
+  },
+  "previewSequence": [
+    [
+      "REST",
+      20
+    ],
+    [
+      "MBP",
+      2
+    ],
+    [
+      "E",
+      3
+    ],
+    [
+      "LTH",
+      2
+    ],
+    [
+      "REST_A_1",
+      1
+    ],
+    [
+      "REST_A_2",
+      1
+    ],
+    [
+      "A",
+      3
+    ],
+    [
+      "A_O_1",
+      1
+    ],
+    [
+      "A_O_2",
+      1
+    ],
+    [
+      "O",
+      2
+    ],
+    [
+      "U",
+      2
+    ],
+    [
+      "FV",
+      2
+    ],
+    [
+      "S",
+      2
+    ],
+    [
+      "E",
+      2
+    ],
+    [
+      "SMILE_OPEN",
+      3
+    ],
+    [
+      "O",
+      2
+    ],
+    [
+      "O_REST_1",
+      1
+    ],
+    [
+      "O_REST_2",
+      1
+    ],
+    [
+      "REST",
+      48
+    ]
+  ],
+  "previewFrameRate": 24,
+  "previewIsAudioSynced": false,
+  "testedIdleFrames": [
+    0,
+    5,
+    14
+  ],
+  "gameSizeReviewCssHeight": [
+    90,
+    105,
+    120
+  ],
+  "productionStatus": "Export validated; phonetic mapping and spoken-audio integration require animator/audio review. Generated glyph silhouettes normalized to one border weight; REST extracted from original, transitions are single-contour distance-field morphs.",
+  "validationReport": "qa-report.json",
+  "restReconstructionPixelIdentical": false
+}

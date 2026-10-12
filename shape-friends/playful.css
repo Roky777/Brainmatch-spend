@@ -1,0 +1,34 @@
+@import url('adventure.css');
+/* Airy hand-inked play courtyard. No jungle frame, moss or stone card slabs. */
+:root{--ink:#504633;--teal:#6aadb3;--orange:#e9b46a}
+.garden-background{background-image:url('assets/play-courtyard.webp')}
+.card-back{background-image:url('assets/star-tile.webp')}
+.card-front{border-color:#9a784a;background:radial-gradient(ellipse at 35% 25%,#fffaf0,#f4dfb2);box-shadow:inset 0 0 0 3px #fff5de,0 4px #9e784c}
+.memory-card.is-matched .card-front{background:#f2f4d1;border-color:#86a58a;box-shadow:inset 0 0 0 3px #fff8dc,0 4px #719079}
+.memory-card{filter:drop-shadow(0 5px 2px #82634138)}
+.toy-button{background:linear-gradient(130deg,#fff3d3,#eed4a0);border-color:#94784d;box-shadow:0 3px #a78654,inset 0 2px #fff9e9}
+.pause-button{background:#c8e1db}.picnic-shortcut{background:#efc59c}
+.pair-progress i{rotate:0deg;border-radius:50%;background:#f3e7c9;border-color:#9c8961;box-shadow:0 2px #927e54}
+.pair-progress i.found{background:#f4cb6d;border-color:#a17c3f}
+.speech-bubble{background:#fff6df;border-color:#9b815a;box-shadow:0 3px #a9936340;border-radius:24px 31px 28px 15px}
+.speech-bubble:after{background:#fff6df}
+#sparky.sparky-sprite{aspect-ratio:1;background-image:var(--sprite-sheet)!important;background-size:400% 100%!important;background-repeat:no-repeat;background-color:transparent!important;border:0;padding:0;animation:none!important;transform:none!important;translate:none;transition:none;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 4px 2px #8e764038)}
+.sparky-mini-frame{display:block;width:100%;height:100%;background:url('assets/animation/wave.webp') 0 100%/400% 100% no-repeat}
+.mini-sparky{aspect-ratio:1;height:auto!important;width:95px;background:none!important}
+.sparky-hand svg{filter:drop-shadow(0 3px 1px #8e734630)}
+.picnic-blanket{background:repeating-linear-gradient(0deg,#fff5dd66 0 45px,#c7dfde55 45px 90px),repeating-linear-gradient(90deg,#fff5dd66 0 45px,#c7dfde55 45px 90px),#faf0d6;border-color:#d4b682}
+@media(orientation:landscape){
+  .garden-background{background-image:url('assets/play-courtyard.webp')}
+  #sparky.sparky-sprite{width:28%;right:-4%;bottom:7%}
+  .sparky-shadow{width:14%;right:5%;bottom:6%;background:#907d4c25}
+  .speech-bubble{top:23%;width:21%;right:1.5%}
+  .match-area{top:65%;width:60%;left:45%}
+}
+@media(orientation:portrait){
+  .garden-background{background-image:url('assets/play-courtyard.webp');background-position:54% center}
+  #sparky.sparky-sprite{width:47%;right:-4%;bottom:3%}
+}
+@media(orientation:landscape) and (max-height:500px){
+  .mini-sparky{width:64px}
+}
+@media(prefers-reduced-motion:reduce){#sparky.sparky-sprite{animation:none!important}}

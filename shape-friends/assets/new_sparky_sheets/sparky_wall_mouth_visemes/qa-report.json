@@ -1,0 +1,18 @@
+{
+  "mouthPNGs": 17,
+  "all256": true,
+  "anchorTolerancePx": 0.12,
+  "minimumPaddingPx": 63,
+  "runtimeMouthsNoYellowFaceMatte": true,
+  "bodyPixelsOutsideMouthRepairUnchanged": true,
+  "decodedPngsChecked": 17,
+  "uniqueShapes": 17,
+  "allAtlasCellsMatchNumberedPngs": true,
+  "zeroRgbUnderZeroAlpha": true,
+  "sRgbProfilePresentOnAllGlyphs": true,
+  "unchangedPixelsOutsideFaceMouthRegionOnAllThreeIdleFrames": true,
+  "restCompositeMaxRgbDeltaFromOriginal": 26,
+  "restCompositePixelIdenticalToMaster": false,
+  "checksOnCreamAndNavy": "Review images exported and visually inspected.",
+  "notes": "REST is extracted/unmatted and resampled, so its reconstructed composite is not pixel-identical to the baked master. For exact neutral, hide both cleanup and glyph layers and show the original body."
+}

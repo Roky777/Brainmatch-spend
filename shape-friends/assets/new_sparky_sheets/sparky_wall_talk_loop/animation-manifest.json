@@ -1,0 +1,749 @@
+{
+  "clip": "sparky_wall_talk_loop",
+  "canvas": {
+    "width": 512,
+    "height": 512
+  },
+  "colorSpace": "sRGB",
+  "alphaFormat": "straight/unmatted RGBA",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "construction": "Locked approved neutral master. Local arm cage interpolates a drawn neutral arm and a generated palm-up key drawing; local head/chest/flame deformation. No full-frame translation/scaling. Closed mouth pixels, seat, legs and wand are protected. Not 16 independently hand-drawn poses.",
+  "frameRate": 24,
+  "timingMode": "variable durations expressed as 24fps ticks",
+  "durationMs": 2583.333333,
+  "loop": {
+    "start": 0,
+    "end": 15
+  },
+  "neutralHoldFrames": [
+    0,
+    15
+  ],
+  "speakingHoldFrame": 7,
+  "recoveryStartFrame": 8,
+  "safeHandoffFrames": [
+    0,
+    15
+  ],
+  "speech": {
+    "mouthMode": "closed neutral throughout; runtime visemes separate",
+    "mouthReplacementRegion": [
+      248,
+      173,
+      279,
+      189
+    ],
+    "holdPolicy": "frame7 may be held while recorded speech continues; release into frame8 after audio; restore neutral mouth byframe15"
+  },
+  "wallPlaneY": 300,
+  "anchorMeasurement": "seatAnchor (256,300) is the inherited authored registration point, not a guessed measured anatomical joint. All other anchors are measured from each exported PNG: dark-smile pixel centroid; white wand grip centroid; gold star centroid as wand-tip/spawn point; free white glove centroid; blue shoe centroids. ROI definitions are in sources/render_frames.py.",
+  "frames": [
+    {
+      "index": 0,
+      "file": "sparky_wall_talk_loop_000.png",
+      "durationMs": 500.0,
+      "previewTicks24fps": 12,
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 0
+    },
+    {
+      "index": 1,
+      "file": "sparky_wall_talk_loop_001.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.123,
+          288.44
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 0.5
+    },
+    {
+      "index": 2,
+      "file": "sparky_wall_talk_loop_002.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        30,
+        371,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.575,
+          287.199
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 2
+    },
+    {
+      "index": 3,
+      "file": "sparky_wall_talk_loop_003.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        30,
+        372,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          342.6,
+          282.184
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 2
+    },
+    {
+      "index": 4,
+      "file": "sparky_wall_talk_loop_004.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        30,
+        378,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          343.942,
+          260.989
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 2
+    },
+    {
+      "index": 5,
+      "file": "sparky_wall_talk_loop_005.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        30,
+        382,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          347.902,
+          242.447
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 2
+    },
+    {
+      "index": 6,
+      "file": "sparky_wall_talk_loop_006.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        30,
+        382,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          347.939,
+          238.448
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 1.9
+    },
+    {
+      "index": 7,
+      "file": "sparky_wall_talk_loop_007.png",
+      "durationMs": 416.666667,
+      "previewTicks24fps": 10,
+      "boundingBox": [
+        142,
+        30,
+        382,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          347.939,
+          238.448
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 1.8
+    },
+    {
+      "index": 8,
+      "file": "sparky_wall_talk_loop_008.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        30,
+        382,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          347.97,
+          241.979
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 1.4
+    },
+    {
+      "index": 9,
+      "file": "sparky_wall_talk_loop_009.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        29,
+        380,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          345.026,
+          252.628
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 0.85
+    },
+    {
+      "index": 10,
+      "file": "sparky_wall_talk_loop_010.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        29,
+        377,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          342.657,
+          264.664
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 0.4
+    },
+    {
+      "index": 11,
+      "file": "sparky_wall_talk_loop_011.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        29,
+        372,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          341.825,
+          284.066
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 0.12
+    },
+    {
+      "index": 12,
+      "file": "sparky_wall_talk_loop_012.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "boundingBox": [
+        142,
+        29,
+        371,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.265,
+          287.708
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 0
+    },
+    {
+      "index": 13,
+      "file": "sparky_wall_talk_loop_013.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.099,
+          288.531
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": -0.06
+    },
+    {
+      "index": 14,
+      "file": "sparky_wall_talk_loop_014.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.034,
+          288.829
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": -0.02
+    },
+    {
+      "index": 15,
+      "file": "sparky_wall_talk_loop_015.png",
+      "durationMs": 500.0,
+      "previewTicks24fps": 12,
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headInclinationDegrees": 0
+    }
+  ],
+  "atlas": {
+    "file": "sparky_wall_talk_loop_atlas.png",
+    "columns": 4,
+    "rows": 4,
+    "cellWidth": 512,
+    "cellHeight": 512,
+    "paddingBetweenCells": 0
+  },
+  "events": {
+    "NEUTRAL": [
+      0,
+      15
+    ],
+    "TALK_ACCENT": 6,
+    "SPEAKING_HOLD": 7,
+    "RECOVERY_START": 8,
+    "LEDGE_CONTACT": 11
+  },
+  "productionStatus": "Export validated; rigged wrist-turn transitions and actual game/viseme integration need production review."
+}

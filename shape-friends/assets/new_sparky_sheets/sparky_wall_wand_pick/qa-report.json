@@ -1,0 +1,20 @@
+{
+  "frames": 72,
+  "startMatchesChooseHold": true,
+  "endMatchesNeutral": true,
+  "waitFramesPixelIdentical": true,
+  "lockedSeatMouthFeet": true,
+  "minimumPaddingPx": 27,
+  "leftWandCentroidDistanceRange": [
+    51.97388646233801,
+    52.40253948999038
+  ],
+  "centerWandCentroidDistanceRange": [
+    51.97388646233801,
+    52.2942035984869
+  ],
+  "rightWandCentroidDistanceRange": [
+    51.97388646233801,
+    52.375095121631986
+  ]
+}

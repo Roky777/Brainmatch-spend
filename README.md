@@ -1,4 +1,12 @@
-# BrainMatch - Memory Card Game
+# Money Match — Dream Brainmatch
+
+The current game opens from [index.html](index.html) or [money-match/](money-match/). Run `npm start` and open http://127.0.0.1:4178/; run `npm test` for verification. This release includes the latest shared neon contrast fixes, Practice/Beat Sparky, previews, and an independent 200 XP journey.
+
+The shared engine and mascot assets live in `shape-friends/`, and this variant's content/assets live in `money-match/`. Other learning variants are not required. Root navigation returns to this game.
+
+Previous game files and documentation are retained; the prior entry page is [legacy-index.html](legacy-index.html). Legacy analytics/progress scripts remain preserved but are not attached to the new engine.
+
+## Previous implementation documentation
 
 A memory card matching game with campaign and reflex modes, featuring comprehensive analytics tracking.
 

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fff7dc"><title>Money Match · Dream Brainmatch</title>
+  <base href="../shape-friends/">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="studio.css?v=4"><link rel="stylesheet" href="prototype.css?v=14">
+  <link rel="stylesheet" href="../money-match/money-match.css?v=1">
+</head><body>
+  <p class="variant-loading" role="status">Getting your money matches ready…</p>
+  <script type="module">
+    try {
+      const manifestURL=new URL('game-content.json',location.href).href;
+      const response=await fetch('../shape-friends/index.html');
+      if(!response.ok)throw Error('Template unavailable');
+      const template=new DOMParser().parseFromString(await response.text(),'text/html');
+      template.body.querySelectorAll('script').forEach(script=>script.remove());
+      document.body.replaceChildren(...template.body.childNodes);
+      document.documentElement.dataset.contentManifest=manifestURL;
+      await import(new URL('../shape-friends/app.js?v=19',location.href).href);
+    } catch(error) {
+      document.body.textContent='Money Match could not start. Please reload the page.';
+    }
+  </script>
+</body></html>

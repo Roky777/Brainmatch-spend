@@ -1,0 +1,2083 @@
+{
+  "clip": "sparky_wall_observe_think_v2",
+  "variantNames": [
+    "left",
+    "center",
+    "right"
+  ],
+  "frameCountPerVariant": 16,
+  "totalNumberedFrames": 48,
+  "canvas": [
+    512,
+    512
+  ],
+  "frameRate": 24,
+  "alpha": "straight RGBA",
+  "colorSpace": "sRGB",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "wallPlaneY": 300,
+  "durationMs": 2416.663,
+  "events": {
+    "OBSERVE_HOLD": 4,
+    "CHOOSE_HOLD": 14,
+    "WAND_PICK_HANDOFF": 15
+  },
+  "variants": {
+    "left": {
+      "frameCount": 16,
+      "frames": [
+        {
+          "index": 0,
+          "file": "left/sparky_wall_observe_think_left_000.png",
+          "durationMs": 250,
+          "previewTicks24fps": 6,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            28,
+            370,
+            378
+          ],
+          "construction": "approved neutral"
+        },
+        {
+          "index": 1,
+          "file": "left/sparky_wall_observe_think_left_001.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 2,
+          "file": "left/sparky_wall_observe_think_left_002.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 3,
+          "file": "left/sparky_wall_observe_think_left_003.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 4,
+          "file": "left/sparky_wall_observe_think_left_004.png",
+          "durationMs": 500,
+          "previewTicks24fps": 12,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 5,
+          "file": "left/sparky_wall_observe_think_left_005.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            338.2293,
+            284.3699
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 6,
+          "file": "left/sparky_wall_observe_think_left_006.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            303.117,
+            252.3754
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ],
+          "construction": "new drawn glove/sleeve, registered on original body"
+        },
+        {
+          "index": 7,
+          "file": "left/sparky_wall_observe_think_left_007.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            299.9416,
+            217.7379
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ],
+          "construction": "new drawn glove/sleeve, registered on original body"
+        },
+        {
+          "index": 8,
+          "file": "left/sparky_wall_observe_think_left_008.png",
+          "durationMs": 125,
+          "previewTicks24fps": 3,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            305.3639,
+            210.99
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            28,
+            368,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 9,
+          "file": "left/sparky_wall_observe_think_left_009.png",
+          "durationMs": 125,
+          "previewTicks24fps": 3,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            304.4828,
+            210.2774
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            28,
+            368,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 10,
+          "file": "left/sparky_wall_observe_think_left_010.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            304.4828,
+            210.2774
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            28,
+            368,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 11,
+          "file": "left/sparky_wall_observe_think_left_011.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            305.3639,
+            210.99
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            28,
+            368,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 12,
+          "file": "left/sparky_wall_observe_think_left_012.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            306.3112,
+            212.2231
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 13,
+          "file": "left/sparky_wall_observe_think_left_013.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 14,
+          "file": "left/sparky_wall_observe_think_left_014.png",
+          "durationMs": 500,
+          "previewTicks24fps": 12,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 15,
+          "file": "left/sparky_wall_observe_think_left_015.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ],
+          "construction": "exact supplied handoff master"
+        }
+      ],
+      "OBSERVE_HOLD": 4,
+      "CHOOSE_HOLD": 14,
+      "WAND_PICK_HANDOFF": 15,
+      "frame015PixelIdenticalToWandPick000": true,
+      "atlas": {
+        "file": "atlas_left.png",
+        "columns": 4,
+        "rows": 4,
+        "cellSize": [
+          512,
+          512
+        ]
+      },
+      "loop": false,
+      "safeHandoffFrames": [
+        0,
+        4,
+        14,
+        15
+      ]
+    },
+    "center": {
+      "frameCount": 16,
+      "frames": [
+        {
+          "index": 0,
+          "file": "center/sparky_wall_observe_think_center_000.png",
+          "durationMs": 250,
+          "previewTicks24fps": 6,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            28,
+            370,
+            378
+          ],
+          "construction": "approved neutral"
+        },
+        {
+          "index": 1,
+          "file": "center/sparky_wall_observe_think_center_001.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 2,
+          "file": "center/sparky_wall_observe_think_center_002.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 3,
+          "file": "center/sparky_wall_observe_think_center_003.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 4,
+          "file": "center/sparky_wall_observe_think_center_004.png",
+          "durationMs": 500,
+          "previewTicks24fps": 12,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 5,
+          "file": "center/sparky_wall_observe_think_center_005.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            338.2293,
+            284.3699
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 6,
+          "file": "center/sparky_wall_observe_think_center_006.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            303.117,
+            252.3754
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "new drawn glove/sleeve, registered on original body"
+        },
+        {
+          "index": 7,
+          "file": "center/sparky_wall_observe_think_center_007.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            299.9416,
+            217.7379
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "new drawn glove/sleeve, registered on original body"
+        },
+        {
+          "index": 8,
+          "file": "center/sparky_wall_observe_think_center_008.png",
+          "durationMs": 125,
+          "previewTicks24fps": 3,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            305.3639,
+            210.99
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 9,
+          "file": "center/sparky_wall_observe_think_center_009.png",
+          "durationMs": 125,
+          "previewTicks24fps": 3,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            304.4651,
+            210.276
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 10,
+          "file": "center/sparky_wall_observe_think_center_010.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            304.4651,
+            210.276
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 11,
+          "file": "center/sparky_wall_observe_think_center_011.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            305.3639,
+            210.99
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 12,
+          "file": "center/sparky_wall_observe_think_center_012.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            306.3112,
+            212.2231
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 13,
+          "file": "center/sparky_wall_observe_think_center_013.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 14,
+          "file": "center/sparky_wall_observe_think_center_014.png",
+          "durationMs": 500,
+          "previewTicks24fps": 12,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 15,
+          "file": "center/sparky_wall_observe_think_center_015.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "exact supplied handoff master"
+        }
+      ],
+      "OBSERVE_HOLD": 4,
+      "CHOOSE_HOLD": 14,
+      "WAND_PICK_HANDOFF": 15,
+      "frame015PixelIdenticalToWandPick000": true,
+      "atlas": {
+        "file": "atlas_center.png",
+        "columns": 4,
+        "rows": 4,
+        "cellSize": [
+          512,
+          512
+        ]
+      },
+      "loop": false,
+      "safeHandoffFrames": [
+        0,
+        4,
+        14,
+        15
+      ]
+    },
+    "right": {
+      "frameCount": 16,
+      "frames": [
+        {
+          "index": 0,
+          "file": "right/sparky_wall_observe_think_right_000.png",
+          "durationMs": 250,
+          "previewTicks24fps": 6,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            28,
+            370,
+            378
+          ],
+          "construction": "approved neutral"
+        },
+        {
+          "index": 1,
+          "file": "right/sparky_wall_observe_think_right_001.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 2,
+          "file": "right/sparky_wall_observe_think_right_002.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 3,
+          "file": "right/sparky_wall_observe_think_right_003.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 4,
+          "file": "right/sparky_wall_observe_think_right_004.png",
+          "durationMs": 500,
+          "previewTicks24fps": 12,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            340.073,
+            288.927
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            370,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 5,
+          "file": "right/sparky_wall_observe_think_right_005.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            338.2293,
+            284.3699
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 6,
+          "file": "right/sparky_wall_observe_think_right_006.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            303.117,
+            252.3754
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "new drawn glove/sleeve, registered on original body"
+        },
+        {
+          "index": 7,
+          "file": "right/sparky_wall_observe_think_right_007.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            299.9416,
+            217.7379
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "new drawn glove/sleeve, registered on original body"
+        },
+        {
+          "index": 8,
+          "file": "right/sparky_wall_observe_think_right_008.png",
+          "durationMs": 125,
+          "previewTicks24fps": 3,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            305.3639,
+            210.99
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 9,
+          "file": "right/sparky_wall_observe_think_right_009.png",
+          "durationMs": 125,
+          "previewTicks24fps": 3,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            304.4651,
+            210.276
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 10,
+          "file": "right/sparky_wall_observe_think_right_010.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            304.4651,
+            210.276
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            29,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 11,
+          "file": "right/sparky_wall_observe_think_right_011.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            305.3639,
+            210.99
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 12,
+          "file": "right/sparky_wall_observe_think_right_012.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            306.3112,
+            212.2231
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 13,
+          "file": "right/sparky_wall_observe_think_right_013.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 14,
+          "file": "right/sparky_wall_observe_think_right_014.png",
+          "durationMs": 500,
+          "previewTicks24fps": 12,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "existing registered rigged pose"
+        },
+        {
+          "index": 15,
+          "file": "right/sparky_wall_observe_think_right_015.png",
+          "durationMs": 83.333,
+          "previewTicks24fps": 2,
+          "seatAnchor": [
+            256,
+            300
+          ],
+          "mouthAnchor": [
+            261.4842,
+            180.6842
+          ],
+          "wandHandPivot": [
+            187.3477,
+            229.4663
+          ],
+          "wandTip": [
+            163.3326,
+            183.3725
+          ],
+          "freeHand": [
+            307.0711,
+            213.7611
+          ],
+          "leftFoot": [
+            198.6286,
+            353.7465
+          ],
+          "rightFoot": [
+            275.5956,
+            361.8036
+          ],
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ],
+          "construction": "exact supplied handoff master"
+        }
+      ],
+      "OBSERVE_HOLD": 4,
+      "CHOOSE_HOLD": 14,
+      "WAND_PICK_HANDOFF": 15,
+      "frame015PixelIdenticalToWandPick000": true,
+      "atlas": {
+        "file": "atlas_right.png",
+        "columns": 4,
+        "rows": 4,
+        "cellSize": [
+          512,
+          512
+        ]
+      },
+      "loop": false,
+      "safeHandoffFrames": [
+        0,
+        4,
+        14,
+        15
+      ]
+    }
+  },
+  "frame015PixelIdenticalConfirmation": {
+    "left": true,
+    "center": true,
+    "right": true
+  },
+  "anchorMeasurement": "SeatAnchor[256,300] is the user-authored registration. All other anchors are measured opaque-pixel centroids within specified semantic regions; free glove uses its largest white connected component, shoe anchors use their blue pixels. WandTip is the attached gold star centroid for effect spawning, not an outer pointed vertex. Bounding boxes are alpha-support bounds, exclusive right/bottom.",
+  "holdPolicy": "Hold004 for an actually revealed card, then resume remembering legal observations. Hold014 until legal game choice is ready, then015 starts the corresponding wand-pick. Variants come from game logic; no hidden-card identity is inferred by art.",
+  "safeInterruption": "Pause freezes frame; Home cancels.0 is neutral.4 and14 are extendable holds.15 is exact wand-pick handoff.",
+  "previewNotes": "Transparent repeatedAPNG and wallGIF/APNG previews append a review-only reversed-pose reset, not additional delivered runtime frames. MP4 and game-size GIF show the default one-shot timeline at24fps; restarting the comparison GIF is a review cut, not a neutral handoff.",
+  "construction": "Original approved neutral and existing registered local rig poses. Frames006/007 use new generated arm drawings, isolated, uniformly registered and composited onto the unchanged source body/head. Not48 independently hand-drawn full characters. Source art and prompts included.",
+  "endpointConstraint": "Supplied wand-pick000 has the glove near the chin. Exact handoff is preserved, so the hand return ends in that supplied raised-hand pose rather than ledge rest.",
+  "productionStatus": "Complete48-frame export and exact endpoint checks. Glove/sleeve motion requires animator review; actual game integration untested.",
+  "qaReport": "qa-report.json"
+}

@@ -1,0 +1,825 @@
+{
+  "clip": "sparky_wall_gentle_miss",
+  "canvas": [
+    512,
+    512
+  ],
+  "colorSpace": "sRGB",
+  "alpha": "straight RGBA",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "frameRate": 24,
+  "durationMs": 1916.6666666666665,
+  "wallPlaneY": 300,
+  "events": {
+    "SURPRISE_HOLD": 5,
+    "REASSURE_HOLD": 10,
+    "RECOVERY_START": 11,
+    "NEUTRAL_HANDOFF": 15
+  },
+  "safeHandoffFrames": [
+    0,
+    15
+  ],
+  "loop": {
+    "enabled": false
+  },
+  "use": "Brief response to an actual missed pair, then encouragement. Game logic owns turn handoff. No frown, tears or disapproval.",
+  "anchorMeasurement": "seatAnchor is inherited authored registration, not guessed anatomy. mouthAnchor is the neutral smile pixel-centroid pivot; smile changes about that fixed point, with its current measured centroid supplied separately. Other anchors are measured exported pixel centroids. wandTip is center of attached golden star. Measurement windows in source code.",
+  "construction": "Locked neutral master, generated local waist-level palm key, local arm-cage interpolation; 5% eye widening field, small pupil registration, lifted brows, 2degree head tilt and encouraging smile. Legs and wand fixed. Rigged draft, not16 independently hand-drawn poses.",
+  "productionStatus": "Requires visual animator review and game integration check.",
+  "frames": [
+    {
+      "index": 0,
+      "file": "sparky_wall_gentle_miss_000.png",
+      "durationMs": 333.3333333333333,
+      "previewTicks24fps": 8,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 1,
+      "file": "sparky_wall_gentle_miss_001.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 2,
+      "file": "sparky_wall_gentle_miss_002.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0,
+      "eyeWideningScale": 1.05,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 3,
+      "file": "sparky_wall_gentle_miss_003.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0.5,
+      "eyeWideningScale": 1.05,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 4,
+      "file": "sparky_wall_gentle_miss_004.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 2,
+      "eyeWideningScale": 1.05,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        30,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 5,
+      "file": "sparky_wall_gentle_miss_005.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 2,
+      "eyeWideningScale": 1.05,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        30,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 6,
+      "file": "sparky_wall_gentle_miss_006.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 1.6,
+      "eyeWideningScale": 1.0325,
+      "pupilRegisterWeight": 0.65,
+      "boundingBox": [
+        142,
+        30,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 7,
+      "file": "sparky_wall_gentle_miss_007.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 1.1,
+      "eyeWideningScale": 1.0175,
+      "pupilRegisterWeight": 0.3,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 8,
+      "file": "sparky_wall_gentle_miss_008.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0.8,
+      "eyeWideningScale": 1.0075,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 9,
+      "file": "sparky_wall_gentle_miss_009.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          347.201,
+          270.755
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0.6,
+      "eyeWideningScale": 1.005,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        29,
+        376,
+        378
+      ]
+    },
+    {
+      "index": 10,
+      "file": "sparky_wall_gentle_miss_010.png",
+      "durationMs": 333.3333333333333,
+      "previewTicks24fps": 8,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          346.511,
+          262.028
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0.4,
+      "eyeWideningScale": 1.005,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        29,
+        380,
+        378
+      ]
+    },
+    {
+      "index": 11,
+      "file": "sparky_wall_gentle_miss_011.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.521,
+          180.723
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          347.307,
+          273.434
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0.2,
+      "eyeWideningScale": 1.0025,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        29,
+        375,
+        378
+      ]
+    },
+    {
+      "index": 12,
+      "file": "sparky_wall_gentle_miss_012.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          341.122,
+          284.084
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        29,
+        372,
+        378
+      ]
+    },
+    {
+      "index": 13,
+      "file": "sparky_wall_gentle_miss_013.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.338,
+          287.555
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        29,
+        371,
+        378
+      ]
+    },
+    {
+      "index": 14,
+      "file": "sparky_wall_gentle_miss_014.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.123,
+          288.57
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 15,
+      "file": "sparky_wall_gentle_miss_015.png",
+      "durationMs": 416.6666666666667,
+      "previewTicks24fps": 10,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "headTiltDegrees": 0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ]
+    }
+  ],
+  "atlas": {
+    "file": "sparky_wall_gentle_miss_atlas.png",
+    "columns": 4,
+    "rows": 4,
+    "cellSize": [
+      512,
+      512
+    ]
+  }
+}

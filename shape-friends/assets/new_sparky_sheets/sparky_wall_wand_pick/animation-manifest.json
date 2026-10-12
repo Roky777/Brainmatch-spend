@@ -1,0 +1,2410 @@
+{
+  "clip": "sparky_wall_wand_pick",
+  "canvas": [
+    512,
+    512
+  ],
+  "colorSpace": "sRGB",
+  "alpha": "straight RGBA",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "frameRate": 24,
+  "wallPlaneY": 300,
+  "durationMs": 2708.333333333333,
+  "events": {
+    "CAST_RELEASE": 10,
+    "STAR_WAIT_HOLD": [
+      14,
+      15,
+      16
+    ],
+    "CONTACT_RESPONSE": 17,
+    "SAFE_RESTART": 23
+  },
+  "variants": {
+    "left": {
+      "frames": [
+        {
+          "index": 0,
+          "file": "left/sparky_wall_wand_pick_left_000.png",
+          "target": "left",
+          "durationMs": 250.0,
+          "previewTicks24fps": 6,
+          "wandRotationDegrees": 0.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.348,
+              229.466
+            ],
+            "wandTip": [
+              163.333,
+              183.373
+            ]
+          },
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 1,
+          "file": "left/sparky_wall_wand_pick_left_001.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 1.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.656,
+              228.96
+            ],
+            "wandTip": [
+              164.137,
+              182.348
+            ]
+          },
+          "boundingBox": [
+            142,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 2,
+          "file": "left/sparky_wall_wand_pick_left_002.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 3.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.808,
+              228.336
+            ],
+            "wandTip": [
+              165.815,
+              180.772
+            ]
+          },
+          "boundingBox": [
+            144,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 3,
+          "file": "left/sparky_wall_wand_pick_left_003.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 5.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.826,
+              227.447
+            ],
+            "wandTip": [
+              167.734,
+              179.315
+            ]
+          },
+          "boundingBox": [
+            146,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 4,
+          "file": "left/sparky_wall_wand_pick_left_004.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 8.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              188.078,
+              226.132
+            ],
+            "wandTip": [
+              170.31,
+              177.206
+            ]
+          },
+          "boundingBox": [
+            148,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 5,
+          "file": "left/sparky_wall_wand_pick_left_005.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 11.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              188.232,
+              224.976
+            ],
+            "wandTip": [
+              173.018,
+              175.185
+            ]
+          },
+          "boundingBox": [
+            151,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 6,
+          "file": "left/sparky_wall_wand_pick_left_006.png",
+          "target": "left",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": 14.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              188.532,
+              223.887
+            ],
+            "wandTip": [
+              176.22,
+              173.101
+            ]
+          },
+          "boundingBox": [
+            154,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 7,
+          "file": "left/sparky_wall_wand_pick_left_007.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 11.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              188.232,
+              224.976
+            ],
+            "wandTip": [
+              173.018,
+              175.185
+            ]
+          },
+          "boundingBox": [
+            151,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 8,
+          "file": "left/sparky_wall_wand_pick_left_008.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -22.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              189.293,
+              238.318
+            ],
+            "wandTip": [
+              149.308,
+              204.58
+            ]
+          },
+          "boundingBox": [
+            130,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 9,
+          "file": "left/sparky_wall_wand_pick_left_009.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -39.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              192.535,
+              244.268
+            ],
+            "wandTip": [
+              144.655,
+              223.69
+            ]
+          },
+          "boundingBox": [
+            126,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 10,
+          "file": "left/sparky_wall_wand_pick_left_010.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -57.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              197.936,
+              249.291
+            ],
+            "wandTip": [
+              146.029,
+              244.472
+            ]
+          },
+          "boundingBox": [
+            126,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 11,
+          "file": "left/sparky_wall_wand_pick_left_011.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -66.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              200.993,
+              251.162
+            ],
+            "wandTip": [
+              149.075,
+              254.587
+            ]
+          },
+          "boundingBox": [
+            128,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 12,
+          "file": "left/sparky_wall_wand_pick_left_012.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -70.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              202.496,
+              251.736
+            ],
+            "wandTip": [
+              150.843,
+              258.827
+            ]
+          },
+          "boundingBox": [
+            130,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 13,
+          "file": "left/sparky_wall_wand_pick_left_013.png",
+          "target": "left",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -71.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              202.896,
+              251.871
+            ],
+            "wandTip": [
+              151.4,
+              259.916
+            ]
+          },
+          "boundingBox": [
+            131,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 14,
+          "file": "left/sparky_wall_wand_pick_left_014.png",
+          "target": "left",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -71.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              202.896,
+              251.871
+            ],
+            "wandTip": [
+              151.4,
+              259.916
+            ]
+          },
+          "boundingBox": [
+            131,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 15,
+          "file": "left/sparky_wall_wand_pick_left_015.png",
+          "target": "left",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -71.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              202.896,
+              251.871
+            ],
+            "wandTip": [
+              151.4,
+              259.916
+            ]
+          },
+          "boundingBox": [
+            131,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 16,
+          "file": "left/sparky_wall_wand_pick_left_016.png",
+          "target": "left",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -71.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              202.896,
+              251.871
+            ],
+            "wandTip": [
+              151.4,
+              259.916
+            ]
+          },
+          "boundingBox": [
+            131,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 17,
+          "file": "left/sparky_wall_wand_pick_left_017.png",
+          "target": "left",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -69.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              202.212,
+              251.52
+            ],
+            "wandTip": [
+              150.349,
+              257.692
+            ]
+          },
+          "boundingBox": [
+            130,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 18,
+          "file": "left/sparky_wall_wand_pick_left_018.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -58.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              198.179,
+              249.5
+            ],
+            "wandTip": [
+              146.145,
+              245.696
+            ]
+          },
+          "boundingBox": [
+            126,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 19,
+          "file": "left/sparky_wall_wand_pick_left_019.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -42.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              193.42,
+              245.189
+            ],
+            "wandTip": [
+              144.313,
+              227.195
+            ]
+          },
+          "boundingBox": [
+            126,
+            27,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 20,
+          "file": "left/sparky_wall_wand_pick_left_020.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -24.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              189.466,
+              238.968
+            ],
+            "wandTip": [
+              148.465,
+              206.752
+            ]
+          },
+          "boundingBox": [
+            129,
+            28,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 21,
+          "file": "left/sparky_wall_wand_pick_left_021.png",
+          "target": "left",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -9.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.906,
+              233.168
+            ],
+            "wandTip": [
+              156.681,
+              191.29
+            ]
+          },
+          "boundingBox": [
+            135,
+            28,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 22,
+          "file": "left/sparky_wall_wand_pick_left_022.png",
+          "target": "left",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -2.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.697,
+              230.29
+            ],
+            "wandTip": [
+              161.699,
+              184.922
+            ]
+          },
+          "boundingBox": [
+            140,
+            28,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 23,
+          "file": "left/sparky_wall_wand_pick_left_023.png",
+          "target": "left",
+          "durationMs": 500.0,
+          "previewTicks24fps": 12,
+          "wandRotationDegrees": 0.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.348,
+              229.466
+            ],
+            "wandTip": [
+              163.333,
+              183.373
+            ]
+          },
+          "boundingBox": [
+            142,
+            28,
+            370,
+            378
+          ]
+        }
+      ],
+      "CHOOSE_HOLD": 0,
+      "CAST_RELEASE": 10,
+      "STAR_WAIT_HOLD": [
+        14,
+        15,
+        16
+      ],
+      "safeRestartFrame": 23,
+      "neutralHandoff": 23,
+      "atlas": {
+        "file": "atlas_left.png",
+        "columns": 6,
+        "rows": 4,
+        "cellSize": [
+          512,
+          512
+        ]
+      }
+    },
+    "center": {
+      "frames": [
+        {
+          "index": 0,
+          "file": "center/sparky_wall_wand_pick_center_000.png",
+          "target": "center",
+          "durationMs": 250.0,
+          "previewTicks24fps": 6,
+          "wandRotationDegrees": 0.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.348,
+              229.466
+            ],
+            "wandTip": [
+              163.333,
+              183.373
+            ]
+          },
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 1,
+          "file": "center/sparky_wall_wand_pick_center_001.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 0.87021,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.663,
+              228.993
+            ],
+            "wandTip": [
+              164.043,
+              182.545
+            ]
+          },
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 2,
+          "file": "center/sparky_wall_wand_pick_center_002.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 2.49047,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.825,
+              228.348
+            ],
+            "wandTip": [
+              165.429,
+              181.281
+            ]
+          },
+          "boundingBox": [
+            144,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 3,
+          "file": "center/sparky_wall_wand_pick_center_003.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 3.88894,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.793,
+              228.015
+            ],
+            "wandTip": [
+              166.659,
+              180.199
+            ]
+          },
+          "boundingBox": [
+            145,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 4,
+          "file": "center/sparky_wall_wand_pick_center_004.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 6.11023,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.783,
+              227.004
+            ],
+            "wandTip": [
+              168.606,
+              178.451
+            ]
+          },
+          "boundingBox": [
+            147,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 5,
+          "file": "center/sparky_wall_wand_pick_center_005.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 8.2121,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              188.084,
+              226.171
+            ],
+            "wandTip": [
+              170.479,
+              177.045
+            ]
+          },
+          "boundingBox": [
+            149,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 6,
+          "file": "center/sparky_wall_wand_pick_center_006.png",
+          "target": "center",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": 10.26115,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              188.153,
+              225.429
+            ],
+            "wandTip": [
+              172.567,
+              175.528
+            ]
+          },
+          "boundingBox": [
+            151,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 7,
+          "file": "center/sparky_wall_wand_pick_center_007.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 6.32792,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.837,
+              226.967
+            ],
+            "wandTip": [
+              168.738,
+              178.351
+            ]
+          },
+          "boundingBox": [
+            147,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 8,
+          "file": "center/sparky_wall_wand_pick_center_008.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -27.51838,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              190.085,
+              240.268
+            ],
+            "wandTip": [
+              147.159,
+              210.579
+            ]
+          },
+          "boundingBox": [
+            129,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 9,
+          "file": "center/sparky_wall_wand_pick_center_009.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -45.21499,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              194.11,
+              246.228
+            ],
+            "wandTip": [
+              144.379,
+              230.903
+            ]
+          },
+          "boundingBox": [
+            125,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 10,
+          "file": "center/sparky_wall_wand_pick_center_010.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -63.71024,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              200.206,
+              250.54
+            ],
+            "wandTip": [
+              148.018,
+              252.018
+            ]
+          },
+          "boundingBox": [
+            127,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 11,
+          "file": "center/sparky_wall_wand_pick_center_011.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -72.9674,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              203.632,
+              252.038
+            ],
+            "wandTip": [
+              152.407,
+              261.852
+            ]
+          },
+          "boundingBox": [
+            132,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 12,
+          "file": "center/sparky_wall_wand_pick_center_012.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -76.9674,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              205.268,
+              252.574
+            ],
+            "wandTip": [
+              154.701,
+              265.903
+            ]
+          },
+          "boundingBox": [
+            134,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 13,
+          "file": "center/sparky_wall_wand_pick_center_013.png",
+          "target": "center",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -77.71024,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              205.519,
+              252.658
+            ],
+            "wandTip": [
+              155.364,
+              266.631
+            ]
+          },
+          "boundingBox": [
+            135,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 14,
+          "file": "center/sparky_wall_wand_pick_center_014.png",
+          "target": "center",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -77.21499,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              205.332,
+              252.555
+            ],
+            "wandTip": [
+              154.933,
+              266.165
+            ]
+          },
+          "boundingBox": [
+            134,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 15,
+          "file": "center/sparky_wall_wand_pick_center_015.png",
+          "target": "center",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -77.21499,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              205.332,
+              252.555
+            ],
+            "wandTip": [
+              154.933,
+              266.165
+            ]
+          },
+          "boundingBox": [
+            134,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 16,
+          "file": "center/sparky_wall_wand_pick_center_016.png",
+          "target": "center",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -77.21499,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              205.332,
+              252.555
+            ],
+            "wandTip": [
+              154.933,
+              266.165
+            ]
+          },
+          "boundingBox": [
+            134,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 17,
+          "file": "center/sparky_wall_wand_pick_center_017.png",
+          "target": "center",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -72.73885,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              203.547,
+              252.043
+            ],
+            "wandTip": [
+              152.274,
+              261.629
+            ]
+          },
+          "boundingBox": [
+            131,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 18,
+          "file": "center/sparky_wall_wand_pick_center_018.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -60.7879,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              199.197,
+              250.04
+            ],
+            "wandTip": [
+              147.043,
+              248.787
+            ]
+          },
+          "boundingBox": [
+            126,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 19,
+          "file": "center/sparky_wall_wand_pick_center_019.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -43.88977,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              193.879,
+              245.81
+            ],
+            "wandTip": [
+              144.339,
+              229.467
+            ]
+          },
+          "boundingBox": [
+            126,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 20,
+          "file": "center/sparky_wall_wand_pick_center_020.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -25.11106,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              189.679,
+              239.424
+            ],
+            "wandTip": [
+              148.077,
+              207.891
+            ]
+          },
+          "boundingBox": [
+            129,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 21,
+          "file": "center/sparky_wall_wand_pick_center_021.png",
+          "target": "center",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -9.50953,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.931,
+              233.409
+            ],
+            "wandTip": [
+              156.404,
+              191.854
+            ]
+          },
+          "boundingBox": [
+            135,
+            29,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 22,
+          "file": "center/sparky_wall_wand_pick_center_022.png",
+          "target": "center",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -2.12979,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.706,
+              230.286
+            ],
+            "wandTip": [
+              161.685,
+              185.018
+            ]
+          },
+          "boundingBox": [
+            140,
+            29,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 23,
+          "file": "center/sparky_wall_wand_pick_center_023.png",
+          "target": "center",
+          "durationMs": 500.0,
+          "previewTicks24fps": 12,
+          "wandRotationDegrees": -0.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.348,
+              229.466
+            ],
+            "wandTip": [
+              163.333,
+              183.373
+            ]
+          },
+          "boundingBox": [
+            142,
+            28,
+            370,
+            378
+          ]
+        }
+      ],
+      "CHOOSE_HOLD": 0,
+      "CAST_RELEASE": 10,
+      "STAR_WAIT_HOLD": [
+        14,
+        15,
+        16
+      ],
+      "safeRestartFrame": 23,
+      "neutralHandoff": 23,
+      "atlas": {
+        "file": "atlas_center.png",
+        "columns": 6,
+        "rows": 4,
+        "cellSize": [
+          512,
+          512
+        ]
+      }
+    },
+    "right": {
+      "frames": [
+        {
+          "index": 0,
+          "file": "right/sparky_wall_wand_pick_right_000.png",
+          "target": "right",
+          "durationMs": 250.0,
+          "previewTicks24fps": 6,
+          "wandRotationDegrees": 0.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.348,
+              229.466
+            ],
+            "wandTip": [
+              163.333,
+              183.373
+            ]
+          },
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 1,
+          "file": "right/sparky_wall_wand_pick_right_001.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 0.74042,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.685,
+              229.113
+            ],
+            "wandTip": [
+              163.973,
+              182.704
+            ]
+          },
+          "boundingBox": [
+            142,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 2,
+          "file": "right/sparky_wall_wand_pick_right_002.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 1.98094,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.748,
+              228.788
+            ],
+            "wandTip": [
+              165.002,
+              181.756
+            ]
+          },
+          "boundingBox": [
+            143,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 3,
+          "file": "right/sparky_wall_wand_pick_right_003.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 2.77787,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.835,
+              228.317
+            ],
+            "wandTip": [
+              165.55,
+              181.027
+            ]
+          },
+          "boundingBox": [
+            144,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 4,
+          "file": "right/sparky_wall_wand_pick_right_004.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 4.22046,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.813,
+              227.765
+            ],
+            "wandTip": [
+              166.88,
+              179.755
+            ]
+          },
+          "boundingBox": [
+            145,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 5,
+          "file": "right/sparky_wall_wand_pick_right_005.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 5.42419,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.835,
+              227.246
+            ],
+            "wandTip": [
+              167.923,
+              179.12
+            ]
+          },
+          "boundingBox": [
+            146,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 6,
+          "file": "right/sparky_wall_wand_pick_right_006.png",
+          "target": "right",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": 6.5223,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.87,
+              226.844
+            ],
+            "wandTip": [
+              168.891,
+              178.288
+            ]
+          },
+          "boundingBox": [
+            147,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 7,
+          "file": "right/sparky_wall_wand_pick_right_007.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": 1.65584,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.605,
+              228.736
+            ],
+            "wandTip": [
+              164.689,
+              182.086
+            ]
+          },
+          "boundingBox": [
+            143,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 8,
+          "file": "right/sparky_wall_wand_pick_right_008.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -33.03676,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              191.106,
+              242.282
+            ],
+            "wandTip": [
+              145.533,
+              216.844
+            ]
+          },
+          "boundingBox": [
+            128,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 9,
+          "file": "right/sparky_wall_wand_pick_right_009.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -51.42998,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              196.069,
+              247.945
+            ],
+            "wandTip": [
+              144.707,
+              238.22
+            ]
+          },
+          "boundingBox": [
+            125,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 10,
+          "file": "right/sparky_wall_wand_pick_right_010.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -70.42048,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              202.678,
+              251.85
+            ],
+            "wandTip": [
+              151.005,
+              259.222
+            ]
+          },
+          "boundingBox": [
+            130,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 11,
+          "file": "right/sparky_wall_wand_pick_right_011.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -79.9348,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              206.419,
+              252.89
+            ],
+            "wandTip": [
+              156.588,
+              268.535
+            ]
+          },
+          "boundingBox": [
+            136,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 12,
+          "file": "right/sparky_wall_wand_pick_right_012.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -83.9348,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              207.977,
+              253.207
+            ],
+            "wandTip": [
+              159.498,
+              272.433
+            ]
+          },
+          "boundingBox": [
+            139,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 13,
+          "file": "right/sparky_wall_wand_pick_right_013.png",
+          "target": "right",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -84.42048,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              208.066,
+              253.221
+            ],
+            "wandTip": [
+              159.849,
+              272.847
+            ]
+          },
+          "boundingBox": [
+            140,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 14,
+          "file": "right/sparky_wall_wand_pick_right_014.png",
+          "target": "right",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -83.42998,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              207.732,
+              253.169
+            ],
+            "wandTip": [
+              159.292,
+              272.068
+            ]
+          },
+          "boundingBox": [
+            139,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 15,
+          "file": "right/sparky_wall_wand_pick_right_015.png",
+          "target": "right",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -83.42998,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              207.732,
+              253.169
+            ],
+            "wandTip": [
+              159.292,
+              272.068
+            ]
+          },
+          "boundingBox": [
+            139,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 16,
+          "file": "right/sparky_wall_wand_pick_right_016.png",
+          "target": "right",
+          "durationMs": 333.333333,
+          "previewTicks24fps": 8,
+          "wandRotationDegrees": -83.42998,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              207.732,
+              253.169
+            ],
+            "wandTip": [
+              159.292,
+              272.068
+            ]
+          },
+          "boundingBox": [
+            139,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 17,
+          "file": "right/sparky_wall_wand_pick_right_017.png",
+          "target": "right",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -76.4777,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              205.057,
+              252.532
+            ],
+            "wandTip": [
+              154.427,
+              265.451
+            ]
+          },
+          "boundingBox": [
+            134,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 18,
+          "file": "right/sparky_wall_wand_pick_right_018.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -63.57581,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              200.218,
+              250.541
+            ],
+            "wandTip": [
+              148.016,
+              251.811
+            ]
+          },
+          "boundingBox": [
+            127,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 19,
+          "file": "right/sparky_wall_wand_pick_right_019.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -45.77954,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              194.292,
+              246.437
+            ],
+            "wandTip": [
+              144.227,
+              231.554
+            ]
+          },
+          "boundingBox": [
+            125,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 20,
+          "file": "right/sparky_wall_wand_pick_right_020.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -26.22213,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              189.868,
+              239.817
+            ],
+            "wandTip": [
+              147.606,
+              209.251
+            ]
+          },
+          "boundingBox": [
+            129,
+            30,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 21,
+          "file": "right/sparky_wall_wand_pick_right_021.png",
+          "target": "right",
+          "durationMs": 41.666667,
+          "previewTicks24fps": 1,
+          "wandRotationDegrees": -10.01906,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.919,
+              233.46
+            ],
+            "wandTip": [
+              155.969,
+              192.308
+            ]
+          },
+          "boundingBox": [
+            135,
+            29,
+            369,
+            378
+          ]
+        },
+        {
+          "index": 22,
+          "file": "right/sparky_wall_wand_pick_right_022.png",
+          "target": "right",
+          "durationMs": 83.333333,
+          "previewTicks24fps": 2,
+          "wandRotationDegrees": -2.25958,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.697,
+              230.31
+            ],
+            "wandTip": [
+              161.601,
+              185.157
+            ]
+          },
+          "boundingBox": [
+            140,
+            29,
+            368,
+            378
+          ]
+        },
+        {
+          "index": 23,
+          "file": "right/sparky_wall_wand_pick_right_023.png",
+          "target": "right",
+          "durationMs": 500.0,
+          "previewTicks24fps": 12,
+          "wandRotationDegrees": -0.0,
+          "anchors": {
+            "seatAnchor": [
+              256,
+              300
+            ],
+            "mouthAnchor": [
+              261.484,
+              180.684
+            ],
+            "wandHandPivot": [
+              187.348,
+              229.466
+            ],
+            "wandTip": [
+              163.333,
+              183.373
+            ]
+          },
+          "boundingBox": [
+            142,
+            28,
+            370,
+            378
+          ]
+        }
+      ],
+      "CHOOSE_HOLD": 0,
+      "CAST_RELEASE": 10,
+      "STAR_WAIT_HOLD": [
+        14,
+        15,
+        16
+      ],
+      "safeRestartFrame": 23,
+      "neutralHandoff": 23,
+      "atlas": {
+        "file": "atlas_right.png",
+        "columns": 6,
+        "rows": 4,
+        "cellSize": [
+          512,
+          512
+        ]
+      }
+    }
+  },
+  "holdPolicy": "Emit exactly one separate code-driven star on first entry to010 at that frame wandTip. Hold014,015 or016 until the separate star contacts its target; contact triggers card flip/sound and resume017. Do not use a timer for contact or repeat release while paused. Home cancels; pause freezes. Restart at023 neutral.",
+  "anchorMeasurement": "Seat(256,300) is inherited authored registration, not inferred anatomy. Other anchors measured from exported pixels: dark smile centroid, white wand-grip centroid, gold wand-star centroid. wandTip denotes center of the attached gold star for effect spawning. Source masks rotate at unit scale.",
+  "construction": "Approved source masters; local rigid wand/glove/forearm rotation at unit scale, local sleeve and glove recovery deformation. Rigged draft, not72 independently hand-drawn frames.",
+  "productionStatus": "Visual review and actual game integration required; finger securing and elbow anticipation are approximated by the local rig.",
+  "wandRig": {
+    "scale": 1,
+    "rotationCenter": [
+      211,
+      230
+    ],
+    "resampling": "premultiplied internally, straight-alpha output"
+  },
+  "loop": {
+    "enabled": false
+  }
+}

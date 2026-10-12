@@ -1,0 +1,72 @@
+{
+  "schemaVersion":1,
+  "variant":{"id":"money-match","title":"Money Match","subtitle":"A little money adventure","grade":1,"objective":"Find two cards worth the same amount.","assetBase":"./assets/cards/","menuGreeting":"Ready to count coins and find equal amounts?","matchPrompt":"Find two cards worth the same amount!","resultMessage":"You found every money match."},
+  "play":{"fixedPairs":true,"shufflePairs":true,"difficultyGroups":[
+    {"id":"gentle","name":"Easy","description":"4 cards · 2 pairs","rounds":["1","2"]},
+    {"id":"growing","name":"Medium","description":"6 cards · 3 pairs","rounds":["3","4"]},
+    {"id":"clever","name":"Hard","description":"8 cards · 4 pairs","rounds":["5","6"]}
+  ]},
+  "features":{"picnic":false},
+  "progression":{"xp":{"rewards":{"practice":7,"challenge":4},"completionBonus":2}},
+  "worlds":{
+    "dream":{"id":"dream","name":"Money Meadow","shortName":"Meadow","description":"Meet coins and notes","skin":"meadow","menuTitleLines":["Money","Match"],"menuKicker":"A little money adventure","cloudAsset":"sparky-seat-cloud-v1.webp","unlockMessage":"More money matches are ready!"},
+    "seasons":{"id":"seasons","name":"Money Parade","shortName":"Parade","description":"Count and compare","skin":"parade","menuTitleLines":["Money","Parade"],"menuKicker":"Count coins with Sparky","cloudAsset":"season-sparky-cloud-v1.webp","unlockMessage":"The Money Parade is ready!"},
+    "neon":{"id":"neon","name":"Money Lab","shortName":"Lab","description":"Equal amount mastery","skin":"space-lab","menuTitleLines":["Money","Lab"],"menuKicker":"Different coins, equal amounts","cloudAsset":"neon-sparky-cloud-v1.webp","unlockMessage":"The Money Lab is ready!"}
+  },
+  "categories":{
+    "v1":{"name":"₹1","detail":"Both cards are worth one rupee.","color":"#edbb58"},
+    "v2":{"name":"₹2","detail":"Both cards are worth two rupees.","color":"#edbb58"},
+    "v3":{"name":"₹3","detail":"Both cards are worth three rupees.","color":"#edbb58"},
+    "v4":{"name":"₹4","detail":"Both cards are worth four rupees.","color":"#edbb58"},
+    "v5":{"name":"₹5","detail":"Both cards are worth five rupees.","color":"#edbb58"},
+    "v6":{"name":"₹6","detail":"Both cards are worth six rupees.","color":"#edbb58"},
+    "v7":{"name":"₹7","detail":"Both cards are worth seven rupees.","color":"#edbb58"},
+    "v8":{"name":"₹8","detail":"Both cards are worth eight rupees.","color":"#edbb58"},
+    "v10":{"name":"₹10","detail":"Both cards are worth ten rupees.","color":"#edbb58"},
+    "v11":{"name":"₹11","detail":"Both cards are worth eleven rupees.","color":"#edbb58"},
+    "v12":{"name":"₹12","detail":"Both cards are worth twelve rupees.","color":"#edbb58"},
+    "v20":{"name":"₹20","detail":"Both cards are worth twenty rupees.","color":"#edbb58"},
+    "v50":{"name":"₹50","detail":"Both cards are worth fifty rupees.","color":"#edbb58"},
+    "v100":{"name":"₹100","detail":"Both cards are worth one hundred rupees.","color":"#edbb58"}
+  },
+  "items":{
+    "coin1":{"name":"One rupee coin","asset":"coin-1.svg","value":1,"coins":[1]},
+    "coin2":{"name":"Two rupee coin","asset":"coin-2.svg","value":2,"coins":[2]},
+    "coin5":{"name":"Five rupee coin","asset":"coin-5.svg","value":5,"coins":[5]},
+    "coin10":{"name":"Ten rupee coin","asset":"coin-10.svg","value":10,"coins":[10]},
+    "note10":{"name":"Ten rupee note","asset":"note-10.svg","value":10,"note":10},
+    "note20":{"name":"Twenty rupee note","asset":"note-20.svg","value":20,"note":20},
+    "note50":{"name":"Fifty rupee note","asset":"note-50.svg","value":50,"note":50},
+    "note100":{"name":"One hundred rupee note","asset":"note-100.svg","value":100,"note":100},
+    "a1":{"name":"₹1","asset":"amount-1.svg","value":1},"a2":{"name":"₹2","asset":"amount-2.svg","value":2},
+    "a5":{"name":"₹5","asset":"amount-5.svg","value":5},"a10":{"name":"₹10","asset":"amount-10.svg","value":10},
+    "a20":{"name":"₹20","asset":"amount-20.svg","value":20},"a50":{"name":"₹50","asset":"amount-50.svg","value":50},
+    "a100":{"name":"₹100","asset":"amount-100.svg","value":100},"a3":{"name":"₹3","asset":"amount-3.svg","value":3},
+    "a4":{"name":"₹4","asset":"amount-4.svg","value":4},"a6":{"name":"₹6","asset":"amount-6.svg","value":6},
+    "a7":{"name":"₹7","asset":"amount-7.svg","value":7},"a8":{"name":"₹8","asset":"amount-8.svg","value":8},
+    "c51":{"name":"Five and one rupee coins","asset":"coins-5-1.svg","value":6,"coins":[5,1]},
+    "c52":{"name":"Five and two rupee coins","asset":"coins-5-2.svg","value":7,"coins":[5,2]},
+    "c521":{"name":"Five, two and one rupee coins","asset":"coins-5-2-1.svg","value":8,"coins":[5,2,1]},
+    "c55":{"name":"Two five rupee coins","asset":"coins-5-5.svg","value":10,"coins":[5,5]},
+    "c21":{"name":"Two and one rupee coins","asset":"coins-2-1.svg","value":3,"coins":[2,1]},
+    "c22":{"name":"Two two rupee coins","asset":"coins-2-2.svg","value":4,"coins":[2,2]},
+    "n101":{"name":"Ten rupee note and one rupee coin","asset":"note-10-coin-1.svg","value":11,"note":10,"coins":[1]},
+    "a11":{"name":"₹11","asset":"amount-11.svg","value":11},
+    "c111":{"name":"Three one rupee coins","asset":"coins-1-1-1.svg","value":3,"coins":[1,1,1]},
+    "c211":{"name":"Two rupee coin and two one rupee coins","asset":"coins-2-1-1.svg","value":4,"coins":[2,1,1]},
+    "c222":{"name":"Three two rupee coins","asset":"coins-2-2-2.svg","value":6,"coins":[2,2,2]},
+    "c511":{"name":"Five rupee coin and two one rupee coins","asset":"coins-5-1-1.svg","value":7,"coins":[5,1,1]},
+    "c221":{"name":"Two two rupee coins and one rupee coin","asset":"coins-2-2-1.svg","value":5,"coins":[2,2,1]},
+    "c2222":{"name":"Four two rupee coins","asset":"coins-2-2-2-2.svg","value":8,"coins":[2,2,2,2]},
+    "c102":{"name":"Ten and two rupee coins","asset":"coins-10-2.svg","value":12,"coins":[10,2]},
+    "c552":{"name":"Two five rupee coins and two rupee coin","asset":"coins-5-5-2.svg","value":12,"coins":[5,5,2]}
+  },
+  "rounds":[
+    {"id":"1","title":"Meet the coins","pairs":[["v1","coin1","a1"],["v2","coin2","a2"],["v5","coin5","a5"],["v10","coin10","a10"]]},
+    {"id":"2","title":"Meet the notes","pairs":[["v10","note10","a10"],["v20","note20","a20"],["v50","note50","a50"],["v100","note100","a100"]]},
+    {"id":"3","title":"Add the coins","pairs":[["v6","c51","a6"],["v7","c52","a7"],["v8","c521","a8"],["v10","c55","a10"]]},
+    {"id":"4","title":"Count coins and notes","pairs":[["v3","c21","a3"],["v4","c22","a4"],["v6","c51","a6"],["v11","n101","a11"]]},
+    {"id":"5","title":"Same amount, different coins","pairs":[["v3","c21","c111"],["v4","c22","c211"],["v6","c51","c222"],["v7","c52","c511"]]},
+    {"id":"6","title":"Money master matches","pairs":[["v3","c21","c111"],["v4","c22","c211"],["v5","coin5","c221"],["v6","c51","c222"],["v7","c52","c511"],["v8","c521","c2222"],["v10","coin10","c55"],["v12","c102","c552"]]}
+  ]
+}

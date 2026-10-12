@@ -1,0 +1,15 @@
+{
+  "frames": 16,
+  "size512": true,
+  "atlasSize": [
+    2048,
+    2048
+  ],
+  "allFramesMin24pxPadding": true,
+  "neutralStartAndEndPixelIdenticalToApprovedIdle000": true,
+  "mouthPatchSeatLegsWandGripStarPixelLock": true,
+  "measuredAnchorLock": true,
+  "transparentPixelsRGBZero": true,
+  "uniqueRasterFrames": 15,
+  "productionLimit": "Rigged drawing interpolation; visual pose continuity must be reviewed alongside the supplied previews. Game UI placement and actual viseme atlas integration are not tested."
+}

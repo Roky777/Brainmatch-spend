@@ -1,0 +1,768 @@
+{
+  "clip": "sparky_wall_invite_turn",
+  "canvas": {
+    "width": 512,
+    "height": 512
+  },
+  "colorSpace": "sRGB",
+  "alphaFormat": "straight/unmatted RGBA",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "construction": "Locked approved neutral master. Local arm cage interpolates a drawn neutral arm and a generated palm-up key drawing; local head/chest/flame deformation and rigid local wand/forearm dip. No full-frame translation/scaling. Closed mouth pixels, seat and legs are protected; wand returns to exact rest. Not 16 independently hand-drawn poses.",
+  "frameRate": 24,
+  "timingMode": "variable durations expressed as 24fps ticks",
+  "durationMs": 3041.666667,
+  "loop": {
+    "enabled": false,
+    "mode": "one-shot",
+    "start": 0,
+    "end": 15
+  },
+  "neutralHoldFrames": [
+    0,
+    15
+  ],
+  "inviteHoldFrame": 8,
+  "recoveryStartFrame": 10,
+  "safeHandoffFrames": [
+    0,
+    15
+  ],
+  "speech": {
+    "mouthMode": "closed neutral throughout; runtime visemes separate",
+    "mouthReplacementRegion": [
+      248,
+      173,
+      279,
+      189
+    ],
+    "holdPolicy": "frame8 INVITE_HOLD may remain onscreen during the child invitation line; release into frame9 then recover from frame10; neutral mouth stays fixed"
+  },
+  "wallPlaneY": 300,
+  "anchorMeasurement": "seatAnchor (256,300) is the inherited authored registration point, not a guessed measured anatomical joint. All other anchors are measured from each exported PNG: dark-smile pixel centroid; white wand grip centroid; gold star centroid as wand-tip/spawn point; free white glove centroid; blue shoe centroids. The grip/star measurement regions follow the rendered rigid dip and return to the identical idle measurement windows at neutral. ROI definitions are in sources/render_frames.py.",
+  "frames": [
+    {
+      "index": 0,
+      "file": "sparky_wall_invite_turn_000.png",
+      "durationMs": 333.333333,
+      "previewTicks24fps": 8,
+      "headInclinationDegrees": 0,
+      "wandDipDegrees": 0,
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "file": "sparky_wall_invite_turn_001.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 0.4,
+      "wandDipDegrees": 0,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "file": "sparky_wall_invite_turn_002.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 2,
+      "wandDipDegrees": 0,
+      "boundingBox": [
+        142,
+        30,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "file": "sparky_wall_invite_turn_003.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 2,
+      "wandDipDegrees": -13.0,
+      "boundingBox": [
+        133,
+        30,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.251,
+          234.693
+        ],
+        "wandTip": [
+          154.144,
+          195.158
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "file": "sparky_wall_invite_turn_004.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 1.9,
+      "wandDipDegrees": -20,
+      "boundingBox": [
+        130,
+        30,
+        373,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.917,
+          237.552
+        ],
+        "wandTip": [
+          150.257,
+          202.346
+        ],
+        "freeHand": [
+          343.611,
+          284.835
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "file": "sparky_wall_invite_turn_005.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 1.8,
+      "wandDipDegrees": -20,
+      "boundingBox": [
+        130,
+        30,
+        379,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.917,
+          237.552
+        ],
+        "wandTip": [
+          150.257,
+          202.346
+        ],
+        "freeHand": [
+          346.124,
+          275.198
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "file": "sparky_wall_invite_turn_006.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 1.8,
+      "wandDipDegrees": -20,
+      "boundingBox": [
+        130,
+        30,
+        385,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.917,
+          237.552
+        ],
+        "wandTip": [
+          150.257,
+          202.346
+        ],
+        "freeHand": [
+          352.713,
+          268.694
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "file": "sparky_wall_invite_turn_007.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "headInclinationDegrees": 1.8,
+      "wandDipDegrees": -20,
+      "boundingBox": [
+        130,
+        30,
+        388,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.917,
+          237.552
+        ],
+        "wandTip": [
+          150.257,
+          202.346
+        ],
+        "freeHand": [
+          355.003,
+          265.042
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "file": "sparky_wall_invite_turn_008.png",
+      "durationMs": 1000.0,
+      "previewTicks24fps": 24,
+      "headInclinationDegrees": 1.6,
+      "wandDipDegrees": -20,
+      "boundingBox": [
+        130,
+        30,
+        388,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.917,
+          237.552
+        ],
+        "wandTip": [
+          150.257,
+          202.346
+        ],
+        "freeHand": [
+          355.735,
+          263.918
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "file": "sparky_wall_invite_turn_009.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "headInclinationDegrees": 1.6,
+      "wandDipDegrees": -20,
+      "boundingBox": [
+        130,
+        30,
+        388,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.917,
+          237.552
+        ],
+        "wandTip": [
+          150.257,
+          202.346
+        ],
+        "freeHand": [
+          355.735,
+          263.918
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "file": "sparky_wall_invite_turn_010.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 1.2,
+      "wandDipDegrees": -17.0,
+      "boundingBox": [
+        132,
+        29,
+        386,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.588,
+          236.301
+        ],
+        "wandTip": [
+          151.753,
+          199.371
+        ],
+        "freeHand": [
+          353.627,
+          267.074
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "file": "sparky_wall_invite_turn_011.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 0.7,
+      "wandDipDegrees": -13.0,
+      "boundingBox": [
+        133,
+        29,
+        382,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          188.251,
+          234.693
+        ],
+        "wandTip": [
+          154.144,
+          195.158
+        ],
+        "freeHand": [
+          349.526,
+          273.241
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "file": "sparky_wall_invite_turn_012.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 0.3,
+      "wandDipDegrees": -7.0,
+      "boundingBox": [
+        137,
+        29,
+        374,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.889,
+          232.398
+        ],
+        "wandTip": [
+          158.037,
+          189.516
+        ],
+        "freeHand": [
+          343.99,
+          284.653
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 13,
+      "file": "sparky_wall_invite_turn_013.png",
+      "durationMs": 83.333333,
+      "previewTicks24fps": 2,
+      "headInclinationDegrees": 0.1,
+      "wandDipDegrees": 0,
+      "boundingBox": [
+        142,
+        29,
+        371,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.788,
+          287.899
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 14,
+      "file": "sparky_wall_invite_turn_014.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "headInclinationDegrees": 0.03,
+      "wandDipDegrees": 0,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.301,
+          288.624
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    },
+    {
+      "index": 15,
+      "file": "sparky_wall_invite_turn_015.png",
+      "durationMs": 500.0,
+      "previewTicks24fps": 12,
+      "headInclinationDegrees": 0,
+      "wandDipDegrees": 0,
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      }
+    }
+  ],
+  "atlas": {
+    "file": "sparky_wall_invite_turn_atlas.png",
+    "columns": 4,
+    "rows": 4,
+    "cellWidth": 512,
+    "cellHeight": 512,
+    "paddingBetweenCells": 0
+  },
+  "events": {
+    "NEUTRAL": [
+      0,
+      15
+    ],
+    "INVITE_HOLD": 8,
+    "WARM_BROW_ACCENT": 9,
+    "RECOVERY_START": 10,
+    "WAND_NEUTRAL": 13,
+    "IDLE_HANDOFF": 15
+  },
+  "productionStatus": "Export validated; rigged wrist-turn transitions and actual game/viseme integration need production review."
+}

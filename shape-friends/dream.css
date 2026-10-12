@@ -1,0 +1,75 @@
+@import url('painted.css');
+/* Dream lighting/materials; preserve the tested minimal mode-first layout. */
+:root{--ink:#494e75;--paper:#fff9ed;--line:#b2b5d5;--focus:#7755ac;--painted-paper:none}
+body{background:#263949}
+.garden-background{background:#a7c7f2 url('assets/dream-meadow-v1.webp') center/cover no-repeat!important}
+.card-back{background:#a7bff3 url('assets/dream-star-card.webp') center/100% 100% no-repeat;border:1.5px solid #f8f4e8;box-shadow:0 3px #8e96bb,0 6px 12px #4b4f6e25}
+.card-front{background:linear-gradient(145deg,#fffdf5,#f2effc);border:1.5px solid #fffaf0;box-shadow:0 3px #a4a3bc,0 6px 12px #4b4f6e25}
+.memory-card.is-matched .card-front{background:linear-gradient(145deg,#fffef2,#e6f3e9);border-color:#fbfce7;box-shadow:0 3px #90b2a6}
+.turn-banner,.scene-controls .toy-button,.speech-bubble,.primary-button,.mode-choices button,.level-choices button,.result-view,dialog{
+ background:linear-gradient(145deg,#fffdf3,#f2edfb);border:1.5px solid #fffcf4;box-shadow:0 3px #a7a2bf,0 5px 12px #4d4c7920;color:var(--ink);
+}
+.mode-choices [aria-pressed=true],.level-choices [aria-pressed=true]{outline-color:#7f85bc;background:linear-gradient(145deg,#fffbef,#dedff9);border-color:#fff9e5}
+.turn-chip strong,.speech-bubble p,.setup-view h2,.result-view h2{color:var(--ink)}
+.pair-progress i{background:#deddf0;border-color:#b1abc7}.pair-progress i.found{background:#edcc7a;border-color:#b79b64}
+.scene-controls .toy-button svg,.speech-bubble button svg{stroke:#687096;filter:none}
+.speech-bubble:after{background:#f8f3fa}
+.match-check{background:#91b5a0;border-color:#fffaef}
+.setup-view>p,#level-description{color:#454b70;text-shadow:0 1px 3px #fffaf2}
+.setup-view .text-link{color:#414b77}
+.pair-celebration{background:#fff7e2;border-color:#e5d4a9;color:#676086;box-shadow:0 3px #a7a2bf}
+
+/* Frame the existing scene above the tall foreground until the painted cleanup
+   can be generated. No new background artwork is claimed by this crop. */
+.garden-background{background-size:auto 123%!important;background-position:center top!important}
+.setup-view{width:90%;max-width:1120px;display:grid;grid-template-columns:1fr 1fr;align-items:center;justify-content:center;gap:4%;padding:3% 0;text-align:center}
+.menu-companion{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0}
+#menu-sparky{position:relative;width:100%;max-width:470px;aspect-ratio:1;background:var(--sprite-sheet) 0 100%/400% 100% no-repeat;border:0;padding:0;cursor:pointer;filter:saturate(.88) contrast(.96) brightness(1.03) drop-shadow(0 5px 8px #66578030)}
+#menu-sparky,#sparky.sparky-sprite{background-image:var(--sprite-sheet)!important;background-size:400% 300%!important;background-repeat:no-repeat!important}
+#menu-caption{font-size:clamp(15px,1.7cqw,24px);color:#494e75;background:#fff8efe8;border-radius:20px;padding:9px 18px;max-width:95%;margin-top:-8px}
+.menu-content{width:100%;max-width:460px;justify-self:center}
+.setup-view h2{font-size:clamp(28px,4cqw,56px);margin:0 0 30px;text-shadow:0 3px #fff4e1}
+.mode-choices{flex-direction:column;gap:22px}.mode-choices button{padding:22px 18px;border-radius:25px}.mode-choices strong{font-size:clamp(22px,2.6cqw,36px)}
+.mode-choices span{font-size:16px}.mode-choices [aria-pressed=true]{outline:none;background:linear-gradient(145deg,#fffdf3,#f2edfb)}
+#mode-panel>.text-link{display:inline-block;margin-top:24px}
+#level-panel{position:relative}#level-title{font-size:26px;margin:8px 0 16px}
+#back-to-modes{display:block;border:0;background:transparent;padding:8px 0;font-size:16px}
+.level-choices{gap:12px}.level-choices legend{font-size:18px}.level-choices button{padding:16px 5px}.level-choices strong{font-size:16px}
+#level-description{margin:20px 0;line-height:1.4}
+#sparky.sparky-sprite{filter:saturate(.88) contrast(.96) brightness(1.03) drop-shadow(0 5px 7px #66578030)}
+#sparky:after,#menu-sparky:after{content:'';position:absolute;left:30%;bottom:1%;width:40%;height:4%;border-radius:50%;background:#64638330;filter:blur(3px);z-index:-1;pointer-events:none}
+.companion{position:absolute;inset:auto 0 2% auto;width:min(78%,790px);height:clamp(110px,16vw,205px);margin:0;display:flex;justify-content:flex-end;align-items:center;z-index:12;pointer-events:none}
+#sparky.sparky-sprite{order:1;pointer-events:auto;flex:none;height:100%;width:auto;aspect-ratio:1;filter:drop-shadow(0 6px 7px #5a618a50)}
+.speech-bubble{order:0;pointer-events:auto;max-width:430px;margin-right:-12px;z-index:2}
+.speech-bubble:after{left:auto;right:-11px;transform:scaleX(-1)}
+.sparky-hand{position:fixed;left:0;top:0;width:0;height:90px;z-index:32;opacity:0;pointer-events:none;translate:none;transform-origin:right center;transition:none;filter:drop-shadow(0 5px 4px #4b597b42)}
+.sparky-hand.visible{opacity:1}
+.kimono-sleeve{position:absolute;right:0;top:0;width:100%;height:100%;object-fit:fill}
+.kimono-glove{position:absolute;left:-26px;top:-9%;width:74px;height:118%;object-fit:fill}
+@media(orientation:landscape) and (max-height:500px){
+ .companion{right:2%;bottom:2%;width:24%;height:calc(100% - 80px);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end}
+ .speech-bubble{order:0;flex:none;width:100%;max-width:none;margin:0 0 6px;padding:7px 28px 7px 9px;min-height:42px}
+ .speech-bubble p{font-size:12px}
+ #sparky.sparky-sprite{order:1;height:min(25vh,95px)}
+}
+@media(orientation:landscape) and (max-height:500px){
+ .setup-view{width:85%;padding:2% 0;gap:3%}.setup-view h2{font-size:32px;margin-bottom:15px}
+ #menu-sparky{max-width:280px}.mode-choices{gap:14px}.mode-choices button{padding:14px}.mode-choices strong{font-size:24px}.mode-choices span{font-size:13px}
+ #menu-caption{font-size:14px;padding:7px 12px}#mode-panel>.text-link{margin-top:16px}
+ #level-title{font-size:21px;margin:4px 0 8px}.level-choices button{padding:10px 4px}.level-choices strong{font-size:13px}#level-description{margin:12px 0;font-size:12px}
+}
+@media(orientation:portrait){
+ .setup-view{width:91%;grid-template-columns:39% 1fr;gap:3%;padding:30px 0}
+ .setup-view h2{font-size:28px;margin-bottom:23px}.mode-choices{gap:19px}.mode-choices button{padding:20px 8px}.mode-choices strong{font-size:22px}.mode-choices span{font-size:12px}
+ #menu-sparky{width:160%;max-width:none}#menu-caption{font-size:13px;padding:8px;line-height:1.25;margin-top:4px}
+ #mode-panel>.text-link{font-size:11px;margin-top:24px}.level-choices{flex-direction:column;gap:12px}.level-choices button{padding:12px 8px}
+ .level-choices strong{font-size:15px}.level-choices span{font-size:12px;margin-top:3px}#level-title{font-size:20px}.level-choices legend{font-size:15px;padding-bottom:12px}
+ #level-description{font-size:12px;margin:15px 0}#start-game{font-size:18px;padding:10px 15px}#back-to-modes{font-size:14px}
+ .companion{width:100%;height:clamp(130px,33vw,180px);bottom:3%}
+ .speech-bubble{max-width:none;min-width:0;flex:1;margin-left:4%;padding:12px 30px 12px 13px}
+ #sparky.sparky-sprite{height:100%}
+}
+@media(orientation:portrait) and (max-height:700px){
+ .setup-view h2{font-size:24px;margin-bottom:12px}.level-choices{gap:9px}.level-choices button{padding:9px 7px}#level-description{margin:10px 0}
+ .companion{height:115px;bottom:1%}.speech-bubble p{font-size:12px}
+}

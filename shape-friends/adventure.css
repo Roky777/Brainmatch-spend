@@ -1,0 +1,60 @@
+@import url('book.css');
+/* Approved ink-and-painted garden; accessible live tiles, not a baked screenshot. */
+:root{--ink:#453a27;--cream:#fff1c7;--teal:#738552;--focus:#6846a0}
+body{background:#648f73}.garden-background{background-image:url('assets/adventure-garden.webp');background-position:center;background-size:100% 100%}
+.scene-controls{inset:20px 24px auto}.toy-button{background:linear-gradient(135deg,#f7e6b5,#cfbd8e);border:2px solid #685a3c;border-radius:42% 45% 39% 41%;box-shadow:0 4px #7d714c,inset 0 2px #fff4cb}.toy-button svg{stroke:#655d3c;filter:none}.pause-button{background:#e4d7a9}
+.match-area{top:66%;left:47%;width:61vw;max-width:1060px}.memory-board{gap:10px 13px}.memory-card{aspect-ratio:1.09;rotate:0deg;filter:drop-shadow(0 5px 2px #30291465)}.memory-card:nth-child(n){--tilt:0deg}.board-wrap:before{display:none}.card-back{background-image:url('assets/stone-leaf.webp');background-size:100% 100%}.card-face{border-radius:15px}.card-front{inset:6%;border:3px solid #726442;background:radial-gradient(ellipse at 30% 25%,#fff6d7,#e7d19c);box-shadow:inset 0 0 0 3px #fff0c3,0 4px #66563b;padding:12%}.card-front img{filter:saturate(.88) drop-shadow(0 3px 1px #6b573530)}.memory-card.is-matched{scale:.98}.memory-card.is-matched .card-front{background:#f7e8b4;border-color:#8a9459;box-shadow:inset 0 0 0 3px #fff5cc,0 4px #667548}.memory-card.hinted,.memory-card.targeted{outline-color:#fff3ab;outline-offset:0}
+.turn-banner{left:48%;top:13%;gap:12px}.turn-chip strong{font-size:24px;color:#554727;text-shadow:0 2px 2px #fff7cd}.pair-progress{display:flex;gap:18px}.pair-progress i{width:20px;height:27px;border-radius:70% 15% 70% 20%;rotate:30deg;background:#b8b58b;border:2px solid #6c6545;box-shadow:0 2px #686443}.pair-progress i:before{display:none}.pair-progress i.found{background:#ffdd77;border-color:#a17b36;box-shadow:0 0 14px #fff2a0}.hint-button{right:-34px;bottom:5%;background:#ecd797}
+.sparky-sprite{width:min(21vw,305px);right:1%;bottom:9%;top:auto;left:auto;filter:drop-shadow(0 5px 1px #4d472c45)}.sparky-shadow{right:3%;bottom:9%;width:17%;height:15px}.speech-bubble{top:auto;bottom:calc(9% + min(28vw,410px));right:2%;width:min(22vw,300px);background:#fff0c8;border:2px solid #635334;border-radius:26px 33px 22px 31px;box-shadow:0 4px #695c3650;padding:15px 18px 24px;rotate:-2deg}.speech-bubble p{color:#4e3d25;font-size:21px}.speech-bubble:after{background:#fff0c8}.puppet-head{transform-origin:132px 220px;transform:rotate(var(--head-look,0deg))}.talking .puppet-head{animation:explorer-talk .65s ease-in-out infinite}.sparky-sprite[data-pose="thinking"] .arm-left{transform:rotate(65deg)}
+.discovery-basket{left:3%;bottom:2%;width:120px;height:98px}.basket-button{filter:drop-shadow(0 3px 2px #4c472b55)}.discovery-tray{left:80%;width:90px}.tray-item{filter:drop-shadow(0 3px 1px #58412d45);width:46px;height:46px}.living-garden{left:59%;bottom:0;width:145px;height:90px}.pair-celebration{background:#fff2c4;border-color:#9c8556;color:#67502f}.primary-button{color:#514629;background:#e9d5a1;border-color:#72603e}.explore-caption p{color:#4e3d25;border-color:#746441;background:#fff0c8}.explore-heading h2{color:#4c452e;text-shadow:0 2px #fff4c9}.picnic-blanket{background:linear-gradient(135deg,#f5eac8ed,#d8cb9eea);border:2px solid #867450;box-shadow:0 6px #59503970}.play-zone{filter:drop-shadow(0 3px 1px #60523655)}.garden-activities button,.more-toys{border-color:#756b45;background:#f1dfb0}
+@keyframes explorer-talk{50%{transform:rotate(2deg) translateY(-1px)}}
+@media(min-width:701px) and (max-height:800px){.match-area{top:65%;width:min(61vw,110svh)}.memory-board{gap:7px 10px}.sparky-sprite{width:min(21vw,240px);bottom:8%}.speech-bubble{bottom:calc(8% + min(28vw,330px));top:auto;width:22%;padding:12px 14px 22px}.speech-bubble p{font-size:18px}.turn-banner{top:10%}.living-garden{width:120px;height:75px}.discovery-basket{width:100px;height:82px}}
+@media(max-width:700px){.garden-background{background-image:url('assets/adventure-garden.webp');background-size:auto 100%;background-position:48% center}.scene-controls{inset:12px}.turn-banner{left:50%;top:12%;gap:9px}.turn-chip strong{font-size:20px}.pair-progress{gap:15px}.pair-progress i{width:14px;height:20px}.match-area{left:50%;top:54%;width:calc(100% - 24px)}.memory-board{gap:10px 6px}.memory-card{aspect-ratio:.83}.card-front{inset:5%;padding:8%;border-width:2px;border-radius:12px}.hint-button{right:4px;bottom:-49px}.sparky-sprite{width:38%;right:2%;left:auto;top:auto;bottom:3%}.sparky-shadow{right:5%;left:auto;top:auto;bottom:3%;width:30%}.speech-bubble{left:4%;right:auto;top:auto;bottom:11%;width:52%;padding:13px 13px 23px}.speech-bubble p{font-size:17px}.speech-bubble:after{right:-16px;left:auto;bottom:20px;rotate:-70deg}.discovery-basket{left:5%;bottom:1%;width:75px;height:61px}.discovery-tray{left:109%;bottom:4%;width:65px}.tray-item{width:33px;height:33px}.living-garden{left:12%;right:auto;bottom:auto;top:26%;translate:0;width:95px;height:63px}}
+@media(max-width:700px) and (max-height:700px){.turn-banner{top:12%;gap:7px}.turn-chip strong{font-size:17px}.pair-progress i{width:12px;height:17px}.match-area{top:50%;width:calc(100% - 24px)}.memory-card{aspect-ratio:.95}.memory-board{gap:7px 5px}.sparky-sprite{width:34%;bottom:2%}.speech-bubble{bottom:12%;width:54%;padding:10px 11px 22px}.speech-bubble p{font-size:15px}.living-garden{top:23%;width:75px;height:49px}.hint-button{bottom:-46px}.discovery-basket{width:63px;height:52px}.tray-item{width:27px;height:27px}}
+@media(min-width:701px) and (max-height:500px){.match-area{left:47%;top:64%;width:48vw;max-width:430px}.memory-card{aspect-ratio:1.19}.memory-board{gap:5px}.turn-banner{left:47%;top:6%;gap:6px}.turn-chip strong{font-size:17px}.pair-progress i{width:11px;height:16px}.sparky-sprite{width:155px;bottom:5%;right:0}.speech-bubble{width:150px;right:1%;bottom:auto;top:13%;padding:9px 10px 20px}.speech-bubble p{font-size:14px}.hint-button{right:-39px;bottom:0}.discovery-basket{left:2%;width:74px;height:61px;bottom:2%}.living-garden{left:60%;bottom:0;width:80px;height:49px}}
+@media(prefers-reduced-motion:reduce){.talking .puppet-head{animation:none}.puppet-head{transform:none!important}}
+.living-garden{display:none}
+
+/* Landscape-first stage: artwork and actors share an undistorted 16:9 frame. */
+.scene-controls{bottom:auto;align-items:flex-start;height:48px}
+.picnic-shortcut{align-self:flex-start}
+.rotate-tip{display:none}
+@media(orientation:landscape){
+  body{background:#293c35;min-height:100svh;display:grid;align-items:center}
+  #app{width:min(100%,177.7778svh);height:min(100svh,56.25vw);min-height:0;margin:auto}
+  .garden-background{inset:50% auto auto 50%;translate:-50% -50%;width:min(100vw,177.7778svh);height:min(100svh,56.25vw);background-size:100% 100%;background-position:center;box-shadow:0 0 50px #14241f80}
+  .scene-controls{inset: max(12px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) auto max(14px,env(safe-area-inset-left));height:48px}
+  .match-area{left:46%;top:65%;width:62%;max-width:none}
+  .memory-board{gap:8px 10px}.memory-card{aspect-ratio:1.12}
+  .turn-banner{left:46%;top:9%;gap:10px}.turn-chip strong{font-size:clamp(17px,2vw,26px)}
+  .pair-progress{gap:15px}.pair-progress i{width:17px;height:23px}
+  .sparky-sprite{left:auto;top:auto;right:1%;bottom:7%;width:21%;max-width:none}
+  .sparky-shadow{left:auto;top:auto;right:3%;bottom:7%;width:17%}
+  .speech-bubble{left:auto;right:1.5%;top:25%;bottom:auto;width:21%;padding:13px 15px 23px}
+  .speech-bubble p{font-size:clamp(14px,1.6vw,22px)}
+  .speech-bubble:after{left:53%;right:auto;bottom:-18px;rotate:0deg}
+  .hint-button{right:auto;left:-49px;bottom:3%;width:44px;height:44px;padding:8px}
+  .discovery-basket{left:3%;bottom:2%;width:9%;height:auto;aspect-ratio:220/180}
+  .discovery-tray{left:80%;bottom:8%;width:80%}.tray-item{width:38px;height:38px}
+  #app[data-mode="explore"]{height:auto;min-height:min(100svh,56.25vw);padding-top:75px}
+}
+@media(orientation:landscape) and (max-height:500px){
+  .scene-controls .toy-button{width:44px;height:44px;padding:8px}
+  .turn-banner{top:7%;gap:7px}.pair-progress i{width:12px;height:17px}
+  .memory-board{gap:4px 6px}.speech-bubble{top:23%;padding:9px 10px 20px}
+  .speech-bubble p{font-size:14px}.tray-item{width:27px;height:27px}
+  .discovery-basket{min-width:58px}.hint-button{right:auto;left:-49px}
+  #app[data-mode="explore"]{padding-top:64px}
+  .explore-heading{min-height:35px;margin-bottom:4px}.explore-heading h2{font-size:24px}
+  .explore-heading .primary-button{font-size:16px;padding:7px 13px}
+  .picnic{padding:0 20px 10px}.garden-activities{margin-bottom:4px}
+  .play-zones,.play-zone{height:95px;margin-bottom:5px}.play-zone svg,.watering-garden svg{height:80px}
+  .picnic-toy{max-height:65px}.picnic-blanket{height:85px}.more-toys{bottom:20px}
+  .explore-caption{margin-top:0}.mini-sparky{width:42px;height:58px}.explore-caption p{font-size:14px;padding:7px 12px}
+}
+@media(orientation:portrait){
+  .rotate-tip{position:absolute;top:21%;left:50%;translate:-50% 0;display:flex;align-items:center;gap:7px;width:max-content;max-width:92%;padding:0 0 0 10px;background:#fff1cced;border:1px solid #8b794f;border-radius:15px;color:#685634;z-index:4}
+  .rotate-tip>span{font:25px sans-serif}.rotate-tip p{font:700 12px/1.2 'Trebuchet MS',sans-serif;max-width:190px}
+  .rotate-tip button{width:44px;height:44px;flex-shrink:0;border:0;background:none;font:24px sans-serif;color:inherit}
+  #app[data-mode="explore"] .rotate-tip{display:none}
+}

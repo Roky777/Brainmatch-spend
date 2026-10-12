@@ -1,0 +1,777 @@
+{
+  "clip": "sparky_wall_pair_joy",
+  "canvas": [
+    512,
+    512
+  ],
+  "colorSpace": "sRGB",
+  "alpha": "straight RGBA",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "frameRate": 24,
+  "durationMs": 1750.0,
+  "wallPlaneY": 300,
+  "events": {
+    "CELEBRATION_PEAK": 7,
+    "HAPPY_HOLD": 8,
+    "RECOVERY_START": 9,
+    "NEUTRAL_HANDOFF": 15
+  },
+  "safeHandoffFrames": [
+    0,
+    15
+  ],
+  "loop": {
+    "enabled": false
+  },
+  "reuse": "Use for either actor matching a pair. The matching actor keeps their turn; this asset does not hand the turn to the other player.",
+  "anchorMeasurement": "seatAnchor is inherited authored registration, not guessed anatomy. mouthAnchor is the neutral smile pixel-centroid pivot; smile changes about that fixed point, with its current measured centroid supplied separately. Other anchors are measured exported pixel centroids. wandTip is center of attached golden star. Measurement windows in source code.",
+  "construction": "Locked neutral master, generated local open-palm key, local arm-cage interpolation and very small eye/brow/smile/chest/foot deformation. Rigged draft, not16 independently hand-drawn poses.",
+  "productionStatus": "Requires visual animator review and game integration check.",
+  "frames": [
+    {
+      "index": 0,
+      "file": "sparky_wall_pair_joy_000.png",
+      "durationMs": 333.3333333333333,
+      "previewTicks24fps": 8,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 1,
+      "file": "sparky_wall_pair_joy_001.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 2,
+      "file": "sparky_wall_pair_joy_002.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 3,
+      "file": "sparky_wall_pair_joy_003.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 4,
+      "file": "sparky_wall_pair_joy_004.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.521,
+          180.723
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.786,
+          283.027
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        371,
+        378
+      ]
+    },
+    {
+      "index": 5,
+      "file": "sparky_wall_pair_joy_005.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          343.907,
+          269.477
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        373,
+        378
+      ]
+    },
+    {
+      "index": 6,
+      "file": "sparky_wall_pair_joy_006.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          345.101,
+          251.541
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        377,
+        378
+      ]
+    },
+    {
+      "index": 7,
+      "file": "sparky_wall_pair_joy_007.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          346.14,
+          242.203
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        380,
+        378
+      ]
+    },
+    {
+      "index": 8,
+      "file": "sparky_wall_pair_joy_008.png",
+      "durationMs": 333.3333333333333,
+      "previewTicks24fps": 8,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          346.14,
+          242.203
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        380,
+        378
+      ]
+    },
+    {
+      "index": 9,
+      "file": "sparky_wall_pair_joy_009.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.521,
+          180.723
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          346.0,
+          248.367
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        378,
+        378
+      ]
+    },
+    {
+      "index": 10,
+      "file": "sparky_wall_pair_joy_010.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          345.265,
+          261.744
+        ],
+        "leftFoot": [
+          198.788,
+          353.755
+        ],
+        "rightFoot": [
+          275.699,
+          361.856
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        375,
+        378
+      ]
+    },
+    {
+      "index": 11,
+      "file": "sparky_wall_pair_joy_011.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          341.797,
+          275.284
+        ],
+        "leftFoot": [
+          199.02,
+          353.861
+        ],
+        "rightFoot": [
+          275.983,
+          362.089
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        373,
+        379
+      ]
+    },
+    {
+      "index": 12,
+      "file": "sparky_wall_pair_joy_012.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.613,
+          284.927
+        ],
+        "leftFoot": [
+          199.417,
+          354.254
+        ],
+        "rightFoot": [
+          276.536,
+          362.216
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        371,
+        379
+      ]
+    },
+    {
+      "index": 13,
+      "file": "sparky_wall_pair_joy_013.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.053,
+          287.675
+        ],
+        "leftFoot": [
+          200.007,
+          354.496
+        ],
+        "rightFoot": [
+          277.006,
+          362.53
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        379
+      ]
+    },
+    {
+      "index": 14,
+      "file": "sparky_wall_pair_joy_014.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.112,
+          288.555
+        ],
+        "leftFoot": [
+          199.148,
+          353.906
+        ],
+        "rightFoot": [
+          276.083,
+          362.125
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        379
+      ]
+    },
+    {
+      "index": 15,
+      "file": "sparky_wall_pair_joy_015.png",
+      "durationMs": 416.6666666666667,
+      "previewTicks24fps": 10,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ]
+    }
+  ],
+  "atlas": {
+    "file": "sparky_wall_pair_joy_atlas.png",
+    "columns": 4,
+    "rows": 4,
+    "cellSize": [
+      512,
+      512
+    ]
+  }
+}

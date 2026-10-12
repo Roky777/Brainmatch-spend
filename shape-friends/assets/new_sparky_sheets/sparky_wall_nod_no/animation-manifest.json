@@ -1,0 +1,695 @@
+{
+  "clip": "sparky_wall_nod_no",
+  "frameCount": 12,
+  "canvas": [
+    512,
+    512
+  ],
+  "colorSpace": "sRGB",
+  "alpha": "straight RGBA",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "wallPlaneY": 300,
+  "durationMs": 1008,
+  "atlas": {
+    "file": "atlas.png",
+    "dimensions": [
+      2048,
+      1536
+    ],
+    "grid": [
+      4,
+      3
+    ],
+    "cellSize": [
+      512,
+      512
+    ],
+    "spacing": 0
+  },
+  "events": {
+    "NO_BEAT": 6,
+    "TRY_AGAIN_HOLD": 9,
+    "NEUTRAL_HANDOFF": 11
+  },
+  "frames": [
+    {
+      "index": 0,
+      "file": "sparky_wall_nod_no_000.png",
+      "durationMs": 120,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "headRotationDegrees": 0,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": 0
+    },
+    {
+      "index": 1,
+      "file": "sparky_wall_nod_no_001.png",
+      "durationMs": 67,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "headRotationDegrees": 0,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": 0
+    },
+    {
+      "index": 2,
+      "file": "sparky_wall_nod_no_002.png",
+      "durationMs": 67,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        29,
+        370,
+        378
+      ],
+      "headRotationDegrees": 2,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": -0.2
+    },
+    {
+      "index": 3,
+      "file": "sparky_wall_nod_no_003.png",
+      "durationMs": 83,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        31,
+        372,
+        378
+      ],
+      "headRotationDegrees": 4,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": -0.5
+    },
+    {
+      "index": 4,
+      "file": "sparky_wall_nod_no_004.png",
+      "durationMs": 67,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "headRotationDegrees": 0,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": 0.45
+    },
+    {
+      "index": 5,
+      "file": "sparky_wall_nod_no_005.png",
+      "durationMs": 83,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        26,
+        370,
+        378
+      ],
+      "headRotationDegrees": -4,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": 0.5
+    },
+    {
+      "index": 6,
+      "file": "sparky_wall_nod_no_006.png",
+      "durationMs": 100,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        26,
+        370,
+        378
+      ],
+      "headRotationDegrees": -3.5,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": 0.15
+    },
+    {
+      "index": 7,
+      "file": "sparky_wall_nod_no_007.png",
+      "durationMs": 67,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        27,
+        370,
+        378
+      ],
+      "headRotationDegrees": -1.6,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": -0.4
+    },
+    {
+      "index": 8,
+      "file": "sparky_wall_nod_no_008.png",
+      "durationMs": 67,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        29,
+        370,
+        378
+      ],
+      "headRotationDegrees": 1.5,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": -0.3
+    },
+    {
+      "index": 9,
+      "file": "sparky_wall_nod_no_009.png",
+      "durationMs": 100,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "headRotationDegrees": 0,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": 0.3
+    },
+    {
+      "index": 10,
+      "file": "sparky_wall_nod_no_010.png",
+      "durationMs": 67,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "headRotationDegrees": 0,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": 0.12
+    },
+    {
+      "index": 11,
+      "file": "sparky_wall_nod_no_011.png",
+      "durationMs": 120,
+      "seatAnchor": [
+        256,
+        300
+      ],
+      "mouthAnchor": [
+        261.4842,
+        180.6842
+      ],
+      "headPivot": [
+        265.9192,
+        215.5253
+      ],
+      "wandHandPivot": [
+        187.3477,
+        229.4663
+      ],
+      "wandTip": [
+        163.3326,
+        183.3725
+      ],
+      "gloveAnchors": {
+        "viewerLeft": [
+          187.3477,
+          229.4663
+        ],
+        "viewerRight": [
+          340.073,
+          288.927
+        ]
+      },
+      "shoeAnchors": {
+        "viewerLeft": [
+          198.6286,
+          353.7465
+        ],
+        "viewerRight": [
+          275.5956,
+          361.8036
+        ]
+      },
+      "characterBounds": [
+        142,
+        28,
+        370,
+        378
+      ],
+      "headRotationDegrees": 0,
+      "rotationHasLocalMouthCompensation": true,
+      "flameTipFollowThroughPixels": 0
+    }
+  ],
+  "loop": false,
+  "safeHandoffFrames": [
+    0,
+    11
+  ],
+  "preview": "One-shot APNG preserves per-frame milliseconds; GIF timings are rounded by the GIF format to10ms resolution. Wall review adds1500ms neutral before and2000ms after.",
+  "anchorMeasurement": "SeatAnchor[256,300] is supplied authored registration, not estimated anatomy. Mouth and props/gloves/shoes are measured opaque-pixel centroids within specified semantic windows. HeadPivot is a measured yellow upper-neck region centroid, a2D rig proxy rather than an inferred physical joint. WandTip is the attached gold star centroid. Bounds have exclusive right/bottom.",
+  "construction": "Identity-preserving original-art neck-centered head rotation with local mouth compensation, small pupil/brow acknowledgement and delayed flame tip. Body and closed mouth are pixel-locked. Generated pose study is retained as a guide only because using it as the replacement master would change identity. These are local rig in-betweens, not12 independently hand-drawn full characters.",
+  "constraintResolution": "Rigid neck rotation and a fixed canvas mouth pivot cannot both hold. This drawing rig prioritizes the specified fixed mouth pivot; outer head rotates up to4degrees in the image plane while the smile and lower connection remain pinned. This is not certified3D yaw.",
+  "productionStatus": "Technical export validated. Head-shake readability and acting require animator approval; not tested in the running game.",
+  "qaReport": "qa-report.json"
+}

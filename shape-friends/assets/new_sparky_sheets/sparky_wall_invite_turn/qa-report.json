@@ -1,0 +1,29 @@
+{
+  "frames": 16,
+  "size512": true,
+  "atlasSize": [
+    2048,
+    2048
+  ],
+  "allFramesMin24pxPadding": true,
+  "neutralStartAndEndPixelIdenticalToApprovedIdle000": true,
+  "mouthPatchSeatLegsPixelLock": true,
+  "wandReturnsExactlyToNeutral": true,
+  "measuredAnchorLock": true,
+  "transparentPixelsRGBZero": true,
+  "uniqueRasterFrames": 15,
+  "productionLimit": "Rigged drawing interpolation;  visual pose continuity must be reviewed alongside the supplied previews. Game UI placement and actual viseme atlas integration are not tested.",
+  "rigidWandTransform": {
+    "scale": 1,
+    "rotationOnly": true,
+    "pivot": [
+      211,
+      230
+    ]
+  },
+  "wandGripToStarCentroidDistancePx": {
+    "minimum": 51.97388646233801,
+    "maximum": 52.28822081501721,
+    "rasterTolerancePx": 0.75
+  }
+}

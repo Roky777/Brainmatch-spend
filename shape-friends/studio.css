@@ -1,0 +1,206 @@
+@import url('dream.css');
+
+/* Shape Friends: one quiet stage, with the character and cards as the focus. */
+:root{--game-ink:#343c69;--game-blue:#6e95e8;--game-cream:#fffaf1;--game-gold:#ffcf6d;--game-shadow:#535c8c44}
+body{background:#182846}
+#app{width:min(100%,1600px);height:100svh;min-height:0;max-width:1600px;margin:auto}
+.garden-background{inset:0 auto auto 50%;width:min(100vw,1600px);height:100svh;max-width:none;translate:-50% 0;background-image:url('assets/dream-lake-v2.webp')!important;background-size:cover!important;background-position:center 68%!important;filter:blur(2.5px);transform:scale(1.018);transform-origin:center}
+button,a{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:4px solid #fff0a3!important;outline-offset:4px}
+.primary-button,.secondary-button,.mode-choices button,.level-choices button{cursor:pointer;transition:transform .16s ease,box-shadow .16s ease,background .16s ease}
+.primary-button:hover,.secondary-button:hover,.mode-choices button:hover,.level-choices button:hover{transform:translateY(-3px)}
+.primary-button:active,.secondary-button:active,.mode-choices button:active,.level-choices button:active{transform:translateY(2px);box-shadow:0 2px #8393bc!important}
+
+/* Title and mode choice. Sparky's peeking silhouette occupies one side. */
+.setup-view{width:min(1120px,90%);height:100%;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:4%;padding:5% 0}
+.menu-content{grid-column:1;grid-row:1;justify-self:start;max-width:500px;text-align:left;position:relative;z-index:2}
+.menu-companion{position:absolute;right:0;bottom:0;width:min(37vw,500px);height:auto;overflow:visible}
+#menu-sparky{width:100%;max-width:none;transform:translateX(10%);filter:drop-shadow(0 12px 10px #4d4c7640)}
+#menu-sparky[data-sheet=peek][data-frame="10"],#sparky[data-sheet=peek][data-frame="10"]{clip-path:inset(0 0 0 25%)}
+#menu-caption{position:absolute;left:-14%;bottom:7%;z-index:2;font:700 17px/1.3 'Trebuchet MS',sans-serif;margin:0;border:2px solid #fff;box-shadow:0 4px #859ac080}
+.setup-view h2{font-size:clamp(56px,6.2vw,102px);line-height:.9;letter-spacing:-.04em;color:#fff9e5!important;text-shadow:0 5px #465693,0 10px 18px #34396365;margin:0 0 16px;text-align:left}
+.setup-view h2 span{display:inline-block;color:#ffdb83;font-size:.48em;vertical-align:top;margin:5px 0 0 8px}
+.setup-kicker{font:700 clamp(15px,1.55vw,21px)/1.3 'Trebuchet MS',sans-serif;color:#fff9e5;text-shadow:0 2px 5px #3a5088;margin:0 0 30px}
+.mode-choices{width:min(100%,440px);gap:17px}
+.mode-choices button{position:relative;text-align:left;min-height:112px;border:3px solid #fff8e8;border-radius:24px 30px 28px 24px;padding:20px 24px;background:linear-gradient(135deg,#fffdf7,#edf0ff);box-shadow:0 6px #8297bf,0 12px 20px #43577d40;color:var(--game-ink)}
+.mode-choices button:nth-child(2){background:linear-gradient(135deg,#fff9e9,#f4e8fa)}
+.mode-choices strong{font-size:clamp(23px,2.4vw,34px);display:flex;justify-content:space-between;align-items:center}
+.mode-choices strong i{font:800 1.1em 'Trebuchet MS',sans-serif;color:#6680c3}
+.mode-choices span{font-size:clamp(13px,1.1vw,17px);margin-top:4px;color:#5b6387}
+.mode-choices [aria-pressed=true]{outline:none!important;border-color:#fff8e8}
+
+/* Level choice opens as its own scene, with three escalating game pieces. */
+.setup-view[data-step=levels] .menu-companion{display:none}
+.setup-view[data-step=levels] h2,.setup-view[data-step=levels] .setup-kicker{display:none}
+.setup-view[data-step=levels] .setup-kicker{margin-bottom:16px}
+#level-panel{width:min(100%,470px)}
+#back-to-modes{min-width:50px;min-height:44px;color:#fff9e5;font:700 17px 'Trebuchet MS',sans-serif;text-shadow:0 2px #4d6195;padding:8px 0;margin-bottom:12px}
+#level-title{font-size:clamp(28px,3vw,42px);line-height:1;color:#fff9e5;text-shadow:0 3px #4c619c;margin:0 0 18px}
+.level-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:0}
+.level-choices legend{color:#fff9e5;font-size:19px;text-shadow:0 2px #4c619c;margin:0 auto 12px}
+.level-choices button{min-height:134px;display:flex;flex-direction:column;justify-content:center;align-items:center;border:3px solid #fff8e8;border-radius:24px;background:linear-gradient(150deg,#fffdf7,#edeaff);box-shadow:0 5px #8297bf;color:var(--game-ink)}
+.level-choices button::before{content:'✦';display:block;font-size:26px;line-height:1;margin-bottom:8px;color:#ffc552;text-shadow:0 2px #e8a94f}
+.level-choices button:nth-of-type(2)::before{content:'✦ ✦';font-size:20px}
+.level-choices button:nth-of-type(3)::before{content:'✦ ✦ ✦';font-size:16px}
+.level-choices [aria-pressed=true]{background:linear-gradient(150deg,#fff9e8,#e4e9ff);outline:3px solid #ffe08d!important;outline-offset:2px}
+.level-choices strong{font-size:clamp(15px,1.4vw,20px);line-height:1.1}
+.level-choices span{font-size:14px;margin-top:8px}
+#level-description{color:#fff9e5;font-size:16px;text-shadow:0 2px 5px #3b518b;margin:20px 0 14px;min-height:40px}
+#start-game{min-width:210px;min-height:60px;border-radius:22px;background:linear-gradient(145deg,#ffda8c,#ffbd66);border:3px solid #fff6df;box-shadow:0 5px #ba8c62,0 10px 18px #4e587e50;color:#514568;font-size:26px}
+.setup-view[data-step=levels] #start-game{margin-inline:auto}
+
+/* The board is the single primary object during a round. */
+.play-layout{inset:13% 0 0;justify-content:flex-start}
+.match-area{width:min(65%,810px)}
+#app[data-level=gentle] .match-area{width:min(37%,480px)}
+#app[data-level=growing] .match-area{width:min(51%,640px)}
+.board-wrap{padding:54px 9px 8px}
+.memory-board{gap:14px}
+.memory-card{aspect-ratio:.84;transition:transform .22s ease,filter .22s ease}
+.memory-card:not(:disabled):hover{transform:translateY(-4px)}
+.memory-card:active{transform:translateY(2px)}
+.card-face{border-radius:19px}
+.card-back{background-size:135% auto;background-position:center;border-color:#fffdf5;box-shadow:0 4px 10px #55649d38}
+.turn-banner{padding:9px 19px;border:2px solid #fffef1;border-radius:999px;box-shadow:0 4px #8395b4,0 8px 13px #3d527d30}
+.turn-chip strong{font-size:clamp(19px,2vw,28px)}
+.scene-controls{inset:18px 21px auto}
+.scene-controls .toy-button{width:54px;height:54px;min-width:44px;min-height:44px;border-radius:18px;background:#fffaf2eF;box-shadow:0 4px #8496b9,0 8px 12px #4c597533}
+.scene-controls .toy-button:hover{transform:translateY(-2px)}
+.companion{right:-1%;bottom:3%;width:min(51%,700px);height:clamp(185px,23vw,320px);align-items:flex-end}
+#sparky.sparky-sprite{height:100%;filter:drop-shadow(0 10px 7px #566b9b4a)}
+.sparky-hand{position:fixed;inset:0;width:100vw;height:100vh;z-index:32;pointer-events:none;opacity:0;translate:none;transform:none;filter:drop-shadow(0 3px 3px #364d8b55)}
+.sparky-hand.visible{opacity:1}
+.sparky-hand svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sparky-hand path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.reach-outline{stroke:#253366;stroke-width:29}
+.reach-sleeve{stroke:#3287cf;stroke-width:23}
+.reach-highlight{stroke:#92dbfa;stroke-width:6;opacity:.85}
+.reach-glove{position:absolute;width:54px;height:82px;object-fit:contain;transform:rotate(-22deg);transform-origin:76% 40%;filter:drop-shadow(0 2px 2px #25336666)}
+.touch-spark{position:absolute;opacity:0;color:#fff4aa;font:900 36px/1 'Trebuchet MS',sans-serif;text-shadow:0 0 9px white,0 0 19px #ffe38a;transform:translate(-50%,-50%) scale(.4)}
+.sparky-hand.contact .touch-spark{animation:touch-spark .42s ease-out both}
+@keyframes touch-spark{35%{opacity:1;transform:translate(-50%,-50%) scale(1.35)}100%{opacity:0;transform:translate(-50%,-50%) scale(.65)}}
+.memory-card.targeted{outline:0;animation:sparky-target .55s ease-in-out infinite alternate}
+@keyframes sparky-target{to{filter:drop-shadow(0 0 13px #ffe9a7db)}}
+#sparky[data-pose=idle]{animation:sparky-breathe 3.8s ease-in-out infinite}
+#sparky[data-pose=thinking]{animation:sparky-think .75s ease-in-out}
+#sparky[data-pose=present-right]{animation:sparky-present .62s ease-out both}
+#sparky[data-pose=happy],#sparky[data-pose=thumbs-up]{animation:sparky-celebrate .7s cubic-bezier(.2,1.3,.3,1)}
+#sparky[data-pose=greeting],#menu-sparky[data-pose=greeting]{animation:sparky-wave .9s ease-in-out}
+@keyframes sparky-breathe{50%{transform:translateY(-1%) scale(1.018)}}
+@keyframes sparky-think{40%{transform:rotate(-3deg)}70%{transform:rotate(2deg)}}
+@keyframes sparky-present{0%{transform:rotate(0)}50%{transform:rotate(-3deg)}100%{transform:rotate(-2deg)}}
+@keyframes sparky-celebrate{0%{transform:translateY(0) scale(.91)}45%{transform:translateY(-7%) scale(1.08)}100%{transform:translateY(0) scale(1)}}
+@keyframes sparky-wave{40%{transform:rotate(-4deg)}70%{transform:rotate(2deg)}}
+.speech-bubble{max-width:420px;border-radius:22px 22px 10px 22px;border:2px solid #fffdf5;background:#fffaf3f2;box-shadow:0 5px #8392bb,0 8px 16px #4c578545;padding:16px 48px 16px 20px}
+.speech-bubble p{font-size:clamp(15px,1.5vw,21px);line-height:1.25}
+.speech-bubble button{min-width:44px;min-height:44px;width:44px;height:44px;right:2px;top:50%;transform:translateY(-50%);padding:10px}
+.speech-bubble:after{background:#fffaf3}
+
+/* Result has one reward message and two clear exits. */
+#app[data-mode=result] .play-layout{inset:0;justify-content:center}
+.result-view{width:min(440px,80%);max-width:none;padding:30px 28px 35px;border:3px solid #fffdf1;border-radius:35px;background:linear-gradient(150deg,#fffbef,#f1eeff);box-shadow:0 9px #8498b9,0 20px 40px #3b50784f;color:var(--game-ink)}
+.result-emblem{display:block;color:#ffcc64;font-size:70px;line-height:1;text-shadow:0 4px #dfa858}
+.result-view h2{font-size:clamp(32px,3.4vw,50px);line-height:1.05;color:var(--game-ink)}
+.result-view p{margin:14px 0 22px;font-size:21px}
+.result-view>div{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+.result-view .primary-button,.result-view .secondary-button{width:100%;min-height:58px}
+.secondary-button{border:2px solid #afbadc;border-radius:18px;background:#fbf9f3;color:var(--game-ink);font:800 20px 'Trebuchet MS',sans-serif;box-shadow:0 4px #8c9bc0;padding:10px 18px}
+#app[data-mode=result] .companion{display:none}
+
+/* Pause: resume first; audio and grown-up choices follow. */
+dialog#settings-dialog{width:min(430px,calc(100vw - 34px));max-height:min(90svh,720px);overflow:auto;padding:26px 27px 30px;border:3px solid #fffdf1;border-radius:30px;background:linear-gradient(150deg,#fffbef,#f0eeff);box-shadow:0 14px #778bb2,0 24px 60px #1b2c586b;text-align:center;color:var(--game-ink)}
+dialog#settings-dialog::backdrop{background:#1a2a54b8;backdrop-filter:blur(5px)}
+.pause-star{display:block;font-size:48px;line-height:1;color:#ffca65;text-shadow:0 3px #dca558}
+#settings-title{font-size:35px;line-height:1.1;margin:6px 0 6px}
+#settings-dialog>p{font:600 17px 'Trebuchet MS',sans-serif;margin:0 0 18px}
+#settings-dialog>.primary-button{width:100%;min-height:60px;margin-bottom:17px}
+#settings-dialog>.secondary-button{width:100%;min-height:49px;margin:16px 0}
+#settings-dialog .settings-row{min-height:54px}
+#settings-dialog details{text-align:left;margin-top:9px;font:14px/1.45 'Trebuchet MS',sans-serif}
+#settings-dialog details summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:700}
+
+@media(min-width:701px) and (min-height:501px){
+ #menu-sparky{transform:translateX(13%) scale(1.08);transform-origin:bottom right}
+ .setup-view[data-step=levels]{display:flex;align-items:center;justify-content:center}
+ .setup-view[data-step=levels] .menu-content{width:min(100%,630px);max-width:none;justify-self:auto;text-align:center}
+ .setup-view[data-step=levels] #level-panel{width:100%}
+ .setup-view[data-step=levels] #back-to-modes{display:block;text-align:left}
+ .setup-view[data-step=levels] .level-choices{margin:auto}
+}
+
+@media(max-width:700px) and (orientation:portrait){
+ .setup-view{width:100%;height:100%;display:block;padding:0}
+ .menu-content{position:absolute;left:6%;top:15%;width:67%;max-width:none;text-align:left}
+ .menu-companion{position:absolute;right:-7%;bottom:0;width:52%;height:auto}
+ #menu-sparky{width:100%;transform:none}
+ #menu-caption{left:-18%;bottom:9%;font-size:12px;line-height:1.2;padding:7px 9px;max-width:125px}
+ .setup-view h2{font-size:clamp(46px,13vw,69px);margin-bottom:12px}
+ .setup-kicker{font-size:14px;max-width:230px;margin-bottom:26px}
+ .mode-choices{width:min(240px,100%);gap:17px}
+ .mode-choices button{min-height:108px;padding:16px 16px;border-radius:22px}
+ .mode-choices strong{font-size:23px}
+ .mode-choices span{font-size:13px}
+ .setup-view[data-step=levels] .menu-content{left:50%;top:14%;width:min(310px,84%);transform:translateX(-50%);text-align:center}
+ .setup-view[data-step=levels] h2{display:none}
+ .setup-view[data-step=levels] .setup-kicker{font-size:12px;margin:0 0 8px}
+ #back-to-modes{margin:0 0 2px}
+ #level-title{font-size:24px;margin:0 0 9px}
+ .level-choices{grid-template-columns:1fr;gap:9px;width:100%}
+ .level-choices legend{font-size:15px;margin:0 0 5px}
+ .level-choices button{min-height:75px;display:grid;grid-template-columns:42px 1fr;grid-template-rows:auto auto;justify-items:start;column-gap:4px;padding:9px 12px}
+ .level-choices button::before{grid-row:1 / 3;align-self:center;font-size:21px;margin:0}
+ .level-choices button:nth-of-type(2)::before{font-size:15px}
+ .level-choices button:nth-of-type(3)::before{font-size:12px}
+ .level-choices strong{font-size:16px}.level-choices span{font-size:12px;margin:1px 0 0}
+ #level-description{font-size:12px;line-height:1.25;max-width:100%;min-height:0;margin:12px 0 14px}
+ #start-game{min-width:185px;min-height:54px;font-size:21px}
+ .scene-controls{inset:14px 15px auto}.scene-controls .toy-button{width:48px;height:48px;padding:8px}
+ .play-layout{inset:19% 0 0}
+ .match-area,#app[data-level=growing] .match-area{width:98%}
+ #app[data-level=gentle] .match-area{width:78%}
+ .board-wrap{padding:47px 3px 4px}
+ .memory-board{gap:8px}
+ .memory-card{aspect-ratio:.84}
+ .card-face{border-radius:15px}
+ .turn-banner{padding:7px 14px}
+ .turn-chip strong{font-size:17px}
+ #match-score{font-size:12px}
+ .companion{right:0;bottom:3%;width:100%;height:clamp(165px,45vw,210px)}
+ .speech-bubble{max-width:none;flex:1;min-width:0;margin:0 -11px 0 4%;padding:12px 40px 12px 14px;min-height:62px;border-radius:18px 18px 8px 18px}
+ .speech-bubble p{font-size:clamp(14px,3.8vw,18px)}
+ #sparky.sparky-sprite{height:100%}
+ .result-view{width:min(340px,83%);padding:27px 22px 30px}
+}
+@media(max-width:700px) and (orientation:portrait) and (max-height:700px){
+ .setup-view[data-step=menu] .menu-content{top:11%}
+ .setup-view[data-step=levels] .menu-content{top:4%}
+ .setup-view[data-step=levels] .menu-companion{display:none}
+ .setup-view[data-step=levels] h2{font-size:32px;margin-bottom:3px}
+ .setup-view[data-step=levels] .setup-kicker{display:none}
+ .setup-view[data-step=levels] #back-to-modes{min-height:34px;margin-bottom:0;padding:3px 0}
+ .setup-view[data-step=levels] #level-title{font-size:21px;margin-bottom:5px}
+ .setup-view[data-step=levels] .level-choices{gap:6px}
+ .setup-view[data-step=levels] .level-choices legend{margin-bottom:2px}
+ .setup-view[data-step=levels] .level-choices button{min-height:62px;padding:5px 9px}
+ .setup-view[data-step=levels] #level-description{margin:8px 0}
+ .setup-view[data-step=levels] #start-game{min-height:46px;font-size:19px}
+ .play-layout{top:17%}.board-wrap{padding-top:41px}.memory-board{gap:8px}.memory-card{aspect-ratio:.88}
+ .companion{height:130px;bottom:1%}.speech-bubble p{font-size:13px}
+}
+@media(orientation:landscape) and (max-height:500px){
+ .setup-view{width:82%;padding:2% 0}.setup-view h2{font-size:45px;margin-bottom:7px}.setup-kicker{font-size:14px;margin-bottom:14px}
+ .mode-choices button{min-height:65px;padding:8px 14px}.mode-choices strong{font-size:20px}.mode-choices span{font-size:12px}
+ #menu-sparky{width:min(33vw,270px)}#menu-caption{font-size:12px}
+ .setup-view[data-step=levels] h2{display:none}
+ .setup-view[data-step=levels] .setup-kicker{display:none}
+ #app .match-area,#app[data-level=growing] .match-area{width:min(45%,320px)}
+ #app[data-level=gentle] .match-area{width:min(37%,260px)}
+ #level-title{font-size:20px;margin-bottom:7px}.level-choices button{min-height:70px;padding:6px}.level-choices button::before{font-size:16px;margin-bottom:3px}.level-choices strong{font-size:12px}.level-choices span{font-size:10px;margin-top:3px}
+ #level-description{font-size:12px;margin:9px 0;min-height:0}#start-game{min-height:39px;font-size:17px;padding:4px 14px}
+ .play-layout{top:9%}.board-wrap{padding-top:48px}.memory-board{gap:8px}.memory-card{aspect-ratio:.92}
+ .companion{right:2%;bottom:2%;width:24%;height:calc(100% - 75px);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end}
+ .speech-bubble{order:0;flex:none;width:100%;max-width:none;min-height:42px;margin:0 0 6px;padding:6px 28px 6px 9px}
+ .speech-bubble p{font-size:12px}
+ #sparky.sparky-sprite{order:1;height:min(30vh,122px)}
+}
+@media(prefers-reduced-motion:reduce){.primary-button,.secondary-button,.mode-choices button,.level-choices button,.memory-card{transition:none!important}.memory-card.targeted,#sparky[data-pose],#menu-sparky[data-pose],.sparky-hand.contact .touch-spark{animation:none!important}}

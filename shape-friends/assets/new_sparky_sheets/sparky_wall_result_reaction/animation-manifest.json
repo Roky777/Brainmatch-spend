@@ -1,0 +1,1033 @@
+{
+  "clip": "sparky_wall_result_reaction",
+  "canvas": [
+    512,
+    512
+  ],
+  "colorSpace": "sRGB",
+  "alpha": "straight RGBA",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "frameRate": 24,
+  "durationMs": 4291.666666666667,
+  "wallPlaneY": 300,
+  "events": {
+    "HAPPY_PEAK": 9,
+    "APPROVING_NOD": [
+      10,
+      11
+    ],
+    "RESULT_HOLD": 16
+  },
+  "safeHandoffFrames": [
+    0,
+    16,
+    17,
+    18,
+    19
+  ],
+  "loop": {
+    "enabled": true,
+    "introStart": 0,
+    "introEnd": 15,
+    "start": 16,
+    "end": 19,
+    "holdFramesPixelIdentical": true
+  },
+  "use": "One outcome-neutral result reaction for child win, Sparky win, tie and Practice completion. Play000-015 once, then freeze016 or loop016-019. No outcome-specific props, gloating or sadness.",
+  "anchorMeasurement": "seatAnchor is inherited authored registration, not guessed anatomy. mouthAnchor is the neutral smile pixel-centroid pivot; smile changes about that fixed point, with its current measured centroid supplied separately. Other anchors are measured exported pixel centroids. wandTip is center of attached golden star. Measurement windows in source code.",
+  "construction": "Locked neutral master, generated local palm key, local arm cage, child-facing pupil movement, small warm smile/brow deformation and one3.5px local forward head nod. Legs/wand fixed. Rigged draft, not20 independently hand-drawn poses.",
+  "productionStatus": "Requires visual animator review and game integration check.",
+  "frames": [
+    {
+      "index": 0,
+      "file": "sparky_wall_result_reaction_000.png",
+      "durationMs": 250.0,
+      "previewTicks24fps": 6,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 0,
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 1,
+      "file": "sparky_wall_result_reaction_001.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 0.45,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 2,
+      "file": "sparky_wall_result_reaction_002.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.0,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 3,
+      "file": "sparky_wall_result_reaction_003.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.003,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 4,
+      "file": "sparky_wall_result_reaction_004.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.521,
+          180.723
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.005,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 5,
+      "file": "sparky_wall_result_reaction_005.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          341.096,
+          282.688
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.006,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        372,
+        378
+      ]
+    },
+    {
+      "index": 6,
+      "file": "sparky_wall_result_reaction_006.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          348.731,
+          269.695
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.0075,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        375,
+        378
+      ]
+    },
+    {
+      "index": 7,
+      "file": "sparky_wall_result_reaction_007.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          350.172,
+          253.72
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.01,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        379,
+        378
+      ]
+    },
+    {
+      "index": 8,
+      "file": "sparky_wall_result_reaction_008.png",
+      "durationMs": 41.666666666666664,
+      "previewTicks24fps": 1,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          352.429,
+          244.447
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.01,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        383,
+        378
+      ]
+    },
+    {
+      "index": 9,
+      "file": "sparky_wall_result_reaction_009.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          350.108,
+          239.012
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.01,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        384,
+        378
+      ]
+    },
+    {
+      "index": 10,
+      "file": "sparky_wall_result_reaction_010.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          350.108,
+          239.012
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 2.275,
+      "eyeWideningScale": 1.01,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        31,
+        384,
+        378
+      ]
+    },
+    {
+      "index": 11,
+      "file": "sparky_wall_result_reaction_011.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          350.108,
+          239.012
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 3.5,
+      "eyeWideningScale": 1.01,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        32,
+        384,
+        378
+      ]
+    },
+    {
+      "index": 12,
+      "file": "sparky_wall_result_reaction_012.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          350.108,
+          239.012
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 1.9250000000000003,
+      "eyeWideningScale": 1.009,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        30,
+        384,
+        378
+      ]
+    },
+    {
+      "index": 13,
+      "file": "sparky_wall_result_reaction_013.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.755,
+          180.777
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          350.108,
+          239.012
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.008,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        384,
+        378
+      ]
+    },
+    {
+      "index": 14,
+      "file": "sparky_wall_result_reaction_014.png",
+      "durationMs": 83.33333333333333,
+      "previewTicks24fps": 2,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.521,
+          180.723
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          350.145,
+          265.363
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.007,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        376,
+        378
+      ]
+    },
+    {
+      "index": 15,
+      "file": "sparky_wall_result_reaction_015.png",
+      "durationMs": 125.0,
+      "previewTicks24fps": 3,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.387,
+          180.731
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          341.096,
+          282.688
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.006,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        372,
+        378
+      ]
+    },
+    {
+      "index": 16,
+      "file": "sparky_wall_result_reaction_016.png",
+      "durationMs": 500.0,
+      "previewTicks24fps": 12,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.005,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 17,
+      "file": "sparky_wall_result_reaction_017.png",
+      "durationMs": 500.0,
+      "previewTicks24fps": 12,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.005,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 18,
+      "file": "sparky_wall_result_reaction_018.png",
+      "durationMs": 500.0,
+      "previewTicks24fps": 12,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.005,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 19,
+      "file": "sparky_wall_result_reaction_019.png",
+      "durationMs": 1500.0,
+      "previewTicks24fps": 36,
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "measuredSmileCentroid": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "freeHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "nodDownDisplacementPx": 0.0,
+      "eyeWideningScale": 1.005,
+      "pupilRegisterWeight": 1,
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    }
+  ],
+  "atlas": {
+    "file": "sparky_wall_result_reaction_atlas.png",
+    "columns": 5,
+    "rows": 4,
+    "cellSize": [
+      512,
+      512
+    ]
+  },
+  "finalPoseIsNeutral": false,
+  "neutralTransitionContract": "Final friendly face is warmer than neutral000; use a short face recovery before idle, or begin a following clip at RESULT_HOLD. Loop only016-019, never the full intro."
+}

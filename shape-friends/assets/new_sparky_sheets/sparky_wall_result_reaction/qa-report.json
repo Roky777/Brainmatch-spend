@@ -1,0 +1,10 @@
+{
+  "frameCount": 20,
+  "neutralStartMatchesIdle": true,
+  "resultHoldFramesPixelIdentical": true,
+  "minimumPaddingPx": 28,
+  "wandSeatPixelLocked": true,
+  "atlasCellsMatchNumberedPNGs": true,
+  "legsAndTorsoPixelLocked": true,
+  "transparentPixelsRGBZero": true
+}

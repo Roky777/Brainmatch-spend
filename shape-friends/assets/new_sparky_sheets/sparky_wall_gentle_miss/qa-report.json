@@ -1,0 +1,9 @@
+{
+  "frameCount": 16,
+  "neutralEndpointsMatchIdle": true,
+  "minimumPaddingPx": 28,
+  "wandSeatPixelLocked": true,
+  "atlasCellsMatchNumberedPNGs": true,
+  "legsPixelLocked": true,
+  "maximumSmileCentroidOffsetPx": 0.28651352498617955
+}

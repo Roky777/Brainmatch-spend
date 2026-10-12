@@ -1,0 +1,877 @@
+{
+  "clip": "sparky_wall_arrive_settle",
+  "canvas": {
+    "width": 512,
+    "height": 512
+  },
+  "frameRate": 24,
+  "durationMs": 833.3333333333334,
+  "colorSpace": "sRGB",
+  "alphaFormat": "straight/unmatted RGBA",
+  "coordinateSystem": "top-left, frame-local pixels",
+  "wallPlaneY": 300,
+  "loop": {
+    "enabled": false,
+    "mode": "one-shot"
+  },
+  "events": {
+    "SEAT_CONTACT": 7,
+    "NEUTRAL_HANDOFF": 19
+  },
+  "safeHandoffFrames": [
+    19
+  ],
+  "construction": "Rigged draft: original head, torso, props, gloves and shoes with independent body/joint controls; generated action-specific trouser folds. Compact descent to maintain original scale and 24px padding. Not 20 independently redrawn poses.",
+  "anchorMeasurement": "seatAnchor is an authored registration path, fixed (256,300) from frame007. Other anchors are measured pixel centroids from exported art (dark smile, white wand grip/balance glove, gold wand star, blue shoe pixels). They are raster feature measurements, not claimed anatomical joints.",
+  "facialActingStatus": "Original eyes use a tiny local downward-gaze deformation and return to neutral. Not separately drawn gaze in-betweens.",
+  "frames": [
+    {
+      "index": 0,
+      "file": "sparky_wall_arrive_settle_000.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "approaching",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          278
+        ],
+        "mouthAnchor": [
+          261.484,
+          177.684
+        ],
+        "wandHandPivot": [
+          186.805,
+          225.603
+        ],
+        "wandTip": [
+          163.33,
+          178.443
+        ],
+        "balanceHand": [
+          340.581,
+          276.19
+        ],
+        "leftFoot": [
+          214.807,
+          316.621
+        ],
+        "rightFoot": [
+          284.611,
+          321.844
+        ]
+      },
+      "boundingBox": [
+        142,
+        26,
+        370,
+        339
+      ]
+    },
+    {
+      "index": 1,
+      "file": "sparky_wall_arrive_settle_001.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "approaching",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          282
+        ],
+        "mouthAnchor": [
+          261.402,
+          177.815
+        ],
+        "wandHandPivot": [
+          186.881,
+          225.962
+        ],
+        "wandTip": [
+          163.302,
+          179.043
+        ],
+        "balanceHand": [
+          340.655,
+          277.16
+        ],
+        "leftFoot": [
+          214.605,
+          317.301
+        ],
+        "rightFoot": [
+          284.48,
+          322.636
+        ]
+      },
+      "boundingBox": [
+        142,
+        26,
+        370,
+        340
+      ]
+    },
+    {
+      "index": 2,
+      "file": "sparky_wall_arrive_settle_002.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "approaching",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          286
+        ],
+        "mouthAnchor": [
+          261.407,
+          178.374
+        ],
+        "wandHandPivot": [
+          186.868,
+          226.344
+        ],
+        "wandTip": [
+          163.348,
+          179.4
+        ],
+        "balanceHand": [
+          340.766,
+          278.964
+        ],
+        "leftFoot": [
+          214.374,
+          318.311
+        ],
+        "rightFoot": [
+          284.118,
+          323.873
+        ]
+      },
+      "boundingBox": [
+        142,
+        26,
+        370,
+        341
+      ]
+    },
+    {
+      "index": 3,
+      "file": "sparky_wall_arrive_settle_003.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "approaching",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          290
+        ],
+        "mouthAnchor": [
+          261.484,
+          178.684
+        ],
+        "wandHandPivot": [
+          186.969,
+          226.937
+        ],
+        "wandTip": [
+          163.312,
+          180.214
+        ],
+        "balanceHand": [
+          340.77,
+          280.814
+        ],
+        "leftFoot": [
+          213.78,
+          320.112
+        ],
+        "rightFoot": [
+          283.628,
+          325.794
+        ]
+      },
+      "boundingBox": [
+        142,
+        27,
+        370,
+        343
+      ]
+    },
+    {
+      "index": 4,
+      "file": "sparky_wall_arrive_settle_004.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "approaching",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          294
+        ],
+        "mouthAnchor": [
+          261.407,
+          179.374
+        ],
+        "wandHandPivot": [
+          187.116,
+          227.526
+        ],
+        "wandTip": [
+          163.313,
+          181.004
+        ],
+        "balanceHand": [
+          340.598,
+          283.561
+        ],
+        "leftFoot": [
+          212.972,
+          322.268
+        ],
+        "rightFoot": [
+          282.987,
+          328.003
+        ]
+      },
+      "boundingBox": [
+        142,
+        27,
+        370,
+        345
+      ]
+    },
+    {
+      "index": 5,
+      "file": "sparky_wall_arrive_settle_005.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "approaching",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          297
+        ],
+        "mouthAnchor": [
+          261.402,
+          179.815
+        ],
+        "wandHandPivot": [
+          187.122,
+          228.294
+        ],
+        "wandTip": [
+          163.448,
+          181.697
+        ],
+        "balanceHand": [
+          340.701,
+          286.28
+        ],
+        "leftFoot": [
+          211.742,
+          324.96
+        ],
+        "rightFoot": [
+          282.239,
+          330.897
+        ]
+      },
+      "boundingBox": [
+        142,
+        28,
+        370,
+        348
+      ]
+    },
+    {
+      "index": 6,
+      "file": "sparky_wall_arrive_settle_006.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "approaching",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          299
+        ],
+        "mouthAnchor": [
+          261.67,
+          180.484
+        ],
+        "wandHandPivot": [
+          187.154,
+          228.794
+        ],
+        "wandTip": [
+          163.356,
+          182.482
+        ],
+        "balanceHand": [
+          340.631,
+          287.994
+        ],
+        "leftFoot": [
+          210.428,
+          327.69
+        ],
+        "rightFoot": [
+          281.626,
+          333.774
+        ]
+      },
+      "boundingBox": [
+        142,
+        28,
+        370,
+        351
+      ]
+    },
+    {
+      "index": 7,
+      "file": "sparky_wall_arrive_settle_007.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.251,
+          229.469
+        ],
+        "wandTip": [
+          163.263,
+          183.369
+        ],
+        "balanceHand": [
+          340.615,
+          288.919
+        ],
+        "leftFoot": [
+          208.668,
+          330.821
+        ],
+        "rightFoot": [
+          281.269,
+          337.044
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        354
+      ]
+    },
+    {
+      "index": 8,
+      "file": "sparky_wall_arrive_settle_008.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.419,
+          182.559
+        ],
+        "wandHandPivot": [
+          187.229,
+          229.928
+        ],
+        "wandTip": [
+          163.373,
+          183.852
+        ],
+        "balanceHand": [
+          340.58,
+          288.905
+        ],
+        "leftFoot": [
+          206.932,
+          334.215
+        ],
+        "rightFoot": [
+          280.399,
+          340.684
+        ]
+      },
+      "boundingBox": [
+        142,
+        30,
+        370,
+        357
+      ]
+    },
+    {
+      "index": 9,
+      "file": "sparky_wall_arrive_settle_009.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.527,
+          182.077
+        ],
+        "wandHandPivot": [
+          187.306,
+          229.786
+        ],
+        "wandTip": [
+          163.32,
+          183.809
+        ],
+        "balanceHand": [
+          340.552,
+          288.847
+        ],
+        "leftFoot": [
+          204.866,
+          339.009
+        ],
+        "rightFoot": [
+          279.163,
+          345.898
+        ]
+      },
+      "boundingBox": [
+        142,
+        30,
+        370,
+        363
+      ]
+    },
+    {
+      "index": 10,
+      "file": "sparky_wall_arrive_settle_010.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          181.684
+        ],
+        "wandHandPivot": [
+          187.41,
+          229.634
+        ],
+        "wandTip": [
+          163.374,
+          183.679
+        ],
+        "balanceHand": [
+          340.307,
+          288.859
+        ],
+        "leftFoot": [
+          202.57,
+          344.513
+        ],
+        "rightFoot": [
+          277.851,
+          351.911
+        ]
+      },
+      "boundingBox": [
+        142,
+        30,
+        370,
+        368
+      ]
+    },
+    {
+      "index": 11,
+      "file": "sparky_wall_arrive_settle_011.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.67,
+          181.484
+        ],
+        "wandHandPivot": [
+          187.367,
+          229.506
+        ],
+        "wandTip": [
+          163.363,
+          183.543
+        ],
+        "balanceHand": [
+          340.13,
+          288.853
+        ],
+        "leftFoot": [
+          200.697,
+          348.8
+        ],
+        "rightFoot": [
+          276.777,
+          356.567
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        373
+      ]
+    },
+    {
+      "index": 12,
+      "file": "sparky_wall_arrive_settle_012.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.5,
+          180.867
+        ],
+        "wandHandPivot": [
+          187.336,
+          229.555
+        ],
+        "wandTip": [
+          163.325,
+          183.49
+        ],
+        "balanceHand": [
+          340.194,
+          288.839
+        ],
+        "leftFoot": [
+          200.539,
+          349.56
+        ],
+        "rightFoot": [
+          277.09,
+          357.485
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        374
+      ]
+    },
+    {
+      "index": 13,
+      "file": "sparky_wall_arrive_settle_013.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.402,
+          180.815
+        ],
+        "wandHandPivot": [
+          187.335,
+          229.522
+        ],
+        "wandTip": [
+          163.308,
+          183.421
+        ],
+        "balanceHand": [
+          340.085,
+          288.908
+        ],
+        "leftFoot": [
+          199.579,
+          351.759
+        ],
+        "rightFoot": [
+          276.324,
+          359.816
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        376
+      ]
+    },
+    {
+      "index": 14,
+      "file": "sparky_wall_arrive_settle_014.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.387,
+          180.731
+        ],
+        "wandHandPivot": [
+          187.35,
+          229.519
+        ],
+        "wandTip": [
+          163.271,
+          183.429
+        ],
+        "balanceHand": [
+          340.085,
+          288.908
+        ],
+        "leftFoot": [
+          198.812,
+          352.954
+        ],
+        "rightFoot": [
+          275.765,
+          361.027
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 15,
+      "file": "sparky_wall_arrive_settle_015.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.521,
+          180.681
+        ],
+        "wandHandPivot": [
+          187.35,
+          229.493
+        ],
+        "wandTip": [
+          163.295,
+          183.406
+        ],
+        "balanceHand": [
+          340.061,
+          288.92
+        ],
+        "leftFoot": [
+          198.784,
+          353.525
+        ],
+        "rightFoot": [
+          275.618,
+          361.625
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 16,
+      "file": "sparky_wall_arrive_settle_016.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "balanceHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.639,
+          353.662
+        ],
+        "rightFoot": [
+          275.688,
+          361.811
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 17,
+      "file": "sparky_wall_arrive_settle_017.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "balanceHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.664,
+          353.717
+        ],
+        "rightFoot": [
+          275.611,
+          361.848
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 18,
+      "file": "sparky_wall_arrive_settle_018.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "balanceHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.608,
+          361.825
+        ]
+      },
+      "boundingBox": [
+        142,
+        29,
+        370,
+        378
+      ]
+    },
+    {
+      "index": 19,
+      "file": "sparky_wall_arrive_settle_019.png",
+      "durationMs": 41.666666666666664,
+      "seatState": "seated",
+      "anchors": {
+        "seatAnchor": [
+          256,
+          300
+        ],
+        "mouthAnchor": [
+          261.484,
+          180.684
+        ],
+        "wandHandPivot": [
+          187.348,
+          229.466
+        ],
+        "wandTip": [
+          163.333,
+          183.373
+        ],
+        "balanceHand": [
+          340.073,
+          288.927
+        ],
+        "leftFoot": [
+          198.629,
+          353.747
+        ],
+        "rightFoot": [
+          275.596,
+          361.804
+        ]
+      },
+      "boundingBox": [
+        142,
+        28,
+        370,
+        378
+      ]
+    }
+  ],
+  "atlas": {
+    "file": "sparky_wall_arrive_settle_atlas.png",
+    "columns": 5,
+    "rows": 4,
+    "cellWidth": 512,
+    "cellHeight": 512
+  },
+  "productionStatus": "Export-ready rigged draft; trouser drawing transitions, gaze refinement and actual game placement need production review."
+}

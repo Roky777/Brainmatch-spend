@@ -1,0 +1,95 @@
+@import url('tabletop.css');
+/* Reuse Pip's original quiet world and visual hierarchy, not its game state. */
+:root{--ink:#55506b;--focus:#8e69b7}
+.garden-background{background:#cce5dc url('assets/calm-meadow-v2.webp') center/cover no-repeat!important;filter:none}
+.garden-background>svg{width:100%;height:100%;stroke:none;display:block}
+.board-wrap{border:0;border-radius:0;background:none;box-shadow:none;padding:44px 12px 12px}
+.board-wrap:before{display:none}
+.memory-board{gap:18px}.memory-card{aspect-ratio:1;filter:none;border-radius:22px}
+.card-face{border-radius:21px}.card-back{background:#85c5bc;border:3px solid #fff5db;box-shadow:inset 0 0 0 2px #6baa9f,0 5px #63978e}
+.card-back:after{content:'';position:absolute;inset:9px;border:2px dashed #c6e4d2;border-radius:13px;pointer-events:none}
+.card-emblem{display:block;width:55%;height:55%;opacity:.95}.card-emblem svg{stroke:#655772;stroke-width:2.5}
+.card-front{inset:0;background:#fff0cd;border:3px solid #fff8e8;box-shadow:0 5px #b5a083;padding:12%}
+.memory-card.is-matched .card-front{background:#e4edc4;border-color:#fff8e8;box-shadow:0 5px #a4b58e}
+.memory-card:hover:not(:disabled){scale:1.03}.memory-card.is-matched{scale:.96}
+.turn-banner{top:8px;gap:14px;background:#fff5dc;padding:7px 17px;border:2px solid #fffbed;border-radius:18px;box-shadow:0 3px #acbba0}
+.turn-chip strong{color:#63566a;font-size:20px}.pair-progress i{background:#e7dfca;border-color:#b4a785}
+.scene-controls .toy-button{border:2px solid #fff9e8;background:#fff4d7;border-radius:17px;box-shadow:0 4px #b5a083}
+.scene-controls .toy-button svg{stroke:#665b70}.picnic-shortcut{display:none!important}
+.match-area .discovery-basket{background:none;border:0;box-shadow:none;height:58px}
+.tray-label{display:none}.basket-button{width:47px;height:44px;top:7px;left:5px;opacity:.9}
+.discovery-tray{left:63px;right:62px;height:43px;bottom:4px;gap:6px}.tray-item{width:41px;height:41px}
+.discovery-basket .hint-button{bottom:7px;right:6px;border:2px solid #fff9e8;border-radius:16px;box-shadow:0 3px #b5a083;background:#fff3d1}
+.speech-bubble{background:#fff7e3;border:0;border-radius:23px 23px 23px 5px;box-shadow:none;padding:14px 40px 14px 18px;min-height:62px}
+.speech-bubble:after{display:none}.speech-bubble p{color:#59516a;font-size:19px;text-align:left}.speech-bubble button{right:8px;bottom:50%;translate:0 50%;width:25px;height:25px}
+.sparky-shadow{display:none}.rotate-tip{font-size:12px;opacity:.88}
+.picnic-blanket{background:#fff3dccc;border:3px solid #fff9e8;box-shadow:0 4px #b5a083}
+@media(orientation:landscape){
+  .match-area{width:min(62%,760px);left:50%;top:43%}
+  #sparky.sparky-sprite{width:16%;left:28%;right:auto;bottom:3%}
+  .speech-bubble{left:43%;right:auto;top:auto;bottom:6%;width:35%;max-width:390px}
+  .pair-celebration{font-size:22px}
+}
+@media(orientation:landscape) and (max-height:500px){
+  .match-area{width:54%;top:42%}.board-wrap{padding:35px 7px 7px}.memory-board{gap:11px}
+  .turn-banner{top:0;padding:5px 12px}.turn-chip strong{font-size:15px}
+  .match-area .discovery-basket{height:46px}.basket-button{width:40px;height:37px;top:4px}
+  .discovery-tray{left:48px;height:37px;bottom:2px}.tray-item{width:33px;height:33px}
+  .discovery-basket .hint-button{bottom:0}
+  #sparky.sparky-sprite{width:15%;left:27%;bottom:1%}
+  .speech-bubble{left:42%;width:37%;bottom:3%;min-height:48px;padding:9px 33px 9px 12px}.speech-bubble p{font-size:14px}
+  .card-face{border-radius:14px}.card-back:after{inset:6px;border-radius:8px}.card-emblem{width:52%;height:52%}
+}
+@media(orientation:portrait){
+  .match-area{width:90%;left:50%;top:43%}.board-wrap{padding:43px 7px 10px}.memory-board{gap:10px}
+  .turn-banner{top:0;padding:6px 12px}.turn-chip strong{font-size:17px}.card-face{border-radius:13px}.card-back:after{inset:5px;border-radius:8px}
+  .match-area .discovery-basket{height:57px}
+  #sparky.sparky-sprite{width:30%;left:10%;right:auto;top:calc(43% + 41vw);bottom:auto}
+  .speech-bubble{left:39%;right:auto;top:calc(43% + 49vw);bottom:auto;width:55%;padding:11px 31px 11px 12px;min-height:55px}.speech-bubble p{font-size:15px}
+  .rotate-tip{top:14%}
+}
+@media(orientation:portrait) and (max-height:700px){
+  .speech-bubble p{font-size:13px}.turn-chip strong{font-size:15px}.rotate-tip{top:13%}
+}
+
+/* One flow owns the board, collection shelf and coach. No independent offsets. */
+#app{container-type:inline-size}
+.play-layout{inset:9% 0 2%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.match-area{position:relative;inset:auto;translate:none;width:min(60%,820px);max-width:none;flex:none}
+.board-wrap{padding:48px 12px 14px}
+.turn-banner{top:0}
+.memory-board{gap:16px}.memory-card{aspect-ratio:1.08}
+.match-area .discovery-basket{height:60px;display:flex;align-items:center;gap:12px;padding:7px 12px;background:#fff4dce8;border:2px solid #fcf8e8;border-radius:18px;box-shadow:0 3px #91ad8733}
+.basket-button{position:relative;inset:auto;width:48px;height:44px;flex:none;opacity:1}
+.discovery-tray{position:static;translate:none;width:auto;height:44px;flex:1;min-width:0;gap:8px;align-items:center;overflow:hidden}
+.tray-item{flex:none;width:40px;height:40px;filter:none}
+.discovery-basket .hint-button{position:relative;inset:auto;flex:none;width:44px;height:44px;box-shadow:none;border:0;border-left:1px solid #d7d9ba;border-radius:0;background:transparent;padding:8px}
+.companion{position:relative;inset:auto;display:flex;align-items:center;justify-content:center;gap:4px;width:min(60%,820px);height:clamp(90px,12cqw,160px);margin-top:68px;flex:none}
+#sparky.sparky-sprite{position:relative;inset:auto;width:auto;height:100%;max-width:none;flex:none;order:-1;aspect-ratio:1}
+.speech-bubble{position:relative;inset:auto;translate:none;transform:none;rotate:0deg;width:auto;max-width:410px;flex:1;min-height:60px;padding:14px 49px 14px 18px;border:2px solid #fffbed;box-shadow:0 3px #8fa78122}
+.speech-bubble:after{display:block;left:-12px;right:auto;bottom:18px;width:14px;height:18px;rotate:0;background:#fff7e3;clip-path:polygon(100% 0,100% 100%,0 60%)}
+.speech-bubble button{width:40px;height:40px;right:4px;padding:9px}
+.living-garden{display:none}
+@media(orientation:landscape) and (max-height:500px){
+  .play-layout{inset:9% 0 1%}
+  .match-area,.companion{width:54%}
+  .board-wrap{padding:33px 7px 10px}.memory-board{gap:10px}
+  .turn-banner{top:0;padding:5px 12px}
+  .match-area .discovery-basket{height:48px;padding:2px 6px;gap:6px}
+  .basket-button{width:40px;height:40px}.discovery-tray{height:40px;gap:4px}.tray-item{width:33px;height:33px}
+  .companion{margin-top:52px;height:75px}
+  .speech-bubble{min-height:48px;padding:9px 43px 9px 12px}.speech-bubble p{font-size:14px}
+}
+@media(orientation:portrait){
+  .play-layout{inset:23% 0 3%;justify-content:flex-start}
+  .match-area,.companion{width:92%}
+  .board-wrap{padding:43px 7px 12px}.memory-board{gap:10px}
+  .match-area .discovery-basket{height:58px;padding:5px 7px;gap:6px}
+  .basket-button{width:44px}.discovery-tray{gap:5px}.tray-item{width:34px;height:34px}
+  .companion{height:115px;margin-top:70px;gap:0}
+  .speech-bubble{min-height:62px;padding:12px 40px 12px 12px}.speech-bubble p{font-size:15px}
+}
+@media(orientation:portrait) and (max-height:700px){
+  .play-layout{top:22%}.companion{height:95px;margin-top:65px}
+  .speech-bubble p{font-size:13px}
+}

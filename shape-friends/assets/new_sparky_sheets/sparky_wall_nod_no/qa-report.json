@@ -1,0 +1,21 @@
+{
+  "decodedRuntimePngs": 12,
+  "canvas": [
+    512,
+    512
+  ],
+  "atlas": [
+    2048,
+    1536
+  ],
+  "atlasCellComparisons": 12,
+  "startAndEndFileBytesMatchApprovedIdle": true,
+  "allMeasuredAnchorsIdentical": true,
+  "allPixelsBelow211IdenticalToMaster": true,
+  "mouthPatchWandHandsFeetLocked": true,
+  "minimumPaddingPx": 26,
+  "durationMs": 1008,
+  "actualGameTested": false,
+  "rigLimit": "In-plane neck-centered rotation with local pinned-mouth compensation, not a rigid3D yaw. A fixed canvas mouth requires that local compensation.",
+  "generatedPoseStudyUsedAsRuntimeReplacement": false
+}

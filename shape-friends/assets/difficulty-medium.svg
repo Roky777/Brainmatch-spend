@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 68">
+  <defs><path id="star" d="m0-4.5 1.4 2.8 3.1.5-2.3 2.2.6 3.1L0 2.7l-2.8 1.4.6-3.1-2.3-2.2 3.1-.5Z"/></defs>
+  <g fill="#8295cf" opacity=".7"><rect x="5" y="8" width="20" height="26" rx="6"/><rect x="30" y="8" width="20" height="26" rx="6"/><rect x="55" y="8" width="20" height="26" rx="6"/><rect x="5" y="40" width="20" height="26" rx="6"/><rect x="30" y="40" width="20" height="26" rx="6"/><rect x="55" y="40" width="20" height="26" rx="6"/></g>
+  <g fill="#fffaf0" stroke="#213b78" stroke-width="2.4"><rect x="5" y="4" width="20" height="26" rx="6"/><rect x="30" y="4" width="20" height="26" rx="6"/><rect x="55" y="4" width="20" height="26" rx="6"/><rect x="5" y="36" width="20" height="26" rx="6"/><rect x="30" y="36" width="20" height="26" rx="6"/><rect x="55" y="36" width="20" height="26" rx="6"/></g>
+  <g fill="#ffc94f"><use href="#star" transform="translate(15 17)"/><use href="#star" transform="translate(40 17)"/><use href="#star" transform="translate(65 17)"/><use href="#star" transform="translate(15 49)"/><use href="#star" transform="translate(40 49)"/><use href="#star" transform="translate(65 49)"/></g>
+</svg>

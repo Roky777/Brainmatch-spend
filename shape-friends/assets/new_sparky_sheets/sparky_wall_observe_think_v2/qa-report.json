@@ -1,0 +1,82 @@
+{
+  "numberedPngs": 48,
+  "frame006And007PresentAllVariants": true,
+  "allDecoded512RgbaWithSRgbProfile": true,
+  "exactAtlasCellComparisons": 48,
+  "neutralStartPixelIdentical": true,
+  "handoff015PixelIdenticalToWandPick000": {
+    "left": true,
+    "center": true,
+    "right": true
+  },
+  "bodyPixelsBelow216IdenticalAcrossVariants": true,
+  "seatFeetSashWandMouthPixelLocks": true,
+  "minimumPaddingPixels": 27,
+  "gloveAnatomy": "New006/007 drawings require visual inspection; automatic pixel checks cannot count stylized fingers.",
+  "actualGameTested": false,
+  "actualFrameCounts": {
+    "left": 16,
+    "center": 16,
+    "right": 16
+  },
+  "chooseHold014MatchesHandoff015": true,
+  "hipAndLegRegionPixelIdenticalEveryFrame": true,
+  "zeroRgbUnderZeroAlphaAllFrames": true,
+  "freeGloveMeasuredRise005Through008": {
+    "left": [
+      [
+        338.2293,
+        284.3699
+      ],
+      [
+        303.117,
+        252.3754
+      ],
+      [
+        299.9416,
+        217.7379
+      ],
+      [
+        305.3639,
+        210.99
+      ]
+    ],
+    "center": [
+      [
+        338.2293,
+        284.3699
+      ],
+      [
+        303.117,
+        252.3754
+      ],
+      [
+        299.9416,
+        217.7379
+      ],
+      [
+        305.3639,
+        210.99
+      ]
+    ],
+    "right": [
+      [
+        338.2293,
+        284.3699
+      ],
+      [
+        303.117,
+        252.3754
+      ],
+      [
+        299.9416,
+        217.7379
+      ],
+      [
+        305.3639,
+        210.99
+      ]
+    ]
+  },
+  "newArmVisualReview": "006: compact curled glove at waist;007: below chin. Continuous connected blue sleeve; no duplicate glove, white glove crossing mouth, background or hollow warp. Fingers are stylized curled forms; final animator approval is still required."
+}

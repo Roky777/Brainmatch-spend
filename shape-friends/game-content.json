@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "variant": {
+    "id": "shape-friends",
+    "title": "Shape Friends",
+    "subtitle": "A little shape adventure",
+    "grade": 1,
+    "objective": "Find two things with the same overall shape."
+  },
+  "worlds": {
+    "dream": { "id": "dream", "name": "Dream Meadow", "shortName": "Dream", "description": "Shape friends", "skin": "meadow", "menuTitleLines": ["Shape", "Friends"], "menuKicker": "A little shape adventure", "cloudAsset": "sparky-seat-cloud-v1.webp", "unlockMessage": "Shape friends are ready to play!" },
+    "seasons": { "id": "seasons", "name": "Season Parade", "shortName": "Seasons", "description": "Which season?", "skin": "parade", "menuTitleLines": ["Season", "Parade"], "menuKicker": "Find friends from every season", "cloudAsset": "season-sparky-cloud-v1.webp", "unlockMessage": "Season friends are ready to play!" },
+    "neon": { "id": "neon", "name": "Neon Shape Lab", "shortName": "Neon", "description": "Glowing shapes", "skin": "space-lab", "menuTitleLines": ["Neon", "Shape Lab"], "menuKicker": "Match the glowing shapes", "cloudAsset": "neon-sparky-cloud-v1.webp", "unlockMessage": "The glowing Shape Lab is ready!" }
+  },
+  "categories": {
+    "round": { "name": "Round friends", "detail": "Both are round, like a ball.", "color": "#efa761" },
+    "box": { "name": "Box-shaped friends", "detail": "Both have a box-like shape.", "color": "#84b8ac" },
+    "cone": { "name": "Pointy friends", "detail": "Both taper to a point, like a cone.", "color": "#df94a6" },
+    "cylinder": { "name": "Tall, round friends", "detail": "Both are tall and round, like a cylinder.", "color": "#8cb4d1" },
+    "winter": { "name": "Winter friends", "detail": "Both belong in winter.", "color": "#74c9ef" },
+    "spring": { "name": "Spring friends", "detail": "Both belong in spring.", "color": "#70c76b" },
+    "summer": { "name": "Summer friends", "detail": "Both belong in summer.", "color": "#ffc33f" },
+    "autumn": { "name": "Autumn friends", "detail": "Both belong in autumn.", "color": "#ed7d3c" }
+  },
+  "items": {
+    "football": { "name": "Football", "asset": "items-dream/football.webp", "action": "bounce", "collection": "primary" },
+    "beachball": { "name": "Beach ball", "asset": "items-dream/beachball.webp", "action": "bounce", "collection": "primary" },
+    "ball": { "name": "Ball", "asset": "items-dream/ball.webp", "action": "bounce", "collection": "primary" },
+    "orange": { "name": "Orange", "asset": "items-dream/orange.webp", "action": "roll", "collection": "primary" },
+    "watermelon": { "name": "Watermelon", "asset": "items-dream/watermelon.webp", "action": "roll", "collection": "primary" },
+    "matchbox": { "name": "Matchbox", "asset": "items-dream/matchbox.webp", "action": "slide", "collection": "primary" },
+    "book": { "name": "Book", "asset": "items-dream/book.webp", "action": "open", "collection": "primary" },
+    "pencilbox": { "name": "Pencil box", "asset": "items-dream/pencilbox.webp", "action": "slide", "collection": "primary" },
+    "shoebox": { "name": "Shoe box", "asset": "items-dream/shoebox.webp", "action": "open", "collection": "primary" },
+    "notebook": { "name": "Notebook", "asset": "items-dream/notebook.webp", "action": "open", "collection": "primary" },
+    "birthdaycap": { "name": "Birthday cap", "asset": "items-dream/birthdaycap.webp", "action": "party", "collection": "primary" },
+    "papercone": { "name": "Paper cone", "asset": "items-dream/papercone.webp", "action": "spin", "collection": "primary" },
+    "funnel": { "name": "Funnel", "asset": "items-dream/funnel.webp", "action": "spin", "collection": "primary" },
+    "icecream": { "name": "Ice-cream cone", "asset": "items-dream/icecream.webp", "action": "party", "collection": "primary" },
+    "glass": { "name": "Glass", "asset": "items-dream/glass.webp", "action": "chime", "collection": "primary" },
+    "tumbler": { "name": "Tumbler", "asset": "items-dream/glass.webp", "action": "chime", "collection": "primary" },
+    "waterbottle": { "name": "Water bottle", "asset": "items-dream/waterbottle.webp", "action": "pour", "collection": "primary" },
+    "bottle": { "name": "Bottle", "asset": "items-dream/waterbottle.webp", "action": "pour", "collection": "primary" },
+    "snowman": { "name": "Snowman", "asset": "items-seasons/snowman.svg", "collection": "secondary" },
+    "snowflake": { "name": "Snowflake", "asset": "items-seasons/snowflake.svg", "collection": "secondary" },
+    "mitten": { "name": "Mitten", "asset": "items-seasons/mitten.svg", "collection": "secondary" },
+    "sled": { "name": "Sled", "asset": "items-seasons/sled.svg", "collection": "secondary" },
+    "flower": { "name": "Spring flower", "asset": "items-seasons/flower.svg", "collection": "secondary" },
+    "umbrella": { "name": "Rain umbrella", "asset": "items-seasons/umbrella.svg", "collection": "secondary" },
+    "rainboots": { "name": "Rain boots", "asset": "items-seasons/rainboots.svg", "collection": "secondary" },
+    "butterfly": { "name": "Butterfly", "asset": "items-seasons/butterfly.svg", "collection": "secondary" },
+    "sun": { "name": "Summer sun", "asset": "items-seasons/sun.svg", "collection": "secondary" },
+    "popsicle": { "name": "Ice pop", "asset": "items-seasons/popsicle.svg", "collection": "secondary" },
+    "sunglasses": { "name": "Sunglasses", "asset": "items-seasons/sunglasses.svg", "collection": "secondary" },
+    "palm": { "name": "Palm tree", "asset": "items-seasons/palm.svg", "collection": "secondary" },
+    "leaf": { "name": "Autumn leaf", "asset": "items-seasons/leaf.svg", "collection": "secondary" },
+    "pumpkin": { "name": "Pumpkin", "asset": "items-seasons/pumpkin.svg", "collection": "secondary" },
+    "acorn": { "name": "Acorn", "asset": "items-seasons/acorn.svg", "collection": "secondary" },
+    "scarf": { "name": "Warm scarf", "asset": "items-seasons/scarf.svg", "collection": "secondary" }
+  },
+  "rounds": [
+    { "id": "1", "title": "Hello, shape friends!", "subtitle": "Different things. Friendly shapes.", "pairs": [["round", "football", "beachball"], ["box", "matchbox", "book"], ["cone", "birthdaycap", "papercone"], ["cylinder", "glass", "waterbottle"]] },
+    { "id": "2", "title": "Everyday discoveries", "subtitle": "What other things look alike?", "pairs": [["round", "ball", "orange"], ["box", "matchbox", "pencilbox"], ["cone", "birthdaycap", "funnel"], ["cylinder", "glass", "bottle"]] },
+    { "id": "3", "title": "A picnic surprise", "subtitle": "New things. Shapes you know.", "pairs": [["round", "watermelon", "ball"], ["box", "shoebox", "book"], ["cone", "icecream", "birthdaycap"], ["cylinder", "tumbler", "waterbottle"]] },
+    { "id": "4", "title": "Our shape celebration", "subtitle": "Let’s bring everyone together.", "pairs": [["round", "orange", "football"], ["box", "notebook", "matchbox"], ["cone", "funnel", "papercone"], ["cylinder", "tumbler", "bottle"]] }
+  ]
+}
