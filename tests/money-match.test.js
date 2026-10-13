@@ -42,3 +42,14 @@ test('currency cards embed real currency images rather than schematic drawings',
     }
   }
 });
+test('coin groups use large high-contrast face labels without tiny badges',async()=>{
+  for(const item of Object.values(manifest.items)){
+    if(!item.coins)continue;
+    const svg=await readFile(new URL(`../money-match/assets/cards/${item.asset}`,import.meta.url),'utf8');
+    const labels=[...svg.matchAll(/class="coin-denomination"[^]*?<text[^>]*font-size="(\d+)"[^>]*>₹(\d+)<\/text>/g)];
+    assert.deepEqual(labels.map(match=>Number(match[2])),item.coins);
+    assert.ok(labels.every(match=>Number(match[1])>=48));
+    assert.match(svg,/paint-order="stroke fill"/);
+    assert.doesNotMatch(svg,/<rect/);
+  }
+});

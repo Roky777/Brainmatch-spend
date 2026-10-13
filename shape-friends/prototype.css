@@ -10,14 +10,14 @@
   --game-ivory:#fffbf2;
 }
 body .garden-background{
-  background-image:radial-gradient(ellipse 70% 61% at 50% 48%,#fffdf9f7 18%,#fffdf9e8 48%,#fffdf98c 78%,#fffdf924 100%),url('assets/dream-heaven-v1.webp')!important;
+  background-image:radial-gradient(ellipse 70% 61% at 50% 48%,#fffdf9f7 18%,#fffdf9e8 48%,#fffdf98c 78%,#fffdf924 100%),url('assets/dream-heaven-v1-delivery.webp')!important;
   background-position:center 46%!important;
   background-size:cover!important;
   filter:blur(1px);
   transform:scale(1.012);
 }
 body:has(#app[data-mode="match"]) .garden-background{
-  background-image:url('assets/dream-heaven-v1.webp')!important;
+  background-image:url('assets/dream-heaven-v1-delivery.webp')!important;
   filter:blur(1.5px) saturate(.91) brightness(1.04);
 }
 /* One painted cloud field is progressively cleared by cloud-reveal.js. */
@@ -301,7 +301,7 @@ dialog#settings-dialog .toggle[aria-pressed="false"]{
 
 /* Approved first concept: a continuous dream-paper stage and tactile star cards. */
 body:has(#app[data-mode="match"]) .garden-background{
-  background-image:url('assets/dream-board-first-v1.png')!important;
+  background-image:url('assets/dream-board-first-v1-delivery.webp')!important;
   background-position:center center!important;
   background-size:cover!important;
   filter:none;
@@ -369,7 +369,7 @@ body:has(#app[data-mode="match"]) .garden-background{
 #app[data-mode="match"] .card-emblem{
   display:block;
   width:68%;height:68%;max-width:none;max-height:none;
-  background:url('assets/dream-star-first-v1.png') center/contain no-repeat;
+  background:url('assets/dream-star-first-v1-delivery.webp') center/contain no-repeat;
 }
 #app[data-mode="match"] .card-emblem svg{display:none}
 
@@ -390,7 +390,7 @@ body:has(#app[data-mode="match"]) .garden-background{
 
 @media (orientation:landscape) and (max-height:500px){
   body:has(#app[data-mode="match"]) .garden-background{
-    background-image:url('assets/dream-heaven-v1.webp')!important;
+    background-image:url('assets/dream-heaven-v1-delivery.webp')!important;
   }
   #app[data-mode="match"][data-level="gentle"] .memory-board{width:min(250px,90%)}
   #app[data-mode="match"][data-level="growing"] .memory-board{width:min(330px,90%)}
@@ -403,7 +403,7 @@ body:has(#app[data-mode="match"]) .garden-background{
    continuous across menu, levels, board and result; controls stay live HTML. */
 body .garden-background,
 body:has(#app[data-mode="match"]) .garden-background{
-  background-image:url('assets/dream-board-first-v1.png')!important;
+  background-image:url('assets/dream-board-first-v1-delivery.webp')!important;
   background-position:center center!important;
   background-size:cover!important;
   filter:none!important;
@@ -847,7 +847,7 @@ body[data-theme="seasons"] .theme-open-picture i{display:none}
 @media(orientation:landscape) and (max-height:500px){
   body .garden-background,
   body:has(#app[data-mode="match"]) .garden-background{
-    background-image:url('assets/dream-heaven-v1.webp')!important;
+    background-image:url('assets/dream-heaven-v1-delivery.webp')!important;
   }
   #app[data-mode="setup"] .setup-view[data-step="menu"] .menu-content{margin-left:9%;width:min(54%,480px)}
   #app[data-mode="setup"] .setup-view h2{font-size:clamp(34px,5vw,56px)}
@@ -894,7 +894,7 @@ body:has(#app[data-mode="match"]) .garden-background{
   position:fixed;left:50%;right:auto;top:0;
   width:min(100vw,480px);max-width:480px;height:100svh;
   translate:-50% 0;
-  background-image:url('assets/dream-board-first-v1.png')!important;
+  background-image:url('assets/dream-board-first-v1-delivery.webp')!important;
   background-position:center center!important;
   background-size:cover!important;
 }
@@ -1166,7 +1166,7 @@ dialog#level-dialog[open]{animation:level-pop-in .26s cubic-bezier(0.34,1.56,0.6
   position:absolute;inset:0;display:block;width:100%;height:100%;aspect-ratio:1;
   margin:0;padding:0;border:0;box-shadow:none;border-radius:0;
   background-color:transparent!important;
-  background-image:var(--seated-sheet,url('assets/new_sparky_sheets/sparky_wall_idle_blink_formal_atlas_v1.png'))!important;
+  background-image:var(--seated-sheet,url('assets/new_sparky_sheets/sparky_wall_idle_blink_formal_atlas_v1-delivery.webp'))!important;
   background-position:0 0;background-size:var(--seated-background-size,400% 400%)!important;
   background-repeat:no-repeat!important;
   filter:drop-shadow(0 2px 2px #6d74a63d);z-index:1;
@@ -1176,12 +1176,12 @@ dialog#level-dialog[open]{animation:level-pop-in .26s cubic-bezier(0.34,1.56,0.6
 }
 :is(#sparky,#menu-sparky) .sparky-mouth-cleanup{
   position:absolute;inset:0;z-index:2;display:none;pointer-events:none;
-  background:url('assets/new_sparky_sheets/sparky_wall_mouth_visemes/integration/base_mouth_cleanup.png') 0 0/100% 100% no-repeat;
+  background:url('assets/new_sparky_sheets/sparky_wall_mouth_visemes/integration/base_mouth_cleanup-delivery.webp') 0 0/100% 100% no-repeat;
 }
 :is(#sparky,#menu-sparky) .sparky-mouth{
   position:absolute;left:51.0591459847%;top:35.2748889419%;z-index:3;
   display:none;width:12.5%;height:12.5%;translate:-50% -50%;pointer-events:none;
-  background:url('assets/new_sparky_sheets/sparky_wall_mouth_visemes/mouth_runtime_atlas.png') var(--mouth-x,0) var(--mouth-y,0)/500% 400% no-repeat;
+  background:url('assets/new_sparky_sheets/sparky_wall_mouth_visemes/mouth_runtime_atlas-delivery.webp') var(--mouth-x,0) var(--mouth-y,0)/500% 400% no-repeat;
 }
 :is(#sparky,#menu-sparky)[data-mouth-active="true"] .sparky-mouth-cleanup,
 :is(#sparky,#menu-sparky)[data-mouth-active="true"] .sparky-mouth{display:block}
@@ -1350,7 +1350,7 @@ dialog#level-dialog[open]{animation:level-pop-in .26s cubic-bezier(0.34,1.56,0.6
 #app[data-mode="match"] .card-front.is-loading::after,
 #app[data-mode="match"] .card-front.load-failed::after{
   content:"";width:46%;height:46%;place-self:center;
-  background:url('assets/dream-star-first-v1.png') center/contain no-repeat;
+  background:url('assets/dream-star-first-v1-delivery.webp') center/contain no-repeat;
   filter:saturate(.75) opacity(.62) drop-shadow(0 2px 4px rgba(255,180,50,.25));
   animation:card-art-wait .8s ease-in-out infinite alternate;
 }
@@ -1358,7 +1358,7 @@ dialog#level-dialog[open]{animation:level-pop-in .26s cubic-bezier(0.34,1.56,0.6
 @keyframes card-art-wait{from{transform:scale(.9);opacity:.55}to{transform:scale(1.04);opacity:.82}}
 #app[data-mode="match"] .card-emblem{
   display:block;width:72%;height:72%;max-width:none;max-height:none;
-  background:url('assets/dream-star-first-v1.png') center/contain no-repeat;
+  background:url('assets/dream-star-first-v1-delivery.webp') center/contain no-repeat;
   filter:drop-shadow(0 2px 4px rgba(255,180,50,0.35));
   transition:transform .24s cubic-bezier(0.34,1.56,0.64,1);
 }
@@ -1455,7 +1455,7 @@ dialog#level-dialog[open]{animation:level-pop-in .26s cubic-bezier(0.34,1.56,0.6
   .portrait-gate{
     position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:10px;padding:25px;
-    background:#fff7e9 url('assets/dream-board-first-v1.png') center/cover;
+    background:#fff7e9 url('assets/dream-board-first-v1-delivery.webp') center/cover;
     color:#213b78;text-align:center;
   }
   .portrait-gate__phone{
@@ -1724,7 +1724,7 @@ body[data-theme="neon"] .theme-choices .is-active .theme-status{background:#672a
 
 /* Every world tile is a truthful mini-preview: the real world background and
    the real card design, with identical framing and no decorative stand-ins. */
-.theme-picture--dream{background:url('assets/dream-board-first-v1.png') center/cover no-repeat}
+.theme-picture--dream{background:url('assets/dream-board-first-v1-delivery.webp') center/cover no-repeat}
 .theme-picture--seasons{background:url('assets/season-parade-bg-v4.webp') center/cover no-repeat}
 .theme-picture--neon{background:#03050c url('assets/neon-space-bg-v3.webp') center/cover no-repeat}
 .theme-picture--dream::before,
@@ -1742,7 +1742,7 @@ body[data-theme="neon"] .theme-choices .is-active .theme-status{background:#672a
 }
 .theme-picture--dream::after{
   width:42%;height:auto;aspect-ratio:.92;border:3px solid #203975;border-radius:18%;
-  background-color:#fffdf8;background-image:url('assets/dream-star-first-v1.png');background-size:72%;
+  background-color:#fffdf8;background-image:url('assets/dream-star-first-v1-delivery.webp');background-size:72%;
   box-shadow:0 4px 0 #8295cf;
 }
 .theme-picture--seasons::after{background-image:url('assets/season-card-back-v1.webp')}
@@ -2490,6 +2490,36 @@ body[data-theme="neon"] #app[data-mode="match"] .memory-card.is-matched .card-fr
   border-radius:19px;box-shadow:0 4px 0 #133a57;filter:none;
 }
 body[data-theme="neon"] #app[data-mode="match"] .card-front img{filter:none}
+
+/* A definite inner box prevents intrinsic image/grid sizing from overrunning
+   painted borders. Percent insets track the card, including small mobiles. */
+#app[data-mode="match"] .card-front img{
+  position:absolute;left:50%;top:50%;
+  width:var(--art-fit,80%);height:var(--art-fit,80%);
+  min-width:0;min-height:0;max-width:80%;max-height:80%;
+  object-fit:contain;object-position:center;
+  transform:translate(-50%,-50%)!important;
+}
+body[data-theme="seasons"] #app[data-mode="match"] .card-front img{
+  max-width:70%;max-height:70%;
+}
+body[data-theme="neon"] #app[data-mode="match"] .card-front img{
+  max-width:76%;max-height:76%;
+}
+
+/* Currency needs a definite inner rectangle: intrinsic SVG grid sizes must
+   not push photographs under the rim. Keep the whole coin group visible. */
+body[data-variant="money-match"] #app[data-mode="match"] .card-front img{
+  position:absolute;left:8%;top:8%;width:84%;height:84%;
+  min-width:0;min-height:0;object-fit:contain;object-position:center;
+  max-width:84%;max-height:84%;
+  transform:none!important;filter:none;
+}
+body[data-variant="money-match"][data-theme="seasons"] #app[data-mode="match"] .card-front img,
+body[data-variant="money-match"][data-theme="neon"] #app[data-mode="match"] .card-front img{
+  left:13%;top:13%;width:74%;height:74%;
+  max-width:74%;max-height:74%;
+}
 body[data-theme="neon"] #app[data-mode="result"] .result-view{--result-muted:var(--space-muted)}
 body[data-theme="neon"] #app[data-mode="result"] .result-view h2{text-shadow:none}
 body[data-theme="neon"] #app[data-mode="result"] .result-view p{color:var(--space-muted)}

@@ -33,7 +33,7 @@ test('real money detail labels disclose individual denominations, not combinatio
   for(const item of Object.values(data.items)){
     if(!item.coins)continue;
     const svg=await readFile(new URL(`../money-match/assets/cards/${item.asset}`,import.meta.url),'utf8');
-    const labels=[...svg.matchAll(/font-size="21" fill="#203975">₹(\d+)<\/text>/g)].map(match=>Number(match[1]));
+    const labels=[...svg.matchAll(/class="coin-denomination"[^]*?<text[^>]*>₹(\d+)<\/text>/g)].map(match=>Number(match[1]));
     assert.deepEqual(labels,item.coins);
   }
 });

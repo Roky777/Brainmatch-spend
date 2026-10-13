@@ -1,3 +1,4 @@
+import {deliveryURL} from './delivery-map.js?v=1';
 // A single full-screen cloud field clears from the board outward. The painting
 // is never cut into sliding panels; the feathered opening is drawn each frame.
 export function openingProgress(elapsed, duration = 1500) {
@@ -11,7 +12,7 @@ export class CloudReveal {
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
     this.painting = new Image();
-    this.painting.src = new URL('./assets/cloud-veil-v1.png', import.meta.url).href;
+    this.painting.src = deliveryURL('./assets/cloud-veil-v1.png', import.meta.url);
     this.painting.addEventListener('load', () => {
       if (!this.container.hidden) this.draw(this.progress || 0);
     });
@@ -52,7 +53,8 @@ export class CloudReveal {
     if (!this.context) return;
     this.focus = focus;
     const width = innerWidth, height = innerHeight;
-    const ratio = Math.min(devicePixelRatio || 1, 2);
+    // Soft cloud artwork needs no high-DPI full-screen backing store.
+    const ratio = 1;
     if (this.canvas.width !== Math.round(width * ratio) || this.canvas.height !== Math.round(height * ratio)) {
       this.canvas.width = Math.round(width * ratio);
       this.canvas.height = Math.round(height * ratio);

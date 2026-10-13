@@ -1,19 +1,21 @@
-import { ITEMS, CATEGORIES, GAME_CONTENT, VARIANT, assetURL, cardsFor, roundById, getWorld, itemFor } from './content.js?v=3';
-import { MatchBoard, shuffle } from './engine.js';
+import { ITEMS, CATEGORIES, GAME_CONTENT, VARIANT, assetURL, cardsFor, roundById, getWorld, itemFor } from './content.js?v=4';
+import {deliveryURL} from './delivery-map.js?v=1';
+import { MatchBoard, shuffle } from './engine.js?v=2';
 import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
-import { readSave, writeSave, discover } from './save.js?v=3';
+import { readSave, writeSave, discover } from './save.js?v=5';
+import { createGameAnalytics } from './analytics.js?v=1';
 import { GameAudio } from './audio.js?v=2';
 import { MusicLoop } from './music.js';
-import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=9';
+import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=10';
 import { LivingGarden } from './garden.js';
-import { Picnic } from './picnic.js?v=3';
+import { Picnic } from './picnic.js?v=4';
 import { icon } from './art.js';
 import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
-import { CloudReveal } from './cloud-reveal.js';
-import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js?v=3';
-import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=6';
+import { CloudReveal } from './cloud-reveal.js?v=2';
+import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js?v=4';
+import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=7';
 
 const $ = id => document.getElementById(id);
 // Board, rim controls and collection drawer form one responsive play object.
@@ -27,6 +29,7 @@ let theme = getWorld(save.theme), pack = theme.pack;
 // The child-facing Music control is the single master switch for all non-voice audio.
 save.effects = save.music;
 const audio = new GameAudio(save), music = new MusicLoop(save), timeline = new Timeline();
+const analytics=createGameAnalytics(new URLSearchParams(location.search).get('gameId')||VARIANT.id);
 const sparky = new Sparky($('sparky'), { seated: true });
 $('app').dataset.sparkyReady = 'true';
 const menuSparky = new Sparky($('menu-sparky'), { seated: true });
@@ -34,6 +37,7 @@ document.querySelector('.mini-sparky').innerHTML = sparkyArt('picnic-sparky');
 const garden = new LivingGarden($('living-garden'), { speak: text => say(text), effect: kind => audio.effect(kind), discovered: save.discoveries.filter(id=>ITEMS[id]).length / 2 });
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let board, memory, round, mode = 'match', busy = false, previewing = false, run = 0, started = false, voiceMoments = {};
+let startupFinished=false;
 let matchCount = 0, missCount = 0;
 let tapAnimation = null, tapGeometry = null;
 // Keep choices readable without turning each reveal into a blocking cutscene.
@@ -51,6 +55,11 @@ const picnic = new Picnic($('picnic'), {
 });
 
 function persist() { $('save-notice').hidden = writeSave(save); }
+function checkpoint(){
+  if(mode!=='match'||!board||!round)return;
+  save.session={world:theme.id,roundId:round.id,difficulty:options.level,mode:options.mode,board:board.exportState(),memory:[...memory.seen.keys()],guideMemory:[...guideMemory.seen.keys()],analytics:analytics.snapshot()};
+  persist();
+}
 function renderXP(award=null) {
   const total=Math.max(0,Math.min(XP_LIMIT,save.xp||0));
   $('xp-value').textContent=String(total);
@@ -89,13 +98,17 @@ function nextRoundId() {
   const index = pack.rounds.findIndex(item => item.id === round?.id);
   return pack.rounds[(index + 1) % pack.rounds.length]?.id || '1';
 }
+function warmNextBoard(){
+  const upcoming=roundById(nextRoundId(),pack);
+  if(upcoming)void preloadBackground(upcoming.pairs.flatMap(pair=>pair.slice(1)).map(assetURL));
+}
 function applyTheme() {
   theme = getWorld(save.theme); pack = theme.pack;
   document.body.dataset.theme = theme.id; $('app').dataset.theme = theme.id;
   document.title = `${pack.title} · Dream Brainmatch`;
   document.body.dataset.variant = VARIANT.id;
   document.querySelector('#app > h1').textContent = pack.title;
-  document.querySelector('.sparky-seat-cloud').src = new URL(`./assets/${theme.cloudAsset}`, import.meta.url).href;
+  document.querySelector('.sparky-seat-cloud').src = deliveryURL(`./assets/${theme.cloudAsset}`, import.meta.url);
   $('setup-title').innerHTML = `${theme.menuTitleLines.join('<br>')}<span aria-hidden="true">✦</span>`;
   document.querySelector('.setup-kicker').textContent = theme.menuKicker;
   $('level-objective').textContent = pack.objective;
@@ -171,6 +184,7 @@ function announceResult(text) {
 }
 function updatePause() {
   const paused = document.hidden || $('settings-dialog').open || mode === 'explore' || mode === 'setup';
+  analytics.pause(paused||mode!=='match');
   music.sync(!document.hidden && !$('settings-dialog').open);
   sparky.pause(paused);
   menuSparky.pause(document.hidden || $('settings-dialog').open || mode !== 'setup');
@@ -251,7 +265,7 @@ function dockSparkyAtResult(){
   if(sparkyAnchor.parentElement!==resultCharacterSpace)resultCharacterSpace.append(sparkyAnchor);
   $('sparky').tabIndex=-1;
 }
-async function startRound(id) {
+async function startRound(id,resuming=null) {
   const characterReady=sparky.preparePlay();
   const enteringPlay = mode !== 'match';
   if (!roundById(id, pack) || !unlocked(id)) id = '1';
@@ -265,7 +279,7 @@ async function startRound(id) {
   const pairPool=GAME_CONTENT.play?.shufflePairs
     ? shuffle(round.pairs.map(pair=>({pair}))).map(entry=>entry.pair)
     : round.pairs;
-  const activePairs=pairPool.slice(0, level.pairs);
+  const activePairs=resuming?round.pairs.filter(pair=>resuming.board.cards.some(card=>card.pairId===pair[0])):pairPool.slice(0, level.pairs);
   const ticket=run;
   const ready=await readyScreen([characterReady,...worldAssets(theme.id).map(loadImage),...activePairs.flatMap(pair=>pair.slice(1)).map(preloadArt)]);
   if(ticket!==run)return;
@@ -273,8 +287,15 @@ async function startRound(id) {
     document.querySelector('.setup-kicker').textContent='A picture could not load. Please choose your board again.';
     return;
   }
-  board = new MatchBoard(cardsFor({ pairs: activePairs }), { mode: options.mode });
+  board = resuming?MatchBoard.restore(resuming.board):new MatchBoard(cardsFor({ pairs: activePairs }), { mode: options.mode });
+  analytics.start({levelNumber:pack.rounds.indexOf(round)+1,roundId:round.id,world:theme.id,mode:options.mode,difficulty:options.level},resuming?.analytics);
   memory = new CompanionMemory({ capacity: level.capacity, accuracy: level.accuracy }); guideMemory = new CompanionMemory();
+  // Rebuild only observations already visible to the child, never hidden cards.
+  if(resuming){
+    const restoredCards=board.exportState().cards;
+    for(const index of resuming.memory||[])memory.observe({...restoredCards[index],index});
+    for(const index of resuming.guideMemory||[])guideMemory.observe({...restoredCards[index],index});
+  }
   // Decode all possible round art away from the DOM. Hidden card positions and
   // identities remain private, but a selected card never opens onto white.
   const artReady=Promise.all([...new Set(cardsFor({pairs:activePairs}).map(card=>card.item))].map(preloadArt));
@@ -293,6 +314,14 @@ async function startRound(id) {
   $('chapter-title').textContent = round.title;
   $('cards').innerHTML = Array.from({ length: board.size }, (_, index) => `<button class="memory-card" type="button" data-index="${index}" aria-label="Hidden card ${index + 1}"><span class="card-inner"><span class="card-face card-back" aria-hidden="true"><span class="card-emblem"><svg viewBox="0 0 60 60"><path d="M30 9c4 11 12 15 20 17-10 4-17 10-20 24-4-12-10-20-20-24 11-3 17-9 20-17Z"/><circle cx="46" cy="10" r="3"/><circle cx="11" cy="46" r="2"/></svg></span></span><span class="card-face card-front" aria-hidden="true"></span></span><span class="match-check" hidden aria-hidden="true">✓</span></button>`).join('');
   renderBoard(); renderTray(); updatePause();
+  checkpoint();
+  warmNextBoard();
+  if(resuming){
+    busy=false;renderBoard();$('caption').textContent='Welcome back!';
+    if(board.phase==='complete')finishRound();
+    else if(board.actor==='sparky'&&startupFinished)void sparkyTurn(run);
+    return;
+  }
   $('cards').querySelectorAll('.card-emblem').forEach(el => { el.innerHTML = icon('star'); });
   const openingLine=enteringPlay && id !== '1'
     ? 'A new board! You get the first pick.'
@@ -335,7 +364,8 @@ function renderBoard() {
     if (shown && !front.firstChild) {
       const img = new Image();
       const scale=Math.min(1.25,Math.max(1,Number(itemFor(card.item).artScale)||1));
-      if(scale!==1)img.style.transform=`scale(${scale})`;
+      // Enlarge inside the safe artwork box, never beyond the painted rim.
+      img.style.setProperty('--art-fit',`${Math.min(100,80*scale)}%`);
       front.classList.add('is-loading');img.alt='';img.draggable=false;img.hidden=true;
       const show=()=>{
         if(!front.contains(img)||!(board.snapshot()[index].visible||previewing))return;
@@ -387,6 +417,7 @@ function reveal(index, actor) {
   const observation = board.reveal(index, actor);
   if (!observation) return null;
   memory.observe(observation); guideMemory.observe(observation); audio.effect('flip'); renderBoard();
+  checkpoint();
   return observation;
 }
 async function childFlip(index) {
@@ -401,6 +432,12 @@ async function childFlip(index) {
 async function resolveTurn(ticket,{settleMs=CARD_REVEAL_HOLD_MS}={}) {
   if (!await wait(settleMs, ticket)) return;
   const result = board.resolve(); if (!result) return;
+  if(result.actor==='child'){
+    const pair=round.pairs.find(pair=>pair[0]===result.pairId);
+    const mate=pair.slice(1).find(id=>id!==result.items[0]);
+    analytics.recordTask({items:result.items.map(id=>itemFor(id).name),correctChoice:itemFor(mate).name,match:result.match});
+  }
+  checkpoint();
   let reactionVoiced=false;
   let gestureUsed=null;
   if (result.match) {
@@ -446,7 +483,7 @@ async function resolveTurn(ticket,{settleMs=CARD_REVEAL_HOLD_MS}={}) {
   // Speech and character acting are ambient feedback, not an input lock. The
   // child can continue after this short, consistent result-reading window.
   if(!await wait(RESULT_READ_MS,ticket))return;
-  clearEffects(); board.advance(); renderBoard();
+  clearEffects(); board.advance(); renderBoard();checkpoint();
   // Release input as soon as the closing flip is visually understandable.
   if (!await wait(CARD_CLOSE_MS, ticket)) return;
   if (board.phase === 'complete') { finishRound(); return; }
@@ -574,6 +611,8 @@ function finishRound() {
   else if (theme.id === 'seasons') save.seasonStars = completed;
   else save.dreamStars = completed;
   const xpAward=awardXP(save,{worldId:theme.id,roundId:round.id,mode:options.mode});
+  analytics.complete({xpEarned:xpAward.earned,totalXP:save.xp,score:board.scores.child,pairCount:board.pairCount});
+  save.session=null;
   persist(); audio.effect('finish');
   renderXP(xpAward);
   applyTheme();
@@ -693,7 +732,8 @@ for (const key of ['voice', 'music']) $(`${key}-toggle`).addEventListener('click
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !$('settings-dialog').open && !$('level-dialog').open && !$('theme-dialog').open) { event.preventDefault(); openSettings(); }
 });
-document.addEventListener('visibilitychange', () => { if (document.hidden) picnic.cancelDrag(); updatePause(); });
+document.addEventListener('visibilitychange', () => { analytics.pause(document.hidden);checkpoint();if (document.hidden) picnic.cancelDrag(); updatePause(); });
+window.addEventListener('pagehide',checkpoint);
 window.addEventListener('resize', () => { renderTray(); if (board?.actor !== 'sparky') clearPointer(); });
 document.addEventListener('pointerdown', activateAudio, { once: true });
 document.addEventListener('keydown', activateAudio, { once: true });
@@ -707,6 +747,7 @@ function setupUI() {
   document.querySelectorAll('button[data-play-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.playMode === options.mode)));
 }
 function showSetup() {
+  checkpoint();
   run++; timeline.cancel(); audio.stop(); clearEffects(); picnic.cancelDrag(); busy = false;
   if($('level-dialog').open)$('level-dialog').close();
   sparky.set('idle');
@@ -788,28 +829,35 @@ document.querySelectorAll('[data-theme-choice]').forEach(button => button.addEve
   }
   $('theme-dialog').close();
   if(!await readyScreen(worldAssets(id).map(loadImage)))return;
-  save.theme=id; save.activeRound='1'; persist(); applyTheme(); showSetup();
+  save.session=null;save.theme=id; save.activeRound='1'; persist(); applyTheme(); showSetup();
 }));
 $('unlock-visit').addEventListener('click',async()=>{
   const dialog=$('theme-unlock-dialog');
   const id=$('unlock-visit').dataset.theme||'seasons';dialog.close();
   if(!await readyScreen(worldAssets(id).map(loadImage)))return;
-  save.theme=id;save.activeRound='1';persist();applyTheme();showSetup();
+  save.session=null;save.theme=id;save.activeRound='1';persist();applyTheme();showSetup();
 });
 $('unlock-later').addEventListener('click',()=>{$('theme-unlock-dialog').close();$('play-again').focus({preventScroll:true});});
 document.querySelector('.home-button').addEventListener('click', event => { event.preventDefault(); if ($('settings-dialog').open) $('settings-dialog').close(); showSetup(); });
 applyTheme(); renderXP(); settingsUI(); showSetup();
+// Restore under the one entry screen, avoiding a menu flash before resuming.
+if(save.session){
+  const savedSession=save.session;
+  options=playOptions(savedSession.mode,savedSession.difficulty);
+  await startRound(savedSession.roundId,savedSession);
+}
 // Entry needs only the current scene. Cards and animations warm while the
 // child chooses a mode, without trapping the menu on unrelated assets.
 await finishStartup([
   worldAssets(theme.id)[0], `assets/${theme.cloudAsset}`,
   'assets/loader-sparky.png',
 ]);
+startupFinished=true;
+if(mode==='match'&&board?.actor==='sparky'&&board.phase!=='complete')void sparkyTurn(run);
 const firstRound=roundById(save.activeRound,pack)||pack.rounds[0];
 void preloadBackground([
   ...firstRound.pairs.flatMap(pair=>pair.slice(1)).map(assetURL),
   ...worldAssets(theme.id),
   'assets/cloud-veil-v1.png',
   ...['easy','medium','hard'].map(level=>`assets/difficulty-${level}.svg`),
-  ...Object.keys(GAME_CONTENT.items).map(assetURL),
 ]);

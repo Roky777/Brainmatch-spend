@@ -10,7 +10,7 @@
     "menuGreeting": "Ready to count coins and find equal amounts?",
     "matchPrompt": "Find two cards worth the same amount!",
     "resultMessage": "You found every money match.",
-    "artVersion": "card-art-2"
+    "artVersion": "currency-readable-3"
   },
   "play": {
     "fixedPairs": true,

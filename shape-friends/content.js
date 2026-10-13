@@ -1,3 +1,4 @@
+import {deliveryURL} from './delivery-map.js?v=1';
 const configuredManifest = typeof document === 'undefined' ? '' : document.documentElement.dataset.contentManifest;
 const manifestURL = configuredManifest
   ? new URL(configuredManifest, globalThis.location?.href || import.meta.url)
@@ -101,7 +102,7 @@ export function assetURL(id) {
   const assetBase=new URL(manifest.variant.assetBase||'./assets/',manifestURL);
   const url=new URL(item.asset,assetBase);
   if(manifest.variant.artVersion)url.searchParams.set('v',manifest.variant.artVersion);
-  return url.href;
+  return deliveryURL(url.href);
 }
 export function roundById(id, pack = PACK) { return pack.rounds.find(round => round.id === String(id)); }
 export function cardsFor(round) {

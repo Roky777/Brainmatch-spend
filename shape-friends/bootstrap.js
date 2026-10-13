@@ -3,9 +3,13 @@
 const entry=document.querySelector('script[data-game-variant]');
 const variant=entry.dataset.gameVariant;
 const manifestURL=new URL(`../${variant}/game-content.json`,import.meta.url);
-manifestURL.searchParams.set('v','card-art-2');
+manifestURL.searchParams.set('v','card-art-3');
 document.documentElement.dataset.contentManifest=manifestURL.href;
 try {
+  // Fetch the layout while styles download, not in a second network phase.
+  const shellReady=document.getElementById('app')?null:fetch(new URL('./game-shell.html?v=1',import.meta.url),{signal:AbortSignal.timeout(15000)})
+    .then(response=>{if(!response.ok)throw Error('Game template unavailable');return response.text();})
+    .catch(error=>({error}));
   // Fetch and decode the loader art first, independently of game styles and
   // modules. Reveal the background, cloud and mascot together, never in pieces.
   await Promise.all([...document.querySelectorAll('link[data-game-style]')].filter(link=>!link.href.includes('fonts.googleapis.com')).map(link=>{
@@ -20,16 +24,15 @@ try {
     });
   }));
   if(!document.getElementById('app')) {
-    const response=await fetch(new URL('./game-shell.html?v=1',import.meta.url),{signal:AbortSignal.timeout(15000)});
-    if(!response.ok)throw Error('Game template unavailable');
-    const template=new DOMParser().parseFromString(await response.text(),'text/html');
+    const html=await shellReady;if(html?.error)throw html.error;
+    const template=new DOMParser().parseFromString(html,'text/html');
     template.body.querySelectorAll('script').forEach(script=>script.remove());
     // Retain the original loader: replacing it would restart its artwork.
     const loader=document.getElementById('game-loading');
     template.getElementById('game-loading')?.remove();
     document.body.replaceChildren(loader,...template.body.childNodes);
   }
-  await import('./app.js?v=26');
+  await import('./app.js?v=29');
 } catch(error) {
   const screen=document.getElementById('game-loading');
   screen.querySelector('p').textContent='A little hiccup. Shall we try again?';

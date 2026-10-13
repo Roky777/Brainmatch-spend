@@ -28,6 +28,33 @@ export class MatchBoard {
     this.scores = { child: 0, sparky: 0 };
   }
   get size() { return this.#cards.length; }
+  exportState() {
+    // Save transitions at their committed boundary. Unresolved second picks
+    // restart face-down; resolved scores must never be applied twice.
+    const transition=this.phase==='transition';
+    return {cards:this.#cards.map(card=>({...card})),matched:[...this.matched],
+      open:this.phase==='ready'&&this.actor==='child'?[...this.open]:[],
+      actor:transition&&this.mode!=='practice'&&!this.history.at(-1)?.match
+        ? (this.actor==='child'?'sparky':'child'):this.actor,
+      phase:this.matched.size===this.pairCount?'complete':'ready',
+      attempts:this.attempts,history:this.history.map(turn=>({...turn})),
+      mode:this.mode,scores:{...this.scores}};
+  }
+  static restore(state) {
+    const board=new MatchBoard(state.cards,{shuffled:false,mode:state.mode});
+    const pairs=new Set(state.cards.map(card=>card.pairId));
+    if(!Array.isArray(state.matched)||state.matched.some(id=>!pairs.has(id))||new Set(state.matched).size!==state.matched.length)throw Error('Invalid saved matches');
+    if(!Array.isArray(state.history)||state.history.length>10000||state.history.some(turn=>!['child','sparky'].includes(turn.actor)||typeof turn.match!=='boolean'))throw Error('Invalid saved history');
+    const scores={child:0,sparky:0};
+    for(const turn of state.history)if(turn.match)scores[turn.actor]++;
+    if(scores.child+scores.sparky!==state.matched.length||state.attempts!==state.history.length)throw Error('Invalid saved scores');
+    if(!['child','sparky'].includes(state.actor)||!Array.isArray(state.open)||state.open.length>1||state.open.some(index=>!Number.isInteger(index)||index<0||index>=board.size||state.matched.includes(state.cards[index].pairId)))throw Error('Invalid saved turn');
+    board.matched=new Set(state.matched);board.open=[...state.open];
+    board.scores=scores;board.history=state.history.map(turn=>({...turn}));board.attempts=state.attempts;
+    board.actor=board.mode==='practice'?'child':state.actor;
+    board.phase=board.matched.size===board.pairCount?'complete':'ready';
+    return board;
+  }
   available() { return this.#cards.flatMap((card, index) => this.matched.has(card.pairId) ? [] : [index]); }
   reveal(index, actor) {
     if (actor !== this.actor || this.phase !== 'ready' || !Number.isInteger(index) || index < 0 || index >= this.size || this.open.includes(index)) return null;

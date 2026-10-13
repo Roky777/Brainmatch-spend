@@ -286,7 +286,8 @@ export function spriteFrame(pose, elapsed, reduced=false) {
   return {sheet:clip.sheet,frame:clip.frames.at(-1)};
 }
 export function sparkyArt(){return '<span class="sparky-mini-frame" aria-hidden="true"></span>';}
-import {loadImage,isImageReady} from './loading.js?v=6';
+import {loadImage,isImageReady} from './loading.js?v=7';
+import {deliveryURL} from './delivery-map.js?v=1';
 export class Sparky {
   constructor(element, { seated = false } = {}) {
     this.element=element;this.seated=seated;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -315,23 +316,18 @@ export class Sparky {
     // loadImage retains decoded sheets for the session; don't create another
     // image per sheet here when the welcome screen has already warmed them.
     if(this.seated){
-      const yesNodImage=new Image();
-      yesNodImage.onload=()=>{this.nodYesAvailable=true;};
-      yesNodImage.onerror=()=>{this.nodYesAvailable=false;};
-      yesNodImage.src=SEATED_NOD_YES_SHEET;this.images.push(yesNodImage);
-      const noNodImage=new Image();
-      noNodImage.onload=()=>{this.nodNoAvailable=true;};
-      noNodImage.onerror=()=>{this.nodNoAvailable=false;};
-      noNodImage.src=SEATED_NOD_NO_SHEET;this.images.push(noNodImage);
+      void loadImage(SEATED_NOD_YES_SHEET,{priority:'low'}).then(ok=>{this.nodYesAvailable=ok;});
+      void loadImage(SEATED_NOD_NO_SHEET,{priority:'low'}).then(ok=>{this.nodNoAvailable=ok;});
     }
     return this.playReady;
   }
   tick(now) {
+    if(this.paused){this.timer=0;return;}
     const delta=Math.min(100,now-this.last);this.last=now;
     if(!this.paused&&!document.hidden){
       this.elapsed+=delta*this.rate;
       if(this.duration&&this.elapsed>=this.duration)this.set('idle');
-      this.paint();
+      if(!this.lastDraw||now-this.lastDraw>=32){this.paint();this.lastDraw=now;}
     }
     this.timer=requestAnimationFrame(this.tick);
   }
@@ -347,10 +343,10 @@ export class Sparky {
       if(!isImageReady(source)){
         void loadImage(source);
         if(this.drawn!=='fallback'){
-          this.element.style.setProperty('--seated-sheet',"url('assets/loader-sparky.png')");
+          this.element.style.setProperty('--seated-sheet',`url('${deliveryURL('assets/loader-sparky.png')}')`);
           this.element.style.setProperty('--seated-background-size','100% 100%');
           this.element.style.setProperty('background-position','center','important');
-          this.element.dataset.mouthActive='false';this.drawn='fallback';
+          this.element.dataset.mouthActive='false';this.drawn='fallback';this.activeSource=null;
         }
         return;
       }
@@ -365,8 +361,11 @@ export class Sparky {
       const viseme=mouthActive?mouthVisemeAt(speechTiming?.currentMs??this.elapsed,this.mouthCues):'REST';
       if(this.drawn===`${sheet}:${frame}:${viseme}:${mouthActive}`)return;
       this.drawn=`${sheet}:${frame}:${viseme}:${mouthActive}`;
-      this.element.style.setProperty('--seated-sheet',`url('${source}')`);
-      this.element.style.setProperty('--seated-background-size',`${columns*100}% ${rows*100}%`);
+      if(this.activeSource!==source){
+        this.element.style.setProperty('--seated-sheet',`url('${deliveryURL(source)}')`);
+        this.element.style.setProperty('--seated-background-size',`${columns*100}% ${rows*100}%`);
+        this.activeSource=source;
+      }
       this.element.style.setProperty('background-position',`${frame%columns/(columns-1)*100}% ${Math.floor(frame/columns)/(rows-1)*100}%`,'important');
       const mouthPosition=mouthVisemePosition(viseme);
       this.element.style.setProperty('--mouth-x',`${mouthPosition.x}%`);this.element.style.setProperty('--mouth-y',`${mouthPosition.y}%`);
@@ -386,7 +385,11 @@ export class Sparky {
     this.rate=rate;
     this.element.dataset.pose=this.pose;this.paint();
   }
-  pause(value){this.paused=value;this.last=performance.now();}
+  pause(value){
+    this.paused=value;this.last=performance.now();
+    if(value){cancelAnimationFrame(this.timer);this.timer=0;}
+    else if(!this.timer)this.timer=requestAnimationFrame(this.tick);
+  }
   arrive(){
     if(!this.seated)return 0;
     this.set('arrive',SEATED_ARRIVE_DURATION);return SEATED_ARRIVE_DURATION;

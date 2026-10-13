@@ -1,7 +1,23 @@
-import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=3';
+import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=4';
 import { normalizeXPClaims, XP_ACTIVITY_COUNT, XP_JOURNEY_BONUS, XP_LIMIT, XP_REWARDS } from './xp.js';
+import { MatchBoard } from './engine.js?v=2';
 export const SAVE_KEY = `brainmatch:${VARIANT.id}:v1`;
-export const emptySave = () => ({ version: 5, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpClaims: [], xpJourneyBonus: false });
+export const emptySave = () => ({ version: 6, session:null, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpClaims: [], xpJourneyBonus: false });
+export function sanitizeSession(raw){
+  try{
+    if(!raw||!['dream','seasons','neon'].includes(raw.world)||!['gentle','growing','clever'].includes(raw.difficulty)||!['practice','challenge'].includes(raw.mode))return null;
+    const round=PACK.rounds.find(round=>round.id===raw.roundId);if(!round)return null;
+    const allowed=new Set(round.pairs.flatMap(([pairId,a,b])=>[`${pairId}:${a}`,`${pairId}:${b}`]));
+    const cards=raw.board.cards;
+    if(!Array.isArray(cards)||cards.length>round.pairs.length*2||cards.some(card=>!allowed.has(`${card.pairId}:${card.item}`))||new Set(cards.map(card=>`${card.pairId}:${card.item}`)).size!==cards.length)return null;
+    const board=MatchBoard.restore(raw.board);
+    if(board.mode!==raw.mode)return null;
+    const analytics=raw.analytics;
+    const validAnalytics=analytics&&typeof analytics.runId==='string'&&Number.isFinite(analytics.elapsedMs)&&analytics.elapsedMs>=0&&Array.isArray(analytics.tasks)&&analytics.tasks.length<=10000;
+    const seen=values=>[...new Set(Array.isArray(values)?values.filter(index=>Number.isInteger(index)&&index>=0&&index<cards.length&&!board.matched.has(cards[index].pairId)):[])];
+    return {world:raw.world,roundId:raw.roundId,difficulty:raw.difficulty,mode:raw.mode,board:board.exportState(),memory:seen(raw.memory),guideMemory:seen(raw.guideMemory),analytics:validAnalytics?analytics:null};
+  }catch{return null;}
+}
 export function sanitizeSave(raw) {
   const save = emptySave();
   if (!raw || typeof raw !== 'object') return save;
@@ -38,6 +54,8 @@ export function sanitizeSave(raw) {
   save.voice = raw.voice !== false; save.effects = raw.effects !== false; save.music = raw.music !== false;
   save.activeRound = validRounds.includes(raw.activeRound) ? raw.activeRound : '1';
   save.gardenWater = Number.isInteger(raw.gardenWater) ? Math.max(0, Math.min(3, raw.gardenWater)) : 0;
+  save.session=sanitizeSession(raw.session);
+  if(save.session&&save.session.world!==save.theme)save.session=null;
   return save;
 }
 export function readSave(storage) {

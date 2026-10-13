@@ -1,3 +1,4 @@
+import {deliveryURL} from './delivery-map.js?v=1';
 // One decoded-image cache shared by startup, boards and character animations.
 const images = new Map();
 // Retain decoded elements for the session, not just their completion promises.
@@ -5,7 +6,7 @@ const decodedImages = new Map();
 const DECODED_BUDGET = 64 * 1024 * 1024;
 let decodedBytes=0;
 export const isImageReady=src=>{
-  const url=new URL(src,document.baseURI).href, image=decodedImages.get(url);
+  const url=deliveryURL(src,document.baseURI), image=decodedImages.get(url);
   if(!image)return false;
   decodedImages.delete(url);decodedImages.set(url,image);
   return true;
@@ -21,9 +22,12 @@ function retainImage(url,image){
 }
 export async function preloadBackground(sources) {
   const queue=[...new Set(sources)];
-  await Promise.all(Array.from({length:2},async()=>{
-    while(queue.length){await loadImage(queue.shift());await new Promise(resolve=>setTimeout(resolve,40));}
-  }));
+  // Optional warming must yield to input and stop while the app is hidden.
+  while(queue.length){
+    if(document.hidden){await new Promise(resolve=>setTimeout(resolve,500));continue;}
+    await new Promise(resolve=>globalThis.requestIdleCallback?requestIdleCallback(resolve,{timeout:1000}):setTimeout(resolve,80));
+    await loadImage(queue.shift(),{priority:'low'});
+  }
 }
 export const LOADING_ART=['assets/dream-heaven-v1.webp','assets/sparky-seat-cloud-v1.webp','assets/loader-sparky.png'];
 export const worldAssets=id=>id==='neon'
@@ -59,10 +63,11 @@ async function openingFontsReady() {
     ]);
   } finally { clearTimeout(timer); }
 }
-export function loadImage(src) {
-  const url = new URL(src, document.baseURI).href;
+export function loadImage(src,{priority='high'}={}) {
+  const url = deliveryURL(src, document.baseURI);
   if (!images.has(url)) images.set(url, new Promise(resolve => {
     const image = new Image();
+    image.decoding='async';image.fetchPriority=priority;
     const timeout = setTimeout(() => finish(false), 15000);
     let settled = false;
     function finish(ok) {
