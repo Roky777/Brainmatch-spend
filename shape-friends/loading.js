@@ -1,4 +1,4 @@
-import {deliveryURL} from './delivery-map.js?v=1';
+import {deliveryURL} from './delivery-map.js?v=2';
 // One decoded-image cache shared by startup, boards and character animations.
 const images = new Map();
 // Retain decoded elements for the session, not just their completion promises.

@@ -1,4 +1,4 @@
-import { ITEMS, assetURL } from './content.js?v=4';
+import { ITEMS, assetURL } from './content.js?v=5';
 import { flowerArt } from './garden.js';
 
 // The picnic is a separate interaction surface. It only receives discovered IDs.

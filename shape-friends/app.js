@@ -1,21 +1,21 @@
-import { ITEMS, CATEGORIES, GAME_CONTENT, VARIANT, assetURL, cardsFor, roundById, getWorld, itemFor } from './content.js?v=4';
-import {deliveryURL} from './delivery-map.js?v=1';
+import { ITEMS, CATEGORIES, GAME_CONTENT, VARIANT, assetURL, cardsFor, roundById, getWorld, itemFor } from './content.js?v=5';
+import {deliveryURL} from './delivery-map.js?v=2';
 import { MatchBoard, shuffle } from './engine.js?v=2';
 import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
-import { readSave, writeSave, discover } from './save.js?v=5';
+import { readSave, writeSave, discover } from './save.js?v=7';
 import { createGameAnalytics } from './analytics.js?v=1';
 import { GameAudio } from './audio.js?v=2';
 import { MusicLoop } from './music.js';
-import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=10';
+import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=11';
 import { LivingGarden } from './garden.js';
-import { Picnic } from './picnic.js?v=4';
+import { Picnic } from './picnic.js?v=5';
 import { icon } from './art.js';
 import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
-import { CloudReveal } from './cloud-reveal.js?v=2';
-import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js?v=4';
-import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=7';
+import { CloudReveal } from './cloud-reveal.js?v=3';
+import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js?v=5';
+import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=8';
 
 const $ = id => document.getElementById(id);
 // Board, rim controls and collection drawer form one responsive play object.
@@ -114,7 +114,7 @@ function applyTheme() {
   $('level-objective').textContent = pack.objective;
   $('menu-caption').textContent = VARIANT.menuGreeting||'Welcome, friend! Let’s find matching pairs together.';
   document.querySelector('.xp-rules').textContent=`First clear in each mode · Practice ${XP_REWARDS.practice} · Beat Sparky ${XP_REWARDS.challenge}`;
-  $('play-again').querySelector('span').textContent=difficultyGroups().length?'Next board':GAME_CONTENT.play?.fixedPairs?'Next level':'Play again';
+  $('play-again').querySelector('span').textContent='Play again';
   $('theme-open').setAttribute('aria-label', `Change world. Current world: ${theme.title}`);
   $('theme-open-label').textContent = 'Worlds';
   document.querySelectorAll('[data-theme-choice]').forEach(button => {
@@ -253,9 +253,7 @@ function unveilBoard() {
   cloudReveal.start(focus, hideCloudCurtain);
 }
 function unlocked(id) {
-  if(difficultyGroups().length)return Boolean(roundById(id,pack));
-  const index = pack.rounds.findIndex(item => item.id === id);
-  return index === 0 || themeProgress().includes(pack.rounds[index - 1].id);
+  return Boolean(roundById(id,pack));
 }
 function dockSparkyAtBoard(){
   if(sparkyAnchor.parentElement!==$('play-layout'))$('result-view').after(sparkyAnchor);
@@ -271,11 +269,8 @@ async function startRound(id,resuming=null) {
   if (!roundById(id, pack) || !unlocked(id)) id = '1';
   run++; timeline.cancel(); audio.stop(); clearEffects(); picnic.cancelDrag();
   round = roundById(id, pack);
-  const fixedPairs=GAME_CONTENT.play?.fixedPairs===true;
-  const groupedDifficulties=difficultyGroups().length>0;
-  const level = fixedPairs&&!groupedDifficulties
-    ? {pairs:round.pairs.length,capacity:Math.max(2,Math.ceil(round.pairs.length*.6)),accuracy:.44}
-    : LEVELS[options.level];
+  // Every variant follows the same 4 / 6 / 8 card difficulty contract.
+  const level = LEVELS[options.level];
   const pairPool=GAME_CONTENT.play?.shufflePairs
     ? shuffle(round.pairs.map(pair=>({pair}))).map(entry=>entry.pair)
     : round.pairs;
@@ -305,7 +300,7 @@ async function startRound(id,resuming=null) {
   document.querySelector('.match-area').hidden = false;
   $('app').dataset.playMode = options.mode;
   $('app').dataset.theme = theme.id;
-  $('app').dataset.level = fixedPairs&&!groupedDifficulties?'clever':options.level;
+  $('app').dataset.level = options.level;
   $('app').dataset.pairs = String(level.pairs);
   $('cards').style.setProperty('--columns', level.pairs === 3 ? '3' : level.pairs === 2 ? '2' : '4');
   $('cards').setAttribute('aria-label', `${board.size} memory cards. ${pack.objective}`);
@@ -780,15 +775,16 @@ async function showLevels(playMode) {
       options=playOptions(playMode,group.id);
       $('level-dialog').close();activateAudio();startRound(roundId);
     }));
-  }else if(GAME_CONTENT.play?.fixedPairs){
-    $('level-dialog-title').textContent='Pick a level';
+  }else{
+    $('level-dialog-title').textContent='Choose difficulty';
     const choices=document.querySelector('.difficulty-choices');
-    choices.innerHTML=pack.rounds.map(item=>{
-      const available=unlocked(item.id);
-      return `<button type="button" data-round-choice="${item.id}" ${available?'':'disabled'} aria-label="Level ${item.id}, ${item.title}, ${item.pairs.length*2} cards"><span class="difficulty-face number-level-face" aria-hidden="true">${item.id}</span><span class="difficulty-copy"><strong>Level ${item.id}</strong><small>${item.title} · ${item.pairs.length*2} cards</small></span><span class="difficulty-arrow" aria-hidden="true">›</span></button>`;
+    choices.innerHTML=Object.entries(LEVELS).map(([id,level],index)=>{
+      const name=['Easy','Medium','Hard'][index],face=['easy','medium','hard'][index];
+      return `<button type="button" data-level="${id}" aria-label="${name}, ${level.pairs*2} cards"><img class="difficulty-face" src="assets/difficulty-${face}.svg" alt=""><span class="difficulty-copy"><strong>${name}</strong><small>${level.pairs*2} cards · ${level.pairs} pairs</small></span><span class="difficulty-arrow" aria-hidden="true">›</span></button>`;
     }).join('');
-    choices.querySelectorAll('[data-round-choice]').forEach(button=>button.addEventListener('click',()=>{
-      $('level-dialog').close();activateAudio();startRound(button.dataset.roundChoice);
+    choices.querySelectorAll('[data-level]').forEach(button=>button.addEventListener('click',()=>{
+      options=playOptions(playMode,button.dataset.level);
+      $('level-dialog').close();activateAudio();startRound(save.activeRound);
     }));
   }
   if(!$('level-dialog').open)$('level-dialog').showModal();

@@ -1,4 +1,4 @@
-import { GAME_CONTENT, PACK, WORLDS } from './content.js?v=4';
+import { GAME_CONTENT, PACK, WORLDS } from './content.js?v=5';
 
 export const XP_LIMIT = 200;
 export const XP_REWARDS = Object.freeze(GAME_CONTENT.progression?.xp?.rewards||{ practice: 10, challenge: 6 });

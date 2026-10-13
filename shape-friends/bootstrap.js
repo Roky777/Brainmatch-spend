@@ -32,7 +32,7 @@ try {
     template.getElementById('game-loading')?.remove();
     document.body.replaceChildren(loader,...template.body.childNodes);
   }
-  await import('./app.js?v=29');
+  await import('./app.js?v=31');
 } catch(error) {
   const screen=document.getElementById('game-loading');
   screen.querySelector('p').textContent='A little hiccup. Shall we try again?';

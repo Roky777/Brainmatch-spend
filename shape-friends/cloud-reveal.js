@@ -1,4 +1,4 @@
-import {deliveryURL} from './delivery-map.js?v=1';
+import {deliveryURL} from './delivery-map.js?v=2';
 // A single full-screen cloud field clears from the board outward. The painting
 // is never cut into sliding panels; the feathered opening is drawn each frame.
 export function openingProgress(elapsed, duration = 1500) {

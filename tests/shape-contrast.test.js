@@ -23,6 +23,6 @@ test('neon score, XP and illustrated text cards use explicit compatible surfaces
 test('every variant loads the updated shared contrast stylesheet',async()=>{
   for(const game of ['shape-friends','number-friends','animal-friends','body-sound-match','money-match','clock-match','animal-action-match','shadow-match','plant-match','how-things-work']){
     const html=await readFile(new URL(`${game}/index.html`,root),'utf8');
-    assert.match(html,/prototype\.css\?v=17/);
+    assert.match(html,/prototype\.css\?v=18/);
   }
 });

@@ -286,8 +286,8 @@ export function spriteFrame(pose, elapsed, reduced=false) {
   return {sheet:clip.sheet,frame:clip.frames.at(-1)};
 }
 export function sparkyArt(){return '<span class="sparky-mini-frame" aria-hidden="true"></span>';}
-import {loadImage,isImageReady} from './loading.js?v=7';
-import {deliveryURL} from './delivery-map.js?v=1';
+import {loadImage,isImageReady} from './loading.js?v=8';
+import {deliveryURL} from './delivery-map.js?v=2';
 export class Sparky {
   constructor(element, { seated = false } = {}) {
     this.element=element;this.seated=seated;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');

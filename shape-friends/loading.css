@@ -2,10 +2,10 @@
 .game-loading::before{content:'';position:absolute;inset:-14px;background-position:center;background-size:cover;filter:blur(7px);opacity:0;z-index:-2;transition:opacity .35s ease}
 .game-loading[data-art-ready="true"]::before{background-image:url('assets/dream-heaven-v1.webp');opacity:1}
 .game-loading::after{content:'';position:absolute;inset:0;background:linear-gradient(#e4efff22,#fff8e94d);z-index:-1}
-.loading-mascot{position:relative;width:min(320px,80vw);height:250px;opacity:0;transition:opacity .35s ease}
+.loading-mascot{position:relative;width:min(320px,80vw);aspect-ratio:1.28;height:auto;opacity:0;transition:opacity .35s ease}
 .game-loading[data-art-ready="true"] .loading-mascot{opacity:1;animation:loading-float 4s ease-in-out infinite}
-.loading-cloud{position:absolute;inset:100px 0 0;filter:drop-shadow(0 12px 16px #20397526)}
-.loading-sparky{position:absolute;width:230px;height:230px;left:50%;top:0;transform:translateX(-50%)}
+.loading-cloud{position:absolute;left:0;top:39%;width:100%;aspect-ratio:1200/427;z-index:0;filter:drop-shadow(0 12px 16px #20397526)}
+.loading-sparky{position:absolute;width:82%;aspect-ratio:1;height:auto;left:50%;top:0;z-index:1;transform:translateX(-50%)}
 .game-loading[data-art-ready="true"] .loading-cloud{background:url('assets/sparky-seat-cloud-v1.webp') center/contain no-repeat}
 .game-loading[data-art-ready="true"] .loading-sparky{background:url('assets/loader-sparky.png') center/contain no-repeat}
 .loading-sparkle{position:absolute;top:calc(50% - 130px);font:64px/1 system-ui;color:#ffc943;text-shadow:0 3px 0 #bf852833;transition:opacity .2s}
@@ -15,5 +15,5 @@
 .game-loading progress::-webkit-progress-bar{background:#f8fbff}.game-loading progress::-webkit-progress-value{background:linear-gradient(90deg,#ffc943,#ffe89a);transition:width .2s}
 .game-loading button{border:3px solid #203975;border-radius:16px;background:#ffd65c;color:#203975;padding:12px 24px;font:inherit;cursor:pointer}
 @keyframes loading-float{50%{transform:translateY(-6px)}}
-@media(max-height:500px){.loading-mascot{height:200px;transform:scale(.8)}.game-loading{gap:10px}}
+@media(max-height:500px){.loading-mascot{width:min(240px,60vw)}.game-loading{gap:10px}}
 @media(prefers-reduced-motion:reduce){.loading-mascot,.game-loading::before{animation:none!important;transition:none}}

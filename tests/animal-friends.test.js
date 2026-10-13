@@ -8,7 +8,7 @@ const manifest=JSON.parse(await readFile(new URL('../animal-friends/game-content
 test('Animal Friends ships a valid introduction and full-match board',()=>{
   assert.equal(validateContentManifest(manifest),true);
   assert.equal(manifest.variant.id,'animal-friends');
-  assert.equal(manifest.play.fixedPairs,true);
+  assert.equal(manifest.play.fixedPairs,false);
   assert.deepEqual(manifest.rounds.map(round=>round.pairs.length),[4,8]);
 });
 

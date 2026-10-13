@@ -1,4 +1,4 @@
-import {deliveryURL} from './delivery-map.js?v=1';
+import {deliveryURL} from './delivery-map.js?v=2';
 const configuredManifest = typeof document === 'undefined' ? '' : document.documentElement.dataset.contentManifest;
 const manifestURL = configuredManifest
   ? new URL(configuredManifest, globalThis.location?.href || import.meta.url)

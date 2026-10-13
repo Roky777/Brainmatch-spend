@@ -1,4 +1,4 @@
-import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=4';
+import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=5';
 import { normalizeXPClaims, XP_ACTIVITY_COUNT, XP_JOURNEY_BONUS, XP_LIMIT, XP_REWARDS } from './xp.js';
 import { MatchBoard } from './engine.js?v=2';
 export const SAVE_KEY = `brainmatch:${VARIANT.id}:v1`;
@@ -9,6 +9,8 @@ export function sanitizeSession(raw){
     const round=PACK.rounds.find(round=>round.id===raw.roundId);if(!round)return null;
     const allowed=new Set(round.pairs.flatMap(([pairId,a,b])=>[`${pairId}:${a}`,`${pairId}:${b}`]));
     const cards=raw.board.cards;
+    const expectedCards={gentle:4,growing:6,clever:8}[raw.difficulty];
+    if(cards?.length!==expectedCards)return null;
     if(!Array.isArray(cards)||cards.length>round.pairs.length*2||cards.some(card=>!allowed.has(`${card.pairId}:${card.item}`))||new Set(cards.map(card=>`${card.pairId}:${card.item}`)).size!==cards.length)return null;
     const board=MatchBoard.restore(raw.board);
     if(board.mode!==raw.mode)return null;

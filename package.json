@@ -5,6 +5,6 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "test": "node --test tests/shape-friends.test.js tests/shape-modes.test.js tests/shape-music.test.js tests/shape-voice.test.js tests/shape-xp.test.js tests/sparky-animation.test.js tests/money-match.test.js tests/shape-loading.test.js tests/shape-card-art.test.js tests/shape-saving.test.js tests/shape-analytics.test.js tests/shape-delivery.test.js tests/shape-card-fit.test.js"
+    "test": "node --test tests/shape-friends.test.js tests/shape-modes.test.js tests/shape-music.test.js tests/shape-voice.test.js tests/shape-xp.test.js tests/sparky-animation.test.js tests/money-match.test.js tests/shape-loading.test.js tests/shape-card-art.test.js tests/shape-saving.test.js tests/shape-analytics.test.js tests/shape-delivery.test.js tests/shape-card-fit.test.js tests/shape-difficulty-audit.test.js"
   }
 }
