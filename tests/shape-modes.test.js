@@ -128,10 +128,10 @@ test('result screen uses gentle language, one clear heading and visual action ic
  assert.match(css,/body\[data-theme="seasons"\] #app\[data-mode="result"\] \.result-view\{[\s\S]*?--result-surface/);
  assert.match(css,/body\[data-theme="neon"\] #app\[data-mode="result"\] \.result-view\{[\s\S]*?--result-surface/);
 });
-test('welcome narration and the child card preview finish before the board accepts taps',async()=>{
+test('welcome narration runs alongside the child card preview without delaying taps',async()=>{
  const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
  assert.match(app,/mode = 'match'; busy = enteringPlay/);
- assert.match(app,/const welcomeVoice=speakLine\(sparky,openingLine\);[\s\S]*waitForVoice\(welcomeVoice,ticket\)[\s\S]*previewing=true;[\s\S]*wait\(BOARD_PREVIEW_HOLD_MS,ticket\)[\s\S]*previewing=false;[\s\S]*busy=false;renderBoard\(\)/);
+ assert.match(app,/const welcomeVoice=speakLine\(sparky,openingLine\);[\s\S]*void waitForVoice\(welcomeVoice,ticket\)[\s\S]*previewing=true;[\s\S]*wait\(BOARD_PREVIEW_HOLD_MS,ticket\)[\s\S]*previewing=false;[\s\S]*busy=false;renderBoard\(\)/);
  assert.match(app,/const shown=visible\|\|previewing/,'the opening preview turns every card face-up');
  assert.match(app,/previewing\?board\.previewSnapshot\(\):board\.snapshot\(\)/,'only the opening study moment receives all card identities');
  assert.match(app,/button\.disabled = !canPlay \|\| shown/,'preview cards cannot be selected early');

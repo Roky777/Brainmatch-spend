@@ -286,7 +286,7 @@ export function spriteFrame(pose, elapsed, reduced=false) {
   return {sheet:clip.sheet,frame:clip.frames.at(-1)};
 }
 export function sparkyArt(){return '<span class="sparky-mini-frame" aria-hidden="true"></span>';}
-import {loadImage,isImageReady} from './loading.js?v=5';
+import {loadImage,isImageReady} from './loading.js?v=6';
 export class Sparky {
   constructor(element, { seated = false } = {}) {
     this.element=element;this.seated=seated;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -297,7 +297,7 @@ export class Sparky {
     this.sources=sources;this.images=[];
     // Only idle is needed on the welcome screen. Warm animation sheets when
     // the child actually starts playing, not while the menu is downloading.
-    if(seated){const image=new Image();image.src=SEATED_IDLE_SHEET;this.images.push(image);}
+    if(seated)void loadImage(SEATED_IDLE_SHEET);
     element.replaceChildren();
     if(seated){
       const cleanup=document.createElement('span');cleanup.className='sparky-mouth-cleanup';cleanup.setAttribute('aria-hidden','true');

@@ -1,4 +1,4 @@
-import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=2';
+import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=3';
 import { normalizeXPClaims, XP_ACTIVITY_COUNT, XP_JOURNEY_BONUS, XP_LIMIT, XP_REWARDS } from './xp.js';
 export const SAVE_KEY = `brainmatch:${VARIANT.id}:v1`;
 export const emptySave = () => ({ version: 5, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpClaims: [], xpJourneyBonus: false });

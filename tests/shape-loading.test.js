@@ -26,7 +26,7 @@ test('all variants load the shared loading screen and versioned runtime', async 
     try {html=await readFile(new URL(`../${folder}/index.html`,import.meta.url),'utf8');}
     catch(error){if(error.code==='ENOENT'&&folder!=='shape-friends')continue;throw error;}
     assert.match(html,/loading.css\?v=3/);
-    assert.match(html,/bootstrap.js\?v=4/);
+    assert.match(html,/bootstrap.js\?v=6/);
     assert.match(html,/id="loading-critical"/);
     assert.match(html,/class="loading-mascot"/);
     assert.match(html,/data-art-ready="true"/);
@@ -82,13 +82,13 @@ test('post-entry readiness never creates a loader or blocks the current screen',
 test('entry waits only for the opening scene and warms cards after startup',async()=>{
   const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
   assert.match(app,/Object.keys\(GAME_CONTENT.items\).map\(assetURL\)/);
-  assert.match(app,/flatMap\(worldAssets\)/);assert.match(app,/\.\.\.sparky.sources/);
+  assert.doesNotMatch(app,/\.\.\.sparky.sources/);
   const startup=app.match(/await finishStartup\(\[([\s\S]*?)\]\)/)[1];
   assert.doesNotMatch(startup,/GAME_CONTENT.items|sparky.sources|flatMap/);
   assert.match(app,/void preloadBackground/);
   const loader=await readFile(new URL('../shape-friends/loading.js',import.meta.url),'utf8');
   assert.doesNotMatch(loader,/document.createElement\('section'\)/);
-  assert.match(loader,/decodedImages.set\(url,image\)/);
+  assert.match(loader,/retainImage\(url,image\)/);
   const css=await readFile(new URL('../shape-friends/loading.css',import.meta.url),'utf8');
   assert.match(css,/data-art-ready="true"\] .loading-cloud/);
   assert.match(css,/data-art-ready="true"\] .loading-sparky/);
@@ -121,4 +121,29 @@ test('variant boot skips external font blocking and fetches a lightweight layout
   assert.match(bootstrap,/game-shell.html\?v=1/);
   const shell=await readFile(new URL('../shape-friends/game-shell.html',import.meta.url),'utf8');
   assert.ok(Buffer.byteLength(shell)<30000);assert.doesNotMatch(shell,/data:image|id="game-loading"/);
+});
+
+test('large decoded animation sheets are evicted instead of retaining unbounded memory',async()=>{
+  const previousImage=globalThis.Image,previousDocument=globalThis.document;
+  globalThis.document={baseURI:'http://localhost/memory-test/'};
+  globalThis.Image=class {
+    naturalWidth=4096;naturalHeight=4096;
+    set src(value){queueMicrotask(()=>this.onload());}
+    async decode(){}
+  };
+  try{
+    const {loadImage,isImageReady}=await import('../shape-friends/loading.js');
+    await loadImage('large-one.png');await loadImage('large-two.png');
+    assert.equal(isImageReady('large-one.png'),false);
+    assert.equal(isImageReady('large-two.png'),true);
+  }finally{globalThis.Image=previousImage;globalThis.document=previousDocument;}
+});
+
+test('mode and world menus do not wait for unrelated pictures',async()=>{
+  const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
+  assert.doesNotMatch(app.match(/async function showLevels[\s\S]*?options =/)[0],/await readyScreen/);
+  assert.doesNotMatch(app.match(/async function openThemes[\s\S]*?\n\}/)[0],/await readyScreen/);
+  const content=await readFile(new URL('../shape-friends/content.js',import.meta.url),'utf8');
+  assert.doesNotMatch(content,/^import .*with \{/m);
+  assert.match(content,/AbortSignal.timeout\(12000\)/);
 });

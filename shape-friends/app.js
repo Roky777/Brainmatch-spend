@@ -1,19 +1,19 @@
-import { ITEMS, CATEGORIES, GAME_CONTENT, VARIANT, assetURL, cardsFor, roundById, getWorld, itemFor } from './content.js?v=2';
+import { ITEMS, CATEGORIES, GAME_CONTENT, VARIANT, assetURL, cardsFor, roundById, getWorld, itemFor } from './content.js?v=3';
 import { MatchBoard, shuffle } from './engine.js';
 import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
-import { readSave, writeSave, discover } from './save.js?v=2';
-import { GameAudio } from './audio.js';
+import { readSave, writeSave, discover } from './save.js?v=3';
+import { GameAudio } from './audio.js?v=2';
 import { MusicLoop } from './music.js';
-import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=8';
+import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=9';
 import { LivingGarden } from './garden.js';
-import { Picnic } from './picnic.js?v=2';
+import { Picnic } from './picnic.js?v=3';
 import { icon } from './art.js';
 import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
 import { CloudReveal } from './cloud-reveal.js';
-import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js?v=2';
-import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=5';
+import { awardXP, XP_LIMIT, XP_REWARDS } from './xp.js?v=3';
+import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=6';
 
 const $ = id => document.getElementById(id);
 // Board, rim controls and collection drawer form one responsive play object.
@@ -299,12 +299,11 @@ async function startRound(id) {
     : dialogue.next(options.mode);
   if(enteringPlay){
     $('caption').textContent=openingLine;
-    const ticket=run,arrivalMs=sparky.arrive();
+    const ticket=run;sparky.arrive();
     void (async()=>{
-      if(!await wait(arrivalMs,ticket)||mode!=='match')return;
       const welcomeVoice=speakLine(sparky,openingLine);
-      if(!await waitForVoice(welcomeVoice,ticket)||mode!=='match')return;
-      $('caption').textContent='Getting your pictures ready…';
+      // Run narration alongside the preview; slow voice must not lock taps.
+      void waitForVoice(welcomeVoice,ticket);
       const loadedArt=await artReady;
       if(ticket!==run||mode!=='match')return;
       if(loadedArt.some(ok=>!ok)){
@@ -721,7 +720,7 @@ function showSetup() {
   document.querySelector('button[data-play-mode="practice"]').focus({ preventScroll:true });
 }
 async function showLevels(playMode) {
-  if(!await readyScreen(['easy','medium','hard'].map(level=>loadImage(`assets/difficulty-${level}.svg`))))return;
+  void preloadBackground(['easy','medium','hard'].map(level=>`assets/difficulty-${level}.svg`));
   options = playOptions(playMode, options.level); setupUI();
   $('level-mode-label').textContent = options.mode === 'practice' ? 'Practice' : 'Beat Sparky';
   const groups=difficultyGroups();
@@ -771,7 +770,7 @@ document.querySelectorAll('button[data-level]').forEach(button => button.addEven
 $('play-again').addEventListener('click', () => { activateAudio(); startRound(nextRoundId()); });
 $('choose-game').addEventListener('click', showSetup);
 async function openThemes() {
-  if(!await readyScreen(['dream','seasons','neon'].flatMap(worldAssets).map(loadImage)))return;
+  // Open immediately; only the chosen world's artwork needs to be fetched.
   applyTheme(); if (!$('theme-dialog').open) $('theme-dialog').showModal();
 }
 $('theme-open').addEventListener('click', openThemes);
@@ -812,7 +811,5 @@ void preloadBackground([
   ...worldAssets(theme.id),
   'assets/cloud-veil-v1.png',
   ...['easy','medium','hard'].map(level=>`assets/difficulty-${level}.svg`),
-  ...sparky.sources,
   ...Object.keys(GAME_CONTENT.items).map(assetURL),
-  ...['dream','seasons','neon'].flatMap(worldAssets),
 ]);

@@ -1,15 +1,14 @@
-import defaultManifest from './game-content.json' with { type: 'json' };
-
 const configuredManifest = typeof document === 'undefined' ? '' : document.documentElement.dataset.contentManifest;
 const manifestURL = configuredManifest
   ? new URL(configuredManifest, globalThis.location?.href || import.meta.url)
   : new URL('./game-content.json', import.meta.url);
-const manifest = configuredManifest
-  ? await fetch(manifestURL).then(response => {
+// Fetch JSON in browsers rather than requiring JSON-module syntax support.
+const manifest = typeof document !== 'undefined'
+  ? await fetch(manifestURL,{signal:AbortSignal.timeout(12000)}).then(response => {
       if(!response.ok)throw new Error(`Could not load game content (${response.status}).`);
       return response.json();
     })
-  : defaultManifest;
+  : (await import('./game-content.json', {with:{type:'json'}})).default;
 
 export function validateContentManifest(input) {
   if(!input||typeof input!=='object')throw new Error('Game content must be a JSON object.');

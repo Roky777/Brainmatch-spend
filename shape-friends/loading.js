@@ -2,7 +2,23 @@
 const images = new Map();
 // Retain decoded elements for the session, not just their completion promises.
 const decodedImages = new Map();
-export const isImageReady=src=>decodedImages.has(new URL(src,document.baseURI).href);
+const DECODED_BUDGET = 64 * 1024 * 1024;
+let decodedBytes=0;
+export const isImageReady=src=>{
+  const url=new URL(src,document.baseURI).href, image=decodedImages.get(url);
+  if(!image)return false;
+  decodedImages.delete(url);decodedImages.set(url,image);
+  return true;
+};
+function retainImage(url,image){
+  decodedImages.set(url,image);
+  decodedBytes+=image.naturalWidth*(image.naturalHeight||image.naturalWidth)*4;
+  while(decodedBytes>DECODED_BUDGET&&decodedImages.size>1){
+    const oldest=decodedImages.keys().next().value,previous=decodedImages.get(oldest);
+    decodedBytes-=previous.naturalWidth*(previous.naturalHeight||previous.naturalWidth)*4;
+    decodedImages.delete(oldest);images.delete(oldest);
+  }
+}
 export async function preloadBackground(sources) {
   const queue=[...new Set(sources)];
   await Promise.all(Array.from({length:2},async()=>{
@@ -53,7 +69,7 @@ export function loadImage(src) {
       if (settled) return;
       settled = true; clearTimeout(timeout);
       if (!ok) images.delete(url); // Allow a later visit to retry a failed request.
-      else decodedImages.set(url,image);
+      else retainImage(url,image);
       resolve(ok);
     }
     image.onload = async () => {

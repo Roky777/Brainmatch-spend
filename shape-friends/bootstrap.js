@@ -12,7 +12,8 @@ try {
     if(link.sheet)return Promise.resolve();
     return new Promise((resolve,reject)=>{
       const optional=link.href.includes('fonts.googleapis.com');
-      const timer=setTimeout(()=>finish(false),15000);
+      // Slow styles may finish applying later; they must not hold JS startup.
+      const timer=setTimeout(()=>finish(true),3000);
       const finish=ok=>{clearTimeout(timer);link.removeEventListener('load',loaded);link.removeEventListener('error',failed);ok||optional?resolve():reject(Error('Game styles unavailable'));};
       const loaded=()=>finish(true),failed=()=>finish(false);
       link.addEventListener('load',loaded,{once:true});link.addEventListener('error',failed,{once:true});
@@ -28,7 +29,7 @@ try {
     template.getElementById('game-loading')?.remove();
     document.body.replaceChildren(loader,...template.body.childNodes);
   }
-  await import('./app.js?v=24');
+  await import('./app.js?v=26');
 } catch(error) {
   const screen=document.getElementById('game-loading');
   screen.querySelector('p').textContent='A little hiccup. Shall we try again?';

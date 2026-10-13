@@ -62,7 +62,8 @@ export class GameAudio {
   stop() {
     const finish=this.finishSpeech,clip=this.clip;
     this.finishSpeech=null;this.generation++;
-    try { this.engine?.cancel(); clip?.pause(); } catch {}
+    try { this.engine?.cancel(); } catch {}
+    try { clip?.pause(); } catch {}
     this.clip=null;finish?.();
   }
   say(text, {onStart=()=>{},onEnd=()=>{}}={}) {
@@ -73,8 +74,17 @@ export class GameAudio {
     if (!this.settings.voice) { signalStart(null);settle({started:false,reason:'muted'}); return completion; }
     const generation = this.generation;
     let attempted = false, active = false, finished = false, clip = null;
+    const silenceClip = () => {
+      if(!clip)return;
+      // pause alone can leave a pending play() alive on slow connections.
+      // Unload its source too, and never touch the newer request's element.
+      try { clip.pause(); } catch {}
+      try { clip.currentTime=0; } catch {}
+      try { clip.removeAttribute?.('src'); clip.load?.(); } catch {}
+    };
     const begin = () => {
-      if(active||finished||generation!==this.generation||!this.settings.voice)return;
+      if(finished||generation!==this.generation||!this.settings.voice){silenceClip();return;}
+      if(active)return;
       active=true;
       const measured=Number(clip?.duration)*1000;
       const fallbackDuration=Math.max(700,text.length*72),startedAt=performance.now();
@@ -93,6 +103,7 @@ export class GameAudio {
     };
     const finish = () => {
       if(finished)return;finished=true;
+      silenceClip();
       if(active)onEnd();
       if(!startSettled){startSettled=true;signalStart(null);}
       if(this.finishSpeech===finish)this.finishSpeech=null;
@@ -103,6 +114,8 @@ export class GameAudio {
     const fallback = () => {
       if (attempted || generation !== this.generation || !this.settings.voice) return;
       attempted = true;
+      // The media request must be silent before any device-voice fallback.
+      silenceClip();
       // The supplied Sparky recordings are the character's identity. Missing
       // optional lines stay caption-only instead of changing to a system voice.
       if (!this.deviceFallback) { finish(); return; }
