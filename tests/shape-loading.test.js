@@ -26,7 +26,7 @@ test('all variants load the shared loading screen and versioned runtime', async 
     try {html=await readFile(new URL(`../${folder}/index.html`,import.meta.url),'utf8');}
     catch(error){if(error.code==='ENOENT'&&folder!=='shape-friends')continue;throw error;}
     assert.match(html,/loading.css\?v=3/);
-    assert.match(html,/bootstrap.js\?v=3/);
+    assert.match(html,/bootstrap.js\?v=4/);
     assert.match(html,/id="loading-critical"/);
     assert.match(html,/class="loading-mascot"/);
     assert.match(html,/data-art-ready="true"/);
@@ -40,10 +40,11 @@ test('all variants load the shared loading screen and versioned runtime', async 
 });
 test('startup gives assets time to load and bounds external font waiting', async () => {
   const loader=await readFile(new URL('../shape-friends/loading.js',import.meta.url),'utf8');
-  assert.match(loader,/STARTUP_MIN_MS = 1200/);
+  assert.match(loader,/STARTUP_MIN_MS = 0/);
+  assert.match(loader,/STARTUP_MAX_MS = 3500/);
   assert.match(loader,/Promise.all\(\[delay\(STARTUP_MIN_MS\), openingFontsReady\(\)\]\)/);
   assert.match(loader,/setTimeout\(resolve, 2500\)/);
-  assert.match(loader,/await welcomeReady/);
+  assert.match(loader,/await Promise.race/);
   assert.match(loader,/app.removeAttribute\('aria-busy'\)/);
 });
 test('opening screen remains blocked until the startup hold completes', async () => {
@@ -78,10 +79,13 @@ test('post-entry readiness never creates a loader or blocks the current screen',
     assert.equal(removed,false);assert.equal(app.inert,false);assert.equal(progress.value,0);
   } finally {globalThis.document=previous;}
 });
-test('entry preloads all cards, worlds and character sheets; mascot reveals atomically',async()=>{
+test('entry waits only for the opening scene and warms cards after startup',async()=>{
   const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
   assert.match(app,/Object.keys\(GAME_CONTENT.items\).map\(assetURL\)/);
   assert.match(app,/flatMap\(worldAssets\)/);assert.match(app,/\.\.\.sparky.sources/);
+  const startup=app.match(/await finishStartup\(\[([\s\S]*?)\]\)/)[1];
+  assert.doesNotMatch(startup,/GAME_CONTENT.items|sparky.sources|flatMap/);
+  assert.match(app,/void preloadBackground/);
   const loader=await readFile(new URL('../shape-friends/loading.js',import.meta.url),'utf8');
   assert.doesNotMatch(loader,/document.createElement\('section'\)/);
   assert.match(loader,/decodedImages.set\(url,image\)/);
@@ -96,4 +100,25 @@ test('repository export creates direct game entrypoints instead of redirect link
   catch(error){if(error.code==='ENOENT')return;throw error;}
   assert.match(source,/writeFile\(join\(target,'index.html'\),entry\)/);
   assert.match(source,/<base href="\.\/shape-friends\/">/);
+});
+test('missing startup artwork does not trap the menu',async()=>{
+  const previousDocument=globalThis.document,previousImage=globalThis.Image,previousStyle=globalThis.getComputedStyle;
+  const app={inert:false,setAttribute(){},removeAttribute(){}};
+  let removed=false;
+  const screen={querySelector:()=>null,remove(){removed=true;}};
+  globalThis.document={baseURI:'http://localhost/',body:{},getElementById:id=>id==='app'?app:screen,querySelector:()=>null};
+  globalThis.getComputedStyle=()=>({backgroundImage:'none'});
+  globalThis.Image=class {set src(value){queueMicrotask(()=>this.onerror());}};
+  try{
+    const {finishStartup}=await import('../shape-friends/loading.js');
+    await finishStartup(['missing-startup-picture.png']);
+    assert.equal(app.inert,false);assert.equal(removed,true);
+  }finally{globalThis.document=previousDocument;globalThis.Image=previousImage;globalThis.getComputedStyle=previousStyle;}
+});
+test('variant boot skips external font blocking and fetches a lightweight layout',async()=>{
+  const bootstrap=await readFile(new URL('../shape-friends/bootstrap.js',import.meta.url),'utf8');
+  assert.match(bootstrap,/filter\(link=>!link.href.includes\('fonts.googleapis.com'\)\)/);
+  assert.match(bootstrap,/game-shell.html\?v=1/);
+  const shell=await readFile(new URL('../shape-friends/game-shell.html',import.meta.url),'utf8');
+  assert.ok(Buffer.byteLength(shell)<30000);assert.doesNotMatch(shell,/data:image|id="game-loading"/);
 });

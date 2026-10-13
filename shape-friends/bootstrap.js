@@ -8,9 +8,7 @@ document.documentElement.dataset.contentManifest=manifestURL.href;
 try {
   // Fetch and decode the loader art first, independently of game styles and
   // modules. Reveal the background, cloud and mascot together, never in pieces.
-  const {warmLoadingArt}=await import('./loading.js?v=4');
-  void warmLoadingArt();
-  await Promise.all([...document.querySelectorAll('link[data-game-style]')].map(link=>{
+  await Promise.all([...document.querySelectorAll('link[data-game-style]')].filter(link=>!link.href.includes('fonts.googleapis.com')).map(link=>{
     if(link.sheet)return Promise.resolve();
     return new Promise((resolve,reject)=>{
       const optional=link.href.includes('fonts.googleapis.com');
@@ -21,7 +19,7 @@ try {
     });
   }));
   if(!document.getElementById('app')) {
-    const response=await fetch(new URL('./index.html',import.meta.url),{signal:AbortSignal.timeout(15000)});
+    const response=await fetch(new URL('./game-shell.html?v=1',import.meta.url),{signal:AbortSignal.timeout(15000)});
     if(!response.ok)throw Error('Game template unavailable');
     const template=new DOMParser().parseFromString(await response.text(),'text/html');
     template.body.querySelectorAll('script').forEach(script=>script.remove());
@@ -30,7 +28,7 @@ try {
     template.getElementById('game-loading')?.remove();
     document.body.replaceChildren(loader,...template.body.childNodes);
   }
-  await import('./app.js?v=23');
+  await import('./app.js?v=24');
 } catch(error) {
   const screen=document.getElementById('game-loading');
   screen.querySelector('p').textContent='A little hiccup. Shall we try again?';

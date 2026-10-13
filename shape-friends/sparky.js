@@ -286,7 +286,7 @@ export function spriteFrame(pose, elapsed, reduced=false) {
   return {sheet:clip.sheet,frame:clip.frames.at(-1)};
 }
 export function sparkyArt(){return '<span class="sparky-mini-frame" aria-hidden="true"></span>';}
-import {loadImage} from './loading.js?v=4';
+import {loadImage,isImageReady} from './loading.js?v=5';
 export class Sparky {
   constructor(element, { seated = false } = {}) {
     this.element=element;this.seated=seated;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -310,9 +310,8 @@ export class Sparky {
   preparePlay() {
     if(this.playPrepared)return this.playReady;
     this.playPrepared=true;
-    this.playReady=Promise.all(this.sources.map(loadImage)).then(results=>{
-      const ok=results.every(Boolean);if(!ok)this.playPrepared=false;return ok;
-    });
+    // Optional reactions are warmed in the background and never gate a board.
+    this.playReady=Promise.resolve(true);
     // loadImage retains decoded sheets for the session; don't create another
     // image per sheet here when the welcome screen has already warmed them.
     if(this.seated){
@@ -343,6 +342,18 @@ export class Sparky {
       const sheet=talking?'wall-talk':arriving?'wall-arrive':observing?`wall-observe-${this.observeVariant}`:wandPicking?`wall-wand-${this.wandVariant}`:joyful?'wall-pair-joy':reassuring?'wall-gentle-miss':result?'wall-result-reaction':noddingYes?'wall-nod-yes':noddingNo?'wall-nod-no':'wall-idle-formal';
       const source=talking?SEATED_TALK_SHEET:arriving?SEATED_ARRIVE_SHEET:observing?seatedObserveSource(this.observeVariant,frame):wandPicking?seatedWandSource(this.wandVariant):joyful?SEATED_JOY_SHEET:reassuring?SEATED_MISS_SHEET:result?SEATED_RESULT_SHEET:noddingYes?SEATED_NOD_YES_SHEET:noddingNo?SEATED_NOD_NO_SHEET:SEATED_IDLE_SHEET;
       const columns=arriving||result?5:wandPicking?6:4,rows=nodding?3:4;
+      // Hold a complete seated still while an optional sheet arrives. Never
+      // switch to a blank background and never show a loading overlay.
+      if(!isImageReady(source)){
+        void loadImage(source);
+        if(this.drawn!=='fallback'){
+          this.element.style.setProperty('--seated-sheet',"url('assets/loader-sparky.png')");
+          this.element.style.setProperty('--seated-background-size','100% 100%');
+          this.element.style.setProperty('background-position','center','important');
+          this.element.dataset.mouthActive='false';this.drawn='fallback';
+        }
+        return;
+      }
       // Lip sync is independent from the body pose: Sparky also speaks while
       // celebrating, reassuring and holding the result pose. Reduced-motion
       // freezes large body movement but keeps these slower speech shapes.

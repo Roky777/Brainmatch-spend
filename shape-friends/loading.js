@@ -2,6 +2,13 @@
 const images = new Map();
 // Retain decoded elements for the session, not just their completion promises.
 const decodedImages = new Map();
+export const isImageReady=src=>decodedImages.has(new URL(src,document.baseURI).href);
+export async function preloadBackground(sources) {
+  const queue=[...new Set(sources)];
+  await Promise.all(Array.from({length:2},async()=>{
+    while(queue.length){await loadImage(queue.shift());await new Promise(resolve=>setTimeout(resolve,40));}
+  }));
+}
 export const LOADING_ART=['assets/dream-heaven-v1.webp','assets/sparky-seat-cloud-v1.webp','assets/loader-sparky.png'];
 export const worldAssets=id=>id==='neon'
   ? ['assets/neon-space-bg-v3.webp','assets/neon-card-back-v1.webp','assets/neon-card-front-v1.webp','assets/neon-sparky-cloud-v1.webp']
@@ -21,7 +28,8 @@ export async function warmLoadingArt() {
 }
 // Keep the welcome screen readable on cached visits, without delaying slow
 // connections further: this runs alongside actual asset loading.
-export const STARTUP_MIN_MS = 1200;
+export const STARTUP_MIN_MS = 0;
+export const STARTUP_MAX_MS = 3500;
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function openingFontsReady() {
   if (!document.fonts?.load) return;
@@ -63,7 +71,7 @@ export async function finishStartup(extra = []) {
   app.inert = true;
   app.setAttribute('aria-busy', 'true');
   const welcomeReady = Promise.all([delay(STARTUP_MIN_MS), openingFontsReady()]);
-  const urls = new Set([...LOADING_ART,...extra]);
+  const urls = new Set(extra);
   for (const element of [document.body, app, document.querySelector('.garden-background'), document.querySelector('.theme-open-picture')]) {
     if (!element) continue;
     for (const match of getComputedStyle(element).backgroundImage.matchAll(/url\(["']?([^"')]+)["']?\)/g)) urls.add(match[1]);
@@ -72,23 +80,17 @@ export async function finishStartup(extra = []) {
   const progress = screen?.querySelector('progress');
   if (progress) progress.max = urls.size || 1;
   // Bounded requests keep large card sets from starving the welcome artwork.
-  await warmLoadingArt();
   const queue=[...urls],results=[];
-  await Promise.all(Array.from({length:Math.min(6,queue.length)},async()=>{
+  const assetsReady=Promise.all(Array.from({length:Math.min(4,queue.length)},async()=>{
     while(queue.length){
       const ok=await loadImage(queue.shift());results.push(ok);
       if(progress)progress.value=++done;
     }
   }));
-  await welcomeReady;
-  if (results.some(ok => !ok) && screen) {
-    screen.querySelector('p').textContent = 'Some pictures could not load. Check your connection and try again.';
-    const retry = document.createElement('button');
-    retry.textContent = 'Try again';
-    retry.onclick = () => location.reload();
-    screen.append(retry);
-    return;
-  }
+  // Slow/missing artwork uses the existing scene fallback, never a trapped menu.
+  let deadline;
+  await Promise.race([Promise.all([assetsReady,welcomeReady]),new Promise(resolve=>{deadline=setTimeout(resolve,STARTUP_MAX_MS);})]);
+  clearTimeout(deadline);
   app.inert = false;
   app.removeAttribute('aria-busy');
   screen?.remove();

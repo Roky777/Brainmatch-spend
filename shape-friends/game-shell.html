@@ -1,0 +1,80 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body>
+  
+  <div class="garden-background" aria-hidden="true"></div>
+  <div id="cloud-curtain" class="cloud-curtain" aria-hidden="true" hidden><canvas id="cloud-veil"></canvas></div>
+  <div class="portrait-gate" role="status"><span class="portrait-gate__phone" aria-hidden="true"></span><h2>Turn your phone upright</h2><p>The dream plays best in portrait.</p></div>
+  <main id="app" data-mode="setup" inert>
+    <h1 class="sr-only">Shape Friends</h1>
+    <section id="setup-view" class="setup-view" aria-labelledby="setup-title" data-step="menu">
+      <button id="theme-open" class="theme-open" type="button" aria-label="Change world"><span class="theme-open-picture" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="theme-open-label">Dream</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+      <aside class="menu-companion" aria-label="Sparky welcomes you"><button id="menu-sparky" type="button" aria-label="Say hello to Sparky"></button><p id="menu-caption">Welcome, friend! Let’s find shape pairs together.</p></aside>
+      <div class="menu-content"><h2 id="setup-title">Shape<br>Friends<span aria-hidden="true">✦</span></h2><p class="setup-kicker">A little shape adventure</p>
+      <aside id="xp-meter" class="xp-meter" role="status" aria-label="0 of 200 XP earned"><span class="xp-meter-head"><span class="xp-kicker"><i aria-hidden="true">✦</i> XP journey</span><strong><span id="xp-value">0</span><small>/ 200</small></strong></span><i class="xp-track" aria-hidden="true"><b id="xp-progress"></b></i><small class="xp-rules">First clear in each mode · Practice 10 · Beat Sparky 6</small></aside>
+      <div id="mode-panel"><p class="mode-prompt">Choose how to play</p>
+      <div class="mode-choices" role="group" aria-label="Choose how to play">
+        <button type="button" data-play-mode="practice" aria-pressed="true"><strong>Practice <i aria-hidden="true">→</i></strong><span>You play. No rush.</span></button>
+        <button type="button" data-play-mode="challenge" aria-pressed="false"><strong>Beat Sparky <i aria-hidden="true">→</i></strong><span>Take turns and find pairs.</span></button>
+      </div>
+      </div></div>
+    </section>
+    <nav class="scene-controls" aria-label="Game controls">
+      <a class="home-button toy-button" href="../" aria-label="Choose a game"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="m6 23 18-16 18 16-4 1v18H10V24Z" fill="#f5a658"/><path d="M18 42V28h12v14" fill="#fff4c8"/><path d="m4 23 20-18 20 18" fill="none"/></svg></a>
+      <button id="visit-picnic" class="toy-button picnic-shortcut" type="button" aria-label="Visit our picnic" hidden><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 20h30l-4 23H13L9 20Z" fill="#efab56"/><path d="M15 20Q16 4 24 4T33 20M7 20h34M18 26v11m6-11v11m6-11v11" fill="none"/></svg></button>
+      <button id="settings-open" class="toy-button pause-button" type="button" aria-label="Pause and sound settings"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="12" y="9" width="8" height="30" rx="3" fill="#66b8ad"/><rect x="28" y="9" width="8" height="30" rx="3" fill="#66b8ad"/></svg></button>
+    </nav>
+    <aside id="rotate-tip" class="rotate-tip" aria-label="Screen orientation suggestion">
+      <span aria-hidden="true">↻</span><p>Turn your screen for a bigger adventure</p>
+      <button id="dismiss-rotate" type="button" aria-label="Dismiss rotation suggestion">×</button>
+    </aside>
+    <div class="chapter-header sr-only"><span id="chapter-number">01</span><span id="chapter-kicker">A picnic with Sparky</span><h2 id="chapter-title">Hello, shape friends!</h2></div>
+    <section id="play-layout" class="play-layout" hidden aria-label="Play a round">
+      <section id="result-view" class="result-view" hidden aria-labelledby="result-title" aria-describedby="result-message">
+        <span class="result-character-space" aria-hidden="true"></span>
+        <h2 id="result-title">You did it!</h2>
+        <p id="result-message" class="result-message">You remembered every shape friend.</p>
+        <div class="result-summary"><div id="result-score" class="result-score" role="status"></div><div id="result-xp" class="result-xp" role="status" aria-label="XP earned"><span class="result-xp-mark" aria-hidden="true">✦</span><span><strong id="result-xp-earned">+10 XP</strong><small><span id="result-xp-total">10</span> / 200 XP</small></span></div></div>
+        <div class="result-actions">
+          <button id="play-again" type="button" class="primary-button"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M25 11a11 11 0 1 0 1 11"/><path d="M25 4v8h-8"/></svg><span>Play again</span></button>
+          <button id="choose-game" type="button" class="secondary-button"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="6" width="9" height="9" rx="2"/><rect x="18" y="6" width="9" height="9" rx="2"/><rect x="5" y="18" width="9" height="9" rx="2"/><rect x="18" y="18" width="9" height="9" rx="2"/></svg><span>Choose a game</span></button>
+        </div>
+      </section>
+      <span class="sparky-anchor"><img loading="lazy" decoding="async" class="sparky-seat-cloud" src="assets/sparky-seat-cloud-v1.webp" alt=""><button id="sparky" class="sparky-sprite" type="button" aria-label="Say hello to Sparky, your flame friend"></button></span>
+      <div class="match-area">
+        <div class="turn-banner"><div id="turn-chip" class="turn-chip"><span class="turn-light" aria-hidden="true"></span><strong>Your turn!</strong></div><div id="pair-progress" class="pair-progress" aria-label="0 of 4 pairs found"></div><span id="match-score" hidden></span></div>
+        <div class="board-wrap"><div id="cards" class="memory-board" role="group" aria-label="Eight memory cards. Match things with the same shape."></div><div id="pair-celebration" class="pair-celebration" hidden aria-hidden="true"></div></div>
+        <button id="hint" class="hint-button toy-button" type="button" aria-label="Help me remember"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 32c0-5-8-8-8-16a15 15 0 0 1 30 0c0 8-8 11-8 16Z" fill="#ffd45b"/><path d="M17 33h14v6H17Zm3 7h8v4h-8Z" fill="#89b6c2"/><path d="m21 14 5 5-4 6m2-19V2M4 11l-3-1m43 1 3-1" fill="none"/></svg><span>Hint</span></button>
+      </div>
+      <aside class="companion" aria-label="Sparky, your playing partner">
+        <div class="speech-bubble"><p id="caption" role="status" aria-live="polite">Welcome, friend! Let’s find shape pairs together.</p><button id="repeat" type="button" aria-label="Hear Sparky again"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4V9Zm13-1q4 4 0 8"/></svg></button></div>
+        <div class="sparky-shadow" aria-hidden="true"></div>
+      </aside>
+    </section>
+    <section id="discovery-strip" class="discovery-basket" aria-label="Our picnic discoveries">
+      <span class="tray-label" aria-hidden="true">Our discoveries</span>
+      <p id="discovery-count" class="sr-only">Let’s fill our picnic!</p>
+      <button id="picnic-basket" class="basket-button" type="button" aria-label="Play with our picnic discoveries">
+        <svg viewBox="0 0 220 180" aria-hidden="true"><defs><linearGradient id="wicker" x2="0" y2="1"><stop stop-color="#f9c371"/><stop offset="1" stop-color="#da9246"/></linearGradient></defs><ellipse cx="110" cy="166" rx="89" ry="11" fill="#487b4d" opacity=".19"/><path d="M51 69C50 1 170 1 169 69" fill="none" stroke="#76552f" stroke-width="18"/><path d="M51 68C51 6 169 6 169 68" fill="none" stroke="#e6a556" stroke-width="10"/><path d="m24 75 14 74q3 13 18 14h108q15-1 18-14l14-74Z" fill="url(#wicker)" stroke="#76552f" stroke-width="5"/><path d="M36 100h147M40 124h139M45 146h130M65 82l5 77m40-77v77m45-77-5 77" fill="none" stroke="#be7c3d" stroke-width="5"/><path d="M24 70h172v20H24Z" fill="#f6c671" stroke="#76552f" stroke-width="5" stroke-linejoin="round"/><path d="m42 64 33 5 16 34-22-7-12 20-9-30Z" fill="#f47876" stroke="#ac5a45" stroke-width="3"/><path d="m52 72 11 26m0-23 11 15" fill="none" stroke="#ffe2bb" stroke-width="4"/><ellipse cx="124" cy="116" rx="17" ry="15" fill="#ffdf85" stroke="#ae783b" stroke-width="3"/><path d="m116 116 6 5 9-11" fill="none" stroke="#bd873e" stroke-width="4"/></svg>
+        <span id="basket-count" class="basket-count" hidden>0</span>
+      </button>
+      <div id="discovery-tray" class="discovery-tray"></div>
+    </section>
+    <div id="living-garden" class="living-garden"></div>
+    <section id="explore-view" class="explore-view" hidden aria-label="Play with our discoveries">
+      <div class="explore-heading"><p id="explore-kicker" class="sr-only">We did it together!</p><h2 id="explore-title">Picnic time!</h2><p id="explore-message" class="sr-only">Tap a discovery, or bring it to a place below.</p><button id="next-round" class="primary-button" type="button">More shapes! <span aria-hidden="true">→</span></button><button id="resume-round" class="primary-button" type="button" hidden>Our cards <span aria-hidden="true">↶</span></button></div>
+      <div id="picnic" class="picnic"></div>
+      <div class="explore-caption"><span class="mini-sparky" aria-hidden="true"></span><p id="picnic-caption" role="status" aria-live="polite">Let’s play!</p></div>
+    </section>
+    <div id="cast-star" class="cast-star" aria-hidden="true">✦</div>
+    <div id="effects-layer" class="effects-layer" aria-hidden="true"></div>
+    <p id="save-notice" class="save-notice" hidden>Progress can’t be saved in this browser. You can still play.</p>
+  </main>
+  <dialog id="theme-dialog" class="theme-dialog" aria-labelledby="theme-dialog-title"><button id="theme-close" class="dialog-close" type="button" aria-label="Close world choices">×</button><header class="theme-dialog-heading"><p class="theme-dialog-kicker">Sparky’s worlds</p><h2 id="theme-dialog-title">Choose a world</h2></header><div class="theme-choices" role="group" aria-label="Choose a world">
+    <button type="button" data-theme-choice="dream" aria-pressed="true"><span class="theme-picture theme-picture--dream" aria-hidden="true"><i class="dream-moon"></i><i class="dream-cloud dream-cloud--one"></i><i class="dream-cloud dream-cloud--two"></i><i class="dream-star dream-star--one"></i><i class="dream-star dream-star--two"></i></span><span class="theme-copy"><strong>Dream Meadow</strong><small>Shape friends</small><span class="theme-status">Playing here</span></span><span class="theme-check" aria-hidden="true">✓</span></button>
+    <button type="button" data-theme-choice="seasons" aria-pressed="false" aria-disabled="true"><span class="theme-picture theme-picture--seasons" aria-hidden="true"><i class="season-sun"></i><i class="season-flower"></i><i class="season-leaf"></i><i class="season-snow"></i></span><span class="theme-copy"><strong>Season Parade</strong><small>Which season?</small><span class="theme-status">3 more matches</span></span><span class="theme-lock" aria-hidden="true"><i></i></span><span class="theme-check" aria-hidden="true">✓</span></button>
+    <button type="button" data-theme-choice="neon" aria-pressed="false" aria-disabled="true"><span class="theme-picture theme-picture--neon" aria-hidden="true"></span><span class="theme-copy"><strong>Neon Shape Lab</strong><small>Glowing shapes</small><span class="theme-status">5 more matches</span></span><span class="theme-lock" aria-hidden="true"><i></i></span><span class="theme-check" aria-hidden="true">✓</span></button>
+  </div><p id="theme-dialog-message" class="theme-dialog-message">Play three matches to open Season Parade.</p></dialog>
+  <dialog id="theme-unlock-dialog" class="theme-unlock-dialog" aria-labelledby="theme-unlock-title"><div class="theme-unlock-heading"><p>New world unlocked!</p><h2 id="theme-unlock-title">Season Parade</h2></div><span id="theme-unlock-preview" class="theme-picture theme-picture--seasons" aria-hidden="true"></span><p id="theme-unlock-message">A new matching adventure is ready.</p><div class="theme-unlock-actions"><button id="unlock-visit" class="primary-button" type="button">Play this world <span aria-hidden="true">→</span></button><button id="unlock-later" class="secondary-button" type="button">Keep playing here</button></div><small class="theme-unlock-note">Use the Worlds button on the home screen whenever you want to switch.</small></dialog>
+  <dialog id="level-dialog" aria-labelledby="level-dialog-title" aria-describedby="level-objective"><button id="level-close" class="dialog-close" type="button" aria-label="Close level choices">×</button><h2 id="level-dialog-title">Pick a board</h2><p id="level-mode-label">Practice</p><p id="level-objective" class="level-objective">Find two things with the same overall shape.</p><div class="difficulty-choices" role="group" aria-label="Choose difficulty"><button type="button" data-level="gentle" aria-label="Easy, 2 pairs, 4 cards"><img loading="lazy" decoding="async" class="difficulty-face" src="assets/difficulty-easy.svg" alt=""><span class="difficulty-copy"><strong>Easy</strong><small>2 pairs · 4 cards</small></span><span class="difficulty-arrow" aria-hidden="true">›</span></button><button type="button" data-level="growing" aria-label="Medium, 3 pairs, 6 cards"><img loading="lazy" decoding="async" class="difficulty-face" src="assets/difficulty-medium.svg" alt=""><span class="difficulty-copy"><strong>Medium</strong><small>3 pairs · 6 cards</small></span><span class="difficulty-arrow" aria-hidden="true">›</span></button><button type="button" data-level="clever" aria-label="Hard, 4 pairs, 8 cards"><img loading="lazy" decoding="async" class="difficulty-face" src="assets/difficulty-hard.svg" alt=""><span class="difficulty-copy"><strong>Hard</strong><small>4 pairs · 8 cards</small></span><span class="difficulty-arrow" aria-hidden="true">›</span></button></div></dialog>
+  <dialog id="settings-dialog" aria-labelledby="settings-title"><button class="dialog-close toy-button" data-close type="button" aria-label="Close settings">×</button><span class="pause-star" aria-hidden="true">✦</span><h2 id="settings-title">A little break</h2><p>Your cards will wait.</p><button class="primary-button" data-close type="button">Keep playing <span aria-hidden="true">▶</span></button><div class="settings-list" aria-label="Audio settings"><button id="voice-toggle" class="settings-row" type="button" aria-pressed="true" data-setting-label="Voice"><span class="setting-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 9h10a6 6 0 0 1 6 6v1a6 6 0 0 1-6 6h-4l-5 4v-4H7a5 5 0 0 1-5-5v-3a5 5 0 0 1 5-5Z"/><path d="M9 14h7M9 18h5"/></svg></span><strong>Voice</strong><span class="setting-control"><span class="setting-state">On</span><span class="setting-switch" aria-hidden="true"><i></i></span></span></button><button id="music-toggle" class="settings-row" type="button" aria-pressed="true" data-setting-label="Music"><span class="setting-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M12 22V8l14-3v14"/><ellipse cx="8" cy="23" rx="4" ry="3"/><ellipse cx="22" cy="20" rx="4" ry="3"/></svg></span><strong>Music</strong><span class="setting-control"><span class="setting-state">On</span><span class="setting-switch" aria-hidden="true"><i></i></span></span></button></div><button id="settings-home" class="secondary-button settings-home" type="button"><span class="settings-home-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m5 15 11-9 11 9v12H5Z"/><path d="M12 27v-8h8v8"/></svg></span><strong>Choose a game</strong><span aria-hidden="true">›</span></button></dialog>
+  
+</body></html>
