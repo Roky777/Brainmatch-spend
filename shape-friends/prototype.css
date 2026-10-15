@@ -2558,3 +2558,18 @@ body[data-theme] #app[data-mode="result"] .result-character-space .sparky-anchor
 
 /* Keep keyboard focus visible without changing the established toy styling. */
 button:focus-visible,a:focus-visible{outline:3px solid var(--game-blue);outline-offset:4px}
+
+/* A saved board is an optional, compact action; mode cards keep their hierarchy. */
+#app[data-mode="setup"] .continue-game{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;min-height:44px;margin:10px 0 0;padding:8px 4px;
+  background:transparent;border:0;border-radius:10px;box-shadow:none;
+  color:var(--game-ink);font:600 13px/1.2 var(--font-body);cursor:pointer;
+}
+#app[data-mode="setup"] .continue-game[hidden]{display:none}
+.continue-game strong{font:800 15px/1.2 var(--font-display)}
+.continue-game span{color:#526594}
+.continue-game i{font-style:normal;font-size:20px}
+body[data-theme="neon"] #app[data-mode="setup"] .continue-game{color:var(--space-text)}
+body[data-theme="neon"] .continue-game span{color:var(--space-muted)}
+@media(max-width:350px){.continue-game span{font-size:11px}}

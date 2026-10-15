@@ -3,7 +3,7 @@ import {deliveryURL} from './delivery-map.js?v=2';
 import { MatchBoard, shuffle } from './engine.js?v=2';
 import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
-import { readSave, writeSave, discover } from './save.js?v=7';
+import { readSave, writeSave, discover, continuableSession } from './save.js?v=8';
 import { createGameAnalytics } from './analytics.js?v=1';
 import { GameAudio } from './audio.js?v=4';
 import { Narration, sparkyVoiceMoment } from './narration.js?v=3';
@@ -757,6 +757,13 @@ $('dismiss-rotate').addEventListener('click', () => {
 });
 function setupUI() {
   document.querySelectorAll('button[data-play-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.playMode === options.mode)));
+  const session=continuableSession(save);
+  $('continue-game').hidden=!session;
+  if(session){
+    const label=`${session.mode==='practice'?'Practice':'Beat Sparky'} · ${{gentle:'Easy',growing:'Medium',clever:'Hard'}[session.difficulty]}`;
+    $('continue-detail').textContent=label;
+    $('continue-game').setAttribute('aria-label',`Continue saved board: ${label}`);
+  }
 }
 function showSetup() {
   checkpoint();
@@ -809,6 +816,14 @@ async function showLevels(playMode) {
   $('level-dialog').focus({preventScroll:true});
 }
 document.querySelectorAll('button[data-play-mode]').forEach(button => button.addEventListener('click', () => showLevels(button.dataset.playMode)));
+$('continue-game').addEventListener('click',async()=>{
+  const session=continuableSession(save);if(!session)return;
+  $('continue-game').disabled=true;
+  try{
+    activateAudio();options=playOptions(session.mode,session.difficulty);
+    await startRound(session.roundId,session);
+  }finally{$('continue-game').disabled=false;}
+});
 $('level-close').addEventListener('click',()=>$('level-dialog').close());
 $('menu-sparky').addEventListener('click',async()=>{
   activateAudio();
@@ -842,7 +857,8 @@ document.querySelectorAll('[data-theme-choice]').forEach(button => button.addEve
   }
   $('theme-dialog').close();
   if(!await readyScreen(worldAssets(id).map(loadImage)))return;
-  save.session=null;save.theme=id; save.activeRound='1'; persist(); applyTheme(); showSetup();
+  if(id!==save.theme){save.session=null;save.theme=id;save.activeRound='1';}
+  persist(); applyTheme(); showSetup();
 }));
 $('unlock-visit').addEventListener('click',async()=>{
   const dialog=$('theme-unlock-dialog');
@@ -853,12 +869,8 @@ $('unlock-visit').addEventListener('click',async()=>{
 $('unlock-later').addEventListener('click',()=>{$('theme-unlock-dialog').close();$('play-again').focus({preventScroll:true});});
 document.querySelector('.home-button').addEventListener('click', event => { event.preventDefault(); if ($('settings-dialog').open) $('settings-dialog').close(); showSetup(); });
 applyTheme(); renderXP(); settingsUI(); showSetup();
-// Restore under the one entry screen, avoiding a menu flash before resuming.
-if(save.session){
-  const savedSession=save.session;
-  options=playOptions(savedSession.mode,savedSession.difficulty);
-  await startRound(savedSession.roundId,savedSession);
-}
+// Reopening always lands on this world's home screen. Only Continue restores
+// the saved board; opening the app must not start a timer or Sparky's turn.
 // Entry needs only the current scene. Cards and animations warm while the
 // child chooses a mode, without trapping the menu on unrelated assets.
 await finishStartup([
@@ -867,7 +879,6 @@ await finishStartup([
   'assets/loader-sparky.png',
 ]);
 startupFinished=true;
-if(mode==='match'&&board?.actor==='sparky'&&board.phase!=='complete')void sparkyTurn(run);
 const firstRound=roundById(save.activeRound,pack)||pack.rounds[0];
 void preloadBackground([
   ...firstRound.pairs.flatMap(pair=>pair.slice(1)).map(assetURL),

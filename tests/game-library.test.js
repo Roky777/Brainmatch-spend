@@ -19,12 +19,12 @@ test('every game entry can return to the shared library',async()=>{
   assert.match(shared,/class="home-button[^>]+href="\.\.\/"/);
   for(const game of games.slice(1)){
     const wrapper=await readFile(new URL(`${game}/index.html`,root),'utf8');
-    assert.match(wrapper,/bootstrap.js\?v=10/);
+    assert.match(wrapper,/bootstrap.js\?v=11/);
     assert.match(wrapper,new RegExp(`data-game-variant="${game}"`));
   }
   const bootstrap=await readFile(new URL('shape-friends/bootstrap.js',root),'utf8');
   assert.match(bootstrap,/game-content\.json/);
-  assert.match(bootstrap,/new URL\('\.\/game-shell.html\?v=1',import.meta.url\)/);
+  assert.match(bootstrap,/new URL\('\.\/game-shell.html\?v=2',import.meta.url\)/);
 });
 
 test('launcher artwork is local and present',async()=>{

@@ -18,6 +18,11 @@ never a lock on play, and skipped lines are never queued.
 | Round finished | One result line, replacing lower-priority guidance |
 | Return to a saved game | Welcome-back caption, no automatic repeated tutorial |
 
+Reopening always shows the last-used world's home screen, not the saved board.
+Continue appears only for a valid unfinished board in that world. Clicking it
+restores the card order, matches, score, mode and difficulty. The mode cards still
+open difficulty selection and create a fresh board. XP and world unlocks are kept.
+
 ## Interruptions
 
 An accepted card flip stops current guidance and resets the mouth. Requested help

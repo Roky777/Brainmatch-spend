@@ -6,7 +6,8 @@ export const emptySave = () => ({ version: 6, session:null, discoveries: [], com
 export function sanitizeSession(raw){
   try{
     if(!raw||!['dream','seasons','neon'].includes(raw.world)||!['gentle','growing','clever'].includes(raw.difficulty)||!['practice','challenge'].includes(raw.mode))return null;
-    const round=PACK.rounds.find(round=>round.id===raw.roundId);if(!round)return null;
+    const pack={dream:PACK,seasons:SEASON_PACK,neon:NEON_PACK}[raw.world];
+    const round=pack.rounds.find(round=>round.id===raw.roundId);if(!round)return null;
     const allowed=new Set(round.pairs.flatMap(([pairId,a,b])=>[`${pairId}:${a}`,`${pairId}:${b}`]));
     const cards=raw.board.cards;
     const expectedCards={gentle:4,growing:6,clever:8}[raw.difficulty];
@@ -19,6 +20,10 @@ export function sanitizeSession(raw){
     const seen=values=>[...new Set(Array.isArray(values)?values.filter(index=>Number.isInteger(index)&&index>=0&&index<cards.length&&!board.matched.has(cards[index].pairId)):[])];
     return {world:raw.world,roundId:raw.roundId,difficulty:raw.difficulty,mode:raw.mode,board:board.exportState(),memory:seen(raw.memory),guideMemory:seen(raw.guideMemory),analytics:validAnalytics?analytics:null};
   }catch{return null;}
+}
+export function continuableSession(save){
+  const session=sanitizeSession(save?.session);
+  return session&&session.world===save.theme&&session.board.phase!=='complete'?session:null;
 }
 export function sanitizeSave(raw) {
   const save = emptySave();

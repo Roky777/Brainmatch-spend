@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {MatchBoard} from '../shape-friends/engine.js';
-import {cardsFor,PACK} from '../shape-friends/content.js';
-import {emptySave,sanitizeSave,readSave,writeSave,SAVE_KEY} from '../shape-friends/save.js';
+import {cardsFor,PACK,SEASON_PACK,NEON_PACK} from '../shape-friends/content.js';
+import {emptySave,sanitizeSave,sanitizeSession,continuableSession,readSave,writeSave,SAVE_KEY} from '../shape-friends/save.js';
+import {readFile} from 'node:fs/promises';
 const deck=()=>cardsFor({pairs:PACK.rounds[0].pairs.slice(0,2)});
 test('resume preserves card order, scores, matches and a child first pick',()=>{
   const board=new MatchBoard(deck(),{shuffled:false,mode:'practice'});
@@ -34,4 +35,28 @@ test('restore rejects invalid matched IDs, scores and open positions',()=>{
   assert.throws(()=>MatchBoard.restore({...state,matched:['unknown']}));
   assert.throws(()=>MatchBoard.restore({...state,open:[999]}));
   assert.throws(()=>MatchBoard.restore({...state,attempts:10}));
+});
+test('Continue is available only for a valid unfinished board in the current world',()=>{
+  const save=emptySave(),board=new MatchBoard(deck(),{shuffled:false,mode:'practice'});
+  assert.equal(continuableSession(save),null);
+  save.session={world:'dream',roundId:PACK.rounds[0].id,difficulty:'gentle',mode:'practice',board:board.exportState()};
+  assert.ok(continuableSession(save));assert.equal(continuableSession({...save,theme:'neon'}),null);
+  for(const [a,b] of [[0,1],[2,3]]){board.reveal(a,'child');board.reveal(b,'child');board.resolve();board.advance();}
+  save.session.board=board.exportState();assert.equal(continuableSession(save),null);
+});
+test('each world validates its own card pack when resuming',()=>{
+  for(const [world,pack] of [['dream',PACK],['seasons',SEASON_PACK],['neon',NEON_PACK]]){
+    const round=pack.rounds[0];
+    const cards=round.pairs.slice(0,2).flatMap(([pairId,a,b])=>[a,b].map((item,i)=>({id:`${pairId}-${i}`,pairId,item})));
+    const board=new MatchBoard(cards,{mode:'practice',shuffled:false});
+    assert.ok(sanitizeSession({world,roundId:round.id,difficulty:'gentle',mode:'practice',board:board.exportState()}),world);
+  }
+});
+test('startup shows home; restoring a board requires the Continue control',async()=>{
+  const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
+  const startup=app.slice(app.lastIndexOf('applyTheme(); renderXP(); settingsUI(); showSetup();'));
+  assert.doesNotMatch(startup,/await startRound|void sparkyTurn/);
+  assert.match(app,/\$\('continue-game'\).addEventListener\('click',[\s\S]*?await startRound\(session.roundId,session\)/);
+  const shell=await readFile(new URL('../shape-friends/game-shell.html',import.meta.url),'utf8');
+  assert.match(shell,/id="continue-game"[^>]*hidden/);
 });

@@ -26,7 +26,7 @@ test('all variants load the shared loading screen and versioned runtime', async 
     try {html=await readFile(new URL(`../${folder}/index.html`,import.meta.url),'utf8');}
     catch(error){if(error.code==='ENOENT'&&folder!=='shape-friends')continue;throw error;}
     assert.match(html,/loading.css\?v=4/);
-    assert.match(html,/bootstrap.js\?v=10/);
+    assert.match(html,/bootstrap.js\?v=11/);
     assert.match(html,/id="loading-critical"/);
     assert.match(html,/class="loading-mascot"/);
     assert.match(html,/data-art-ready="true"/);
@@ -118,7 +118,7 @@ test('missing startup artwork does not trap the menu',async()=>{
 test('variant boot skips external font blocking and fetches a lightweight layout',async()=>{
   const bootstrap=await readFile(new URL('../shape-friends/bootstrap.js',import.meta.url),'utf8');
   assert.match(bootstrap,/filter\(link=>!link.href.includes\('fonts.googleapis.com'\)\)/);
-  assert.match(bootstrap,/game-shell.html\?v=1/);
+  assert.match(bootstrap,/game-shell.html\?v=2/);
   const shell=await readFile(new URL('../shape-friends/game-shell.html',import.meta.url),'utf8');
   assert.ok(Buffer.byteLength(shell)<30000);assert.doesNotMatch(shell,/data:image|id="game-loading"/);
 });

@@ -7,7 +7,7 @@ manifestURL.searchParams.set('v','card-art-3');
 document.documentElement.dataset.contentManifest=manifestURL.href;
 try {
   // Fetch the layout while styles download, not in a second network phase.
-  const shellReady=document.getElementById('app')?null:fetch(new URL('./game-shell.html?v=1',import.meta.url),{signal:AbortSignal.timeout(15000)})
+  const shellReady=document.getElementById('app')?null:fetch(new URL('./game-shell.html?v=2',import.meta.url),{signal:AbortSignal.timeout(15000)})
     .then(response=>{if(!response.ok)throw Error('Game template unavailable');return response.text();})
     .catch(error=>({error}));
   // Fetch and decode the loader art first, independently of game styles and
@@ -32,7 +32,7 @@ try {
     template.getElementById('game-loading')?.remove();
     document.body.replaceChildren(loader,...template.body.childNodes);
   }
-  await import('./app.js?v=35');
+  await import('./app.js?v=36');
 } catch(error) {
   const screen=document.getElementById('game-loading');
   screen.querySelector('p').textContent='A little hiccup. Shall we try again?';
