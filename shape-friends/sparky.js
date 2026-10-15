@@ -34,6 +34,7 @@ export const SEATED_NOD_NO_DURATION=SEATED_NOD_NO_FRAMES.times.reduce((sum,time)
 export const MOUTH_VISEME_ROOT = 'assets/new_sparky_sheets/sparky_wall_mouth_visemes';
 export const MOUTH_VISEME_SHEET = `${MOUTH_VISEME_ROOT}/mouth_runtime_atlas.png`;
 export const MOUTH_CLEANUP_SHEET = `${MOUTH_VISEME_ROOT}/integration/base_mouth_cleanup.png`;
+export const SPEECH_ASSETS=Object.freeze([SEATED_IDLE_SHEET,SEATED_TALK_SHEET,MOUTH_VISEME_SHEET,MOUTH_CLEANUP_SHEET]);
 export const MOUTH_VISEMES = Object.freeze(['REST','MBP','A','E','O','U','FV','LTH','S','SMILE_OPEN','GASP','REST_A_1','REST_A_2','A_O_1','A_O_2','O_REST_1','O_REST_2']);
 export const SEATED_IDLE_FRAMES = Object.freeze({
   frames:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
@@ -321,6 +322,12 @@ export class Sparky {
     }
     return this.playReady;
   }
+  prepareSpeech(){
+    if(!this.speechReady)this.speechReady=Promise.all(SPEECH_ASSETS.map(src=>loadImage(src))).then(results=>{
+      const ready=results.every(Boolean);if(!ready)this.speechReady=null;return ready;
+    });
+    return this.speechReady;
+  }
   tick(now) {
     if(this.paused){this.timer=0;return;}
     const delta=Math.min(100,now-this.last);this.last=now;
@@ -381,6 +388,7 @@ export class Sparky {
     this.element.dataset.sheet=sheet;this.element.dataset.frame=String(frame);
   }
   set(pose,duration=0,rate=1) {
+    this.poseRevision=(this.poseRevision||0)+1;
     this.pose=this.seated&&['talk','arrive','observe','wand-pick','pair-joy','gentle-miss','result-reaction','nod-yes','nod-no'].includes(pose)?pose:SPARKY_CLIPS[pose]?pose:'idle';this.elapsed=0;this.duration=duration;
     this.rate=rate;
     this.element.dataset.pose=this.pose;this.paint();

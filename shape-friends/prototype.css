@@ -2531,3 +2531,30 @@ body[data-theme="neon"] #app[data-mode="result"] .result-xp{background:var(--spa
 body[data-theme="neon"] #app[data-mode="result"] .result-xp.is-complete{background:#12443b}
 body[data-theme="neon"] #app[data-mode="result"] .result-xp strong{color:var(--space-accent)}
 body[data-theme="neon"] #app[data-mode="result"] .result-xp small{color:var(--space-muted)}
+
+/* Keep the entire result mascot within the rounded stage, including flame
+   tips in the arrival frames. The stage and sprite share one size budget. */
+body[data-theme] #app[data-mode="result"] .result-character-space{
+  --result-mascot-size:clamp(148px,42vw,174px);
+  height:calc(var(--result-mascot-size) + 24px);
+}
+body[data-theme] #app[data-mode="result"] .result-character-space .sparky-anchor{
+  top:12px;width:var(--result-mascot-size);
+  translate:-50% 0;
+}
+@media(max-height:700px){
+  body[data-theme] #app[data-mode="result"] .result-character-space{
+    --result-mascot-size:118px;
+  }
+}
+
+/* The scene is a fixed canvas, not a hidden scroll container. Browser focus
+   restoration must not slide the world button above the viewport. */
+#app{overflow:clip}
+
+/* Reserve the close button's lane when a longer dialog heading wraps. */
+#level-dialog-title{margin-inline:40px;text-wrap:balance}
+.theme-dialog h2{white-space:normal;max-width:100%;text-wrap:balance}
+
+/* Keep keyboard focus visible without changing the established toy styling. */
+button:focus-visible,a:focus-visible{outline:3px solid var(--game-blue);outline-offset:4px}

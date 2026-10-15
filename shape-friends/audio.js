@@ -52,9 +52,11 @@ export const VOICE_TIMING = Object.freeze({
 export const EFFECT_CLIPS = {};
 
 export class GameAudio {
-  constructor(settings, { engine = globalThis.speechSynthesis, clips = VOICE_CLIPS, createAudio = src => new Audio(src), utterance = text => new SpeechSynthesisUtterance(text), deviceFallback = false } = {}) {
+  constructor(settings, { engine = globalThis.speechSynthesis, clips = VOICE_CLIPS, createAudio = src => new Audio(src), utterance = text => new SpeechSynthesisUtterance(text), deviceFallback = false, prepareVoice = null, startTimeoutMs = 4000, playbackTimeoutMs = 15000 } = {}) {
     this.settings = settings; this.engine = engine; this.clips = clips;
     this.createAudio = createAudio; this.utterance = utterance;
+    this.prepareVoice=prepareVoice;
+    this.startTimeoutMs=startTimeoutMs;this.playbackTimeoutMs=playbackTimeoutMs;
     this.context = null; this.clip = null; this.generation = 0; this.finishSpeech = null; this.deviceFallback = deviceFallback;
   }
   unlock() { try { this.context ||= new AudioContext(); this.context.resume().catch(() => {}); } catch {} }
@@ -66,14 +68,14 @@ export class GameAudio {
     try { clip?.pause(); } catch {}
     this.clip=null;finish?.();
   }
-  say(text, {onStart=()=>{},onEnd=()=>{}}={}) {
+  say(text, {onStart=()=>{},onEnd=()=>{},canStart=()=>true}={}) {
     this.stop();
     let settle,signalStart,startSettled=false;
     const completion=new Promise(resolve=>{settle=resolve;});
     completion.started=new Promise(resolve=>{signalStart=resolve;});
     if (!this.settings.voice) { signalStart(null);settle({started:false,reason:'muted'}); return completion; }
     const generation = this.generation;
-    let attempted = false, active = false, finished = false, clip = null;
+    let attempted = false, active = false, finished = false, clip = null, watchdog;
     const silenceClip = () => {
       if(!clip)return;
       // pause alone can leave a pending play() alive on slow connections.
@@ -85,9 +87,12 @@ export class GameAudio {
     const begin = () => {
       if(finished||generation!==this.generation||!this.settings.voice){silenceClip();return;}
       if(active)return;
+      if(!canStart()){finish('stale');return;}
       active=true;
       const measured=Number(clip?.duration)*1000;
       const fallbackDuration=Math.max(700,text.length*72),startedAt=performance.now();
+      clearTimeout(watchdog);
+      watchdog=setTimeout(()=>finish('timeout'),Math.min(this.playbackTimeoutMs,(Number.isFinite(measured)&&measured>0?measured:fallbackDuration)+2000));
       const meta={
         durationMs:Number.isFinite(measured)&&measured>0?measured:fallbackDuration,
         silences:VOICE_TIMING[text]||[],
@@ -101,18 +106,21 @@ export class GameAudio {
       };
       startSettled=true;signalStart(meta);onStart(meta);
     };
-    const finish = () => {
+    const finish = (reason='finished') => {
       if(finished)return;finished=true;
+      clearTimeout(watchdog);
       silenceClip();
+      if(reason==='timeout'){try{this.engine?.cancel();}catch{}}
       if(active)onEnd();
       if(!startSettled){startSettled=true;signalStart(null);}
       if(this.finishSpeech===finish)this.finishSpeech=null;
       if(this.clip===clip)this.clip=null;
-      settle({started:active,reason:'finished'});
+      settle({started:active,reason});
     };
     this.finishSpeech=finish;
+    watchdog=setTimeout(()=>finish('timeout'),this.startTimeoutMs);
     const fallback = () => {
-      if (attempted || generation !== this.generation || !this.settings.voice) return;
+      if (finished || attempted || generation !== this.generation || !this.settings.voice) return;
       attempted = true;
       // The media request must be silent before any device-voice fallback.
       silenceClip();
@@ -124,7 +132,7 @@ export class GameAudio {
         const line = this.utterance(text), voices = this.engine.getVoices();
         line.voice = voices.find(voice => /^en/.test(voice.lang) && /Samantha|Karen|Moira|Google.*female/i.test(voice.name)) || voices.find(voice => /^en/.test(voice.lang)) || null;
         line.lang = 'en-IN'; line.rate = .9; line.pitch = 1.12; line.volume = .85;
-        line.onstart=begin;line.onend=finish;line.onerror=finish;
+        line.onstart=begin;line.onend=()=>finish();line.onerror=()=>finish();
         this.engine.speak(line);
       } catch { finish(); /* Speech availability cannot block the game. */ }
     };
@@ -132,9 +140,17 @@ export class GameAudio {
     if (!path) { fallback(); return completion; }
     try {
       clip = this.createAudio(new URL(path, import.meta.url).href);this.clip=clip;
-      clip.onplay=begin;clip.onplaying=begin;clip.onended=finish;
+      clip.onplay=begin;clip.onplaying=begin;clip.onended=()=>finish();
       clip.onerror=()=>active?finish():fallback();
-      Promise.resolve(clip.play()).then(begin).catch(fallback);
+      const play=()=>{
+        if(finished||generation!==this.generation||!this.settings.voice)return;
+        if(!canStart()){finish('stale');return;}
+        try{Promise.resolve(clip.play()).then(begin).catch(fallback);}catch{fallback();}
+      };
+      // Keep the recording paused until the character's speech artwork is
+      // decoded. A cancelled readiness request must not resurrect old audio.
+      if(this.prepareVoice)Promise.resolve(this.prepareVoice()).then(ok=>{if(ok===false)finish();else play();}).catch(finish);
+      else play();
     } catch { fallback(); }
     return completion;
   }

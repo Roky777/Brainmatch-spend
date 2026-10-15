@@ -5,9 +5,10 @@ import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
 import { readSave, writeSave, discover } from './save.js?v=7';
 import { createGameAnalytics } from './analytics.js?v=1';
-import { GameAudio } from './audio.js?v=2';
+import { GameAudio } from './audio.js?v=4';
+import { Narration, sparkyVoiceMoment } from './narration.js?v=3';
 import { MusicLoop } from './music.js';
-import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip } from './sparky.js?v=11';
+import { Sparky, sparkyArt, seatedObserveDirection, seatedWandTip, SPEECH_ASSETS } from './sparky.js?v=13';
 import { LivingGarden } from './garden.js';
 import { Picnic } from './picnic.js?v=5';
 import { icon } from './art.js';
@@ -28,7 +29,9 @@ const save = readSave();
 let theme = getWorld(save.theme), pack = theme.pack;
 // The child-facing Music control is the single master switch for all non-voice audio.
 save.effects = save.music;
-const audio = new GameAudio(save), music = new MusicLoop(save), timeline = new Timeline();
+const audio = new GameAudio(save,{prepareVoice:()=>sparky.prepareSpeech()}), music = new MusicLoop(save), timeline = new Timeline();
+const narration=new Narration(audio);
+let reactionEpoch=0;
 const analytics=createGameAnalytics(new URLSearchParams(location.search).get('gameId')||VARIANT.id);
 const sparky = new Sparky($('sparky'), { seated: true });
 $('app').dataset.sparkyReady = 'true';
@@ -144,43 +147,50 @@ function activateAudio() {
   music.sync(!document.hidden && !$('settings-dialog').open);
   music.activate();
 }
-function say(text, destination = 'caption') {
+function say(text, destination = 'caption', policy={}) {
   $(destination).textContent = text;
-  return speakLine(sparky,text);
+  return speakLine(sparky,text,policy);
 }
-function speakLine(speaker,text) {
-  return started?audio.say(text,{onStart:meta=>{music.setDucked(true);speaker.speak(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{speaker.finishSpeaking();music.setDucked(false);}}):Promise.resolve({started:false,reason:'locked'});
+function speakLine(speaker,text,policy={}) {
+  return started?narration.say(text,{onStart:meta=>{music.setDucked(true);if(speaker===sparky&&['observe','wand-pick'].includes(speaker.pose))speaker.speakOverCurrentPose(text,meta.durationMs,meta.clock,meta.silences);else speaker.speak(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{speaker.finishSpeaking();music.setDucked(false);} },policy):Promise.resolve({started:false,reason:'locked'});
 }
 function narrateNow(key,{first=1,every=0}={}) {
   const count=(voiceMoments[key]||0)+1;voiceMoments[key]=count;
   return count<=first||(every>0&&(count-first)%every===0);
 }
-function celebratePair(text,voiced=true,gesture='joy') {
+function celebratePair(text,voiced=true,gesture='joy',onceKey='pair-praise') {
   $('caption').textContent=text;
   if(!voiced||!started||!save.voice){
+    if(narration.active)return Promise.resolve({started:false,reason:'voice-busy'});
     if(gesture==='nod')sparky.nodYes();
     else sparky.pairJoy();
     return Promise.resolve({started:false,reason:'silent'});
   }
   let began=false;
-  const completion=audio.say(text,{onStart:meta=>{began=true;music.setDucked(true);sparky.pairJoy();sparky.holdPairJoy();sparky.speakOverCurrentPose(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{sparky.finishSpeaking();sparky.finishPairJoy();music.setDucked(false);}});
-  completion.then(()=>{if(!began)sparky.pairJoy();});return completion;
+  const ticket=run,revision=sparky.poseRevision,epoch=reactionEpoch;
+  const isCurrent=()=>ticket===run&&epoch===reactionEpoch&&mode==='match'&&!timeline.paused&&revision===sparky.poseRevision;
+  const completion=narration.say(text,{onStart:meta=>{began=true;music.setDucked(true);sparky.pairJoy();sparky.holdPairJoy();sparky.speakOverCurrentPose(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{if(began){sparky.finishSpeaking();sparky.finishPairJoy();music.setDucked(false);}}},{kind:'ambient',onceKey,isCurrent});
+  completion.then(()=>{if(!began&&isCurrent()&&!narration.active)sparky.pairJoy();});return completion;
 }
-function reassureMiss(text,voiced=true,gesture='miss') {
+function reassureMiss(text,voiced=true,gesture='miss',onceKey='miss-reassurance') {
   $('caption').textContent=text;
   if(!voiced||!started||!save.voice){
+    if(narration.active)return Promise.resolve({started:false,reason:'voice-busy'});
     if(gesture==='nod-no')sparky.nodNo();
     else sparky.gentleMiss();
     return Promise.resolve({started:false,reason:'silent'});
   }
   let began=false;
-  const completion=audio.say(text,{onStart:meta=>{began=true;music.setDucked(true);sparky.gentleMiss();sparky.holdGentleMiss();sparky.speakOverCurrentPose(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{sparky.finishSpeaking();sparky.finishGentleMiss();music.setDucked(false);}});
-  completion.then(()=>{if(!began)sparky.gentleMiss();});return completion;
+  const ticket=run,revision=sparky.poseRevision,epoch=reactionEpoch;
+  const isCurrent=()=>ticket===run&&epoch===reactionEpoch&&mode==='match'&&!timeline.paused&&revision===sparky.poseRevision;
+  const completion=narration.say(text,{onStart:meta=>{began=true;music.setDucked(true);sparky.gentleMiss();sparky.holdGentleMiss();sparky.speakOverCurrentPose(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{if(began){sparky.finishSpeaking();sparky.finishGentleMiss();music.setDucked(false);}}},{kind:'ambient',onceKey,isCurrent});
+  completion.then(()=>{if(!began&&isCurrent()&&!narration.active)sparky.gentleMiss();});return completion;
 }
 function announceResult(text) {
   $('caption').textContent=text;
+  narration.stop();
   sparky.resultReaction();
-  if(started)audio.say(text,{onStart:meta=>{music.setDucked(true);sparky.speakOverCurrentPose(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{sparky.finishSpeaking();music.setDucked(false);}});
+  if(started)narration.say(text,{onStart:meta=>{music.setDucked(true);sparky.speakOverCurrentPose(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{sparky.finishSpeaking();music.setDucked(false);}},{kind:'result',onceKey:'result'});
 }
 function updatePause() {
   const paused = document.hidden || $('settings-dialog').open || mode === 'explore' || mode === 'setup';
@@ -189,17 +199,18 @@ function updatePause() {
   sparky.pause(paused);
   menuSparky.pause(document.hidden || $('settings-dialog').open || mode !== 'setup');
   if (tapAnimation) paused ? tapAnimation.pause() : tapAnimation.play();
-  if (paused) { timeline.pause(); audio.stop(); } else timeline.resume();
+  if (paused) { timeline.pause(); narration.stop(); } else timeline.resume();
 }
 async function wait(ms, ticket = run) { return await timeline.wait(ms) && ticket === run; }
 async function waitForVoice(completion,ticket=run) {
   if(!completion)return ticket===run;
+  const voiceToken=narration.active?.token;
   let timeout;
   const timedOut=new Promise(resolve=>{timeout=setTimeout(()=>resolve('timeout'),VOICE_TIMEOUT_MS);});
   const outcome=await Promise.race([completion.then(()=> 'ended'),timedOut]);clearTimeout(timeout);
   if(ticket!==run)return false;
   // A broken device speech engine must never trap a turn indefinitely.
-  if(outcome==='timeout'){audio.stop();await Promise.resolve();}
+  if(outcome==='timeout'&&narration.active?.token===voiceToken){narration.stop();await Promise.resolve();}
   return ticket===run;
 }
 function clearPointer() {
@@ -267,7 +278,7 @@ async function startRound(id,resuming=null) {
   const characterReady=sparky.preparePlay();
   const enteringPlay = mode !== 'match';
   if (!roundById(id, pack) || !unlocked(id)) id = '1';
-  run++; timeline.cancel(); audio.stop(); clearEffects(); picnic.cancelDrag();
+  run++; timeline.cancel(); narration.reset(); clearEffects(); picnic.cancelDrag();
   round = roundById(id, pack);
   // Every variant follows the same 4 / 6 / 8 card difficulty contract.
   const level = LEVELS[options.level];
@@ -318,7 +329,7 @@ async function startRound(id,resuming=null) {
     return;
   }
   $('cards').querySelectorAll('.card-emblem').forEach(el => { el.innerHTML = icon('star'); });
-  const openingLine=enteringPlay && id !== '1'
+  const openingLine=!enteringPlay || id !== '1'
     ? 'A new board! You get the first pick.'
     : dialogue.next(options.mode);
   if(enteringPlay){
@@ -420,6 +431,8 @@ async function childFlip(index) {
   activateAudio();
   resetHintFeedback();
   const observation = reveal(index, 'child'); if (!observation) return;
+  reactionEpoch++;
+  narration.interruptForAction();
   if (board.open.length !== 1) {
     busy = true; renderBoard(); await resolveTurn(run,{settleMs:CARD_REVEAL_HOLD_MS});
   }
@@ -433,6 +446,9 @@ async function resolveTurn(ticket,{settleMs=CARD_REVEAL_HOLD_MS}={}) {
     analytics.recordTask({items:result.items.map(id=>itemFor(id).name),correctChoice:itemFor(mate).name,match:result.match});
   }
   checkpoint();
+  const companionVoice=result.actor==='sparky'
+    ? sparkyVoiceMoment({match:result.match,complete:board.matched.size===board.pairCount},narration.once)
+    : null;
   let reactionVoiced=false;
   let gestureUsed=null;
   if (result.match) {
@@ -441,18 +457,17 @@ async function resolveTurn(ticket,{settleMs=CARD_REVEAL_HOLD_MS}={}) {
     discover(save, result.items); persist();
     garden.grow();
     audio.effect('match');
-    matchCount++;
-    // Alternating cadence: Match 1 is voiced, Match 2 nods, Match 3 is voiced, Match 4 nods...
-    // The game never stays silent, and never repeats speech back-to-back.
-    const matchSpoken = (matchCount % 2 === 1);
+    if(result.actor==='child')matchCount++;
+    // One optional praise line; later pairs are acknowledged with silent nods.
+    const matchSpoken = matchCount===1;
     const voiced=reactionVoiced=result.actor==='child'
-      ? (narrateNow('child-match',{first:1}) || matchSpoken)
-      : false;
+      ? matchSpoken
+      : Boolean(companionVoice);
     const gesture=gestureUsed=result.actor==='child' ? (voiced ? 'joy' : 'nod') : (voiced ? 'joy' : 'nod');
     const reaction=result.actor==='child'
-      ? (voiced?dialogue.next('match'):'You found a pair!')
-      : (voiced?dialogue.next('sparkyMatch'):'Sparky found a pair.');
-    celebratePair(reaction,voiced,gesture);
+      ? (voiced?'These two belong together! What a lovely pair.':'You found a pair!')
+      : (companionVoice?.text||'Sparky found a pair.');
+    celebratePair(reaction,voiced,gesture,companionVoice?.key||'pair-praise');
     $('pair-celebration').textContent = CATEGORIES[result.pairId].name;
     $('pair-celebration').hidden = false; renderTray();
     result.indices.forEach(index => {
@@ -463,16 +478,16 @@ async function resolveTurn(ticket,{settleMs=CARD_REVEAL_HOLD_MS}={}) {
       burstAtCard(index, true);
     });
   } else {
-    missCount++;
-    const missSpoken = (missCount % 2 === 1);
+    if(result.actor==='child')missCount++;
+    const missSpoken = missCount===2;
     const event=result.actor==='child'?'miss':'sparkyMiss';
     const voiced=reactionVoiced=result.actor==='child'
-      ? (narrateNow('child-miss',{first:1}) || missSpoken)
-      : false;
+      ? missSpoken
+      : companionVoice?.key==='sparky-miss';
     // On subsequent non-matches, gently shake “not yet” as acknowledgement
     // without repeating speech or holding the board.
     const gesture=gestureUsed=result.actor==='child' ? (voiced ? 'miss' : 'nod-no') : 'miss';
-    reassureMiss(voiced?dialogue.next(event):(result.actor==='child'?'Try another pair.':'Sparky will try again later.'),voiced,gesture);
+    reassureMiss(voiced?(companionVoice?.text||dialogue.next(event)):(result.actor==='child'?'Try another pair.':'Sparky will try again later.'),voiced,gesture,companionVoice?.key||'miss-reassurance');
   }
   renderBoard();
   // Speech and character acting are ambient feedback, not an input lock. The
@@ -485,7 +500,9 @@ async function resolveTurn(ticket,{settleMs=CARD_REVEAL_HOLD_MS}={}) {
   busy = false; renderBoard();
   if (board.actor === 'sparky') await sparkyTurn(ticket,{quiet:reactionVoiced});
   else {
-    $('caption').textContent='Your turn!';
+    if(companionVoice?.key==='child-handoff'){
+      say(companionVoice.text,'caption',{kind:'ambient',onceKey:companionVoice.key});
+    }else $('caption').textContent='Your turn!';
   }
 }
 function drawStar(progress) {
@@ -554,7 +571,7 @@ async function tapAt(index, ticket, onContact) {
 async function sparkyTurn(ticket,{quiet=false}={}) {
   busy = true; renderBoard();
   const introduce=!quiet&&narrateNow('sparky-turn',{first:1});
-  const turnVoice=introduce?say('My turn! Let me think... I’ll try this one.'):(($('caption').textContent='Sparky is thinking…'),Promise.resolve({started:false,reason:'not-needed'}));
+  const turnVoice=introduce?say('My turn! Let me think... I’ll try this one.','caption',{kind:'ambient',onceKey:'sparky-turn'}):(($('caption').textContent='Sparky is thinking…'),Promise.resolve({started:false,reason:'not-needed'}));
   // The thought line may continue while the visible choice begins; it never
   // holds the whole board hostage.
   void turnVoice;
@@ -663,7 +680,7 @@ function showPicnic() {
   updatePause(); window.scrollTo({ top: 0, behavior: 'instant' });
 }
 function resumeRound() {
-  picnic.cancelDrag(); audio.stop(); mode = 'match'; $('app').dataset.mode = mode;
+  picnic.cancelDrag(); narration.stop(); mode = 'match'; $('app').dataset.mode = mode;
   $('play-layout').hidden = false; $('discovery-strip').hidden = false; $('explore-view').hidden = true;
   updatePause(); renderBoard(); say('We’re back! Let’s see what we remember.');
 }
@@ -677,17 +694,17 @@ function hint() {
     $('hint').classList.add('needs-more');
     $('hint').querySelector('span').textContent = 'Try one';
     $('hint').setAttribute('aria-label', 'Turn another card so Sparky can learn it');
-    say('I’m still learning too. Let’s turn another card.');
+    say('I’m still learning too. Let’s turn another card.','caption',{kind:'requested'});
   }
   else {
     result.cards.forEach(card => $('cards').children[card.index].classList.add('hinted'));
     $('hint').classList.add('is-helping');
     $('hint').querySelector('span').textContent = 'Look here';
     $('hint').setAttribute('aria-label', 'Hint shown. Look at the glowing cards');
-    say(result.type === 'pair' || result.type === 'mate' ? 'I remember seeing those two. Try them!' : 'I’m still learning too. Let’s turn another card.');
+    say(result.type === 'pair' || result.type === 'mate' ? 'I remember seeing those two. Try them!' : 'I’m still learning too. Let’s turn another card.','caption',{kind:'requested'});
   }
 }
-function openSettings() { audio.stop(); picnic.cancelDrag(); $('settings-dialog').showModal(); updatePause(); }
+function openSettings() { narration.stop(); picnic.cancelDrag(); $('settings-dialog').showModal(); updatePause(); }
 function settingsUI() {
   for (const key of ['voice', 'music']) {
     const button = $(`${key}-toggle`), state = save[key] ? 'On' : 'Off';
@@ -702,12 +719,12 @@ $('hint').addEventListener('click', hint);
 $('sparky').addEventListener('click', () => {
   if (busy || mode !== 'match' || $('settings-dialog').open) return;
   if (options.mode === 'practice') hint();
-  else { say('Hi, friend! Ready to find some shape pairs?'); }
+  else { say('Your turn! Which two cards will you try?','caption',{kind:'requested'}); }
 });
 $('repeat').addEventListener('click', () => {
   activateAudio();
   const text=$('caption').textContent;
-  audio.say(text,{onStart:meta=>{music.setDucked(true);sparky.speak(text,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{sparky.finishSpeaking();music.setDucked(false);}});
+  speakLine(sparky,text,{kind:'requested'});
 });
 $('visit-picnic').addEventListener('click', showPicnic);
 $('picnic-basket').addEventListener('click', () => { if (save.discoveries.some(id=>ITEMS[id])) showPicnic(); else { say('Let’s find a shape pair for our picnic!'); } });
@@ -720,7 +737,7 @@ $('settings-home').addEventListener('click', () => { $('settings-dialog').close(
 $('settings-dialog').addEventListener('close', updatePause);
 for (const key of ['voice', 'music']) $(`${key}-toggle`).addEventListener('click', () => {
   save[key] = !save[key];
-  if (key === 'voice') audio.stop();
+  if (key === 'voice') narration.stop();
   if (key === 'music') { save.effects = save.music; music.sync(!document.hidden && !$('settings-dialog').open); }
   persist(); settingsUI();
 });
@@ -743,7 +760,7 @@ function setupUI() {
 }
 function showSetup() {
   checkpoint();
-  run++; timeline.cancel(); audio.stop(); clearEffects(); picnic.cancelDrag(); busy = false;
+  run++; timeline.cancel(); narration.stop(); clearEffects(); picnic.cancelDrag(); busy = false;
   if($('level-dialog').open)$('level-dialog').close();
   sparky.set('idle');
   hideCloudCurtain();
@@ -798,7 +815,7 @@ $('menu-sparky').addEventListener('click',async()=>{
   if(!await readyScreen([menuSparky.preparePlay()]))return;
   activateAudio();menuSparky.nodYes();
   $('menu-caption').textContent=VARIANT.menuGreeting||(theme.id === 'seasons' ? 'Let’s find which season each picture belongs to!' : theme.id==='neon' ? 'Let’s light up shapes that belong together!' : 'Hi, friend! Ready to find some shape pairs?');
-  audio.say($('menu-caption').textContent,{onStart:meta=>{music.setDucked(true);menuSparky.speak($('menu-caption').textContent,meta.durationMs,meta.clock,meta.silences);},onEnd:()=>{menuSparky.finishSpeaking();music.setDucked(false);}});
+  speakLine(menuSparky,$('menu-caption').textContent,{kind:'requested'});
 });
 document.querySelectorAll('button[data-level]').forEach(button => button.addEventListener('click', () => {
   options = playOptions(options.mode, button.dataset.level);
@@ -845,6 +862,7 @@ if(save.session){
 // Entry needs only the current scene. Cards and animations warm while the
 // child chooses a mode, without trapping the menu on unrelated assets.
 await finishStartup([
+  ...SPEECH_ASSETS,
   worldAssets(theme.id)[0], `assets/${theme.cloudAsset}`,
   'assets/loader-sparky.png',
 ]);

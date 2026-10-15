@@ -154,7 +154,8 @@ test('turn pacing releases the board without waiting through speech or full reac
  assert.match(app,/RESULT_READ_MS=620/);
  assert.match(app,/CARD_CLOSE_MS=300/);
  assert.doesNotMatch(app,/waitForVoice\(reactionVoice/,'ordinary result speech must not lock card input');
- assert.match(app,/narrateNow\('child-match',\{first:1\}\)/,'only the first child match in a round is spoken');
- assert.match(app,/narrateNow\('child-miss',\{first:1\}\)/,'only the first child miss in a round is spoken');
- assert.match(app,/result\.actor==='child'[\s\S]*?: false;/,'Sparky uses non-verbal feedback for his own results');
+ assert.match(app,/matchSpoken = matchCount===1/,'only the first child match is eligible for optional praise');
+ assert.match(app,/missSpoken = missCount===2/,'only the second child miss is eligible for gentle reassurance');
+ assert.match(app,/sparkyVoiceMoment\(/,'Sparky feedback follows the shared occasional voice policy');
+ assert.match(app,/companionVoice\?\.key==='child-handoff'/,'handoff narration is offered separately from miss feedback');
 });

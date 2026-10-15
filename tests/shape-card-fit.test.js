@@ -10,3 +10,9 @@ test('card art uses a centered bounded area independent of intrinsic image size'
   assert.match(app,/setProperty\('--art-fit'/);
   assert.doesNotMatch(app,/img.style.transform=`scale/);
 });
+test('result mascot has positive headroom and a stage taller than its sprite',async()=>{
+  const css=await readFile(new URL('../shape-friends/prototype.css',import.meta.url),'utf8');
+  assert.match(css,/height:calc\(var\(--result-mascot-size\) \+ 24px\)/);
+  assert.match(css,/top:12px;width:var\(--result-mascot-size\)/);
+  assert.match(css,/--result-mascot-size:118px/);
+});
