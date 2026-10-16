@@ -7,8 +7,9 @@ All ten variants share `shape-friends/save.js`, `engine.js`, and `analytics.js`.
 Each game uses `brainmatch:<variant-id>:v1` in localStorage. Existing XP, unlocks,
 discoveries and sound settings remain compatible. In-progress saves add the
 exact shuffled deck, matches, scores, turn, first child pick, observed cards,
-world, board, difficulty, mode and analytics session. Reopening automatically
-resumes the saved board. A resolved transition is restored after its result;
+world, board, difficulty, mode and analytics session. Reopening shows the last-used
+theme's home screen. Only Continue restores the saved board; choosing a mode and
+difficulty creates a fresh board. A resolved transition is restored after its result;
 an interrupted two-card choice is closed without scoring it twice. Interrupted
 Sparky choices restart safely. Completed boards clear the in-progress save.
 
@@ -36,14 +37,42 @@ world, round, difficulty, mode, attempts, accuracy, child score and journey XP.
 XP exactly matches the existing game reward, including zero-XP replays;
 `xpEarnedTotal` is this submitted session's XP, matching the supplied sorter.
 Lifetime journey XP is in `rawData.journey_xp_total` (maximum 200).
+It is also available as numeric `journeyXpTotal` with `campaignXpCap: 200`.
+These cumulative fields are informational, NOT another XP award to add.
+
+Reporting version 2 assigns a distinct numeric activity number to every
+`world:round:mode` XP claim. Both `level.levelId` and `level.levelNumber` use this
+number; `highestLevelPlayed` uses the same numbering. They no longer restart at
+1 for each theme or mode. The original curriculum board number remains in
+`rawData.curriculum_level`, and `activityId` identifies the stable XP claim.
+Difficulty does not change the identity because it does not create another XP
+claim. Resumed legacy runs keep their run ID but adopt the new activity numbering.
+On startup, still-unsent legacy reports for this game are reindexed using their
+world/round/mode metadata, retaining the original run IDs and award amounts.
+Reports belonging to other games in the shared queue are left unchanged.
 
 Game IDs default to the variant IDs. If PW has catalog IDs, launch with
 `?gameId=<PW-catalog-id>`; the game's local save key stays variant-specific.
 Sessions retain their `runId` across resume. The host should deduplicate by
 `gameId` + `runId` + `level.levelId`, since a bridge call is not a server receipt.
-Pending completions use the sorter's shared localStorage queue
-`ignite_pending_sessions_jsplugin` and retry on startup, online and host config.
-The queue is bounded to the most recent 100 sessions to avoid unlimited storage.
+Completions are written to the sorter's shared localStorage queue
+`ignite_pending_sessions_jsplugin` BEFORE delivery. A false bridge return,
+exception or rejected promise retains the report. Promise-based bridge responses
+have a 2.5-second deadline. Pending reports retry on startup, online, host config,
+pageshow, foregrounding, and with a 1–30 second backoff for late-injected bridges.
+One serialized flush prevents overlapping retries; reports created during a flush
+are preserved. Old zero-XP reports may be pruned after 100 entries, but unsent
+positive-XP awards are not silently discarded at that threshold. If localStorage
+is unavailable/full, delivery still attempts directly but cannot guarantee a
+durable retry.
+
+The last 100 bridge-accepted reports are archived under
+`brainmatch:analytics-delivery:v1` for diagnosis. This status is NOT a server
+receipt, and the archive is never automatically replayed. Existing reported XP
+cannot safely be backfilled merely by subtracting the app screenshot total from
+the game's local total: there is no account-scoped server receipt or reconciliation
+API in the supplied bridge. Host-side deduplication remains necessary when a
+timed-out async bridge later accepts a retried run.
 No child names, account identifiers or other personal data are collected.
 
 For an iframe, send `{type:'ANALYTICS_CONFIG', parentOrigin: location.origin}`

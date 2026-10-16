@@ -10,6 +10,13 @@ export const XP_ACTIVITY_COUNT = XP_WORLD_IDS.length * XP_ROUND_IDS.length * Obj
 export function xpActivityKey({ worldId, roundId, mode }) {
   return `${worldId}:${roundId}:${mode}`;
 }
+// The app needs one activity number across worlds AND modes, not round 1
+// reused in every theme. Difficulty is intentionally absent: XP claims omit it.
+export function xpActivityNumber(activity){
+  if(!validXPClaim(xpActivityKey(activity)))return null;
+  const modes=Object.keys(XP_REWARDS);
+  return (XP_WORLD_IDS.indexOf(activity.worldId)*XP_ROUND_IDS.length+XP_ROUND_IDS.indexOf(activity.roundId))*modes.length+modes.indexOf(activity.mode)+1;
+}
 
 export function validXPClaim(key) {
   if(typeof key!=='string')return false;
