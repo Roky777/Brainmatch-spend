@@ -50,6 +50,29 @@
   },
   "progression": {
     "xp": {
+      "ruleVersion": 2,
+      "cap": 200,
+      "claimBy": [
+        "difficulty",
+        "mode"
+      ],
+      "rewards": {
+        "gentle": {
+          "practice": 30,
+          "challenge": 20
+        },
+        "growing": {
+          "practice": 40,
+          "challenge": 25
+        },
+        "clever": {
+          "practice": 50,
+          "challenge": 35
+        }
+      },
+      "completionBonus": 0
+    },
+    "legacyXP": {
       "rewards": {
         "practice": 7,
         "challenge": 4

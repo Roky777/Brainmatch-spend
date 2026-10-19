@@ -40,18 +40,18 @@ function hostFixture(bridge){
   globalThis.window={addEventListener(){},setTimeout(){},myJsAnalytics:{trackGameSession:bridge}};
   return {values,restore(){globalThis.window=previousWindow;globalThis.localStorage=previousStorage;}};
 }
-const context=(activity)=>({levelNumber:xpActivityNumber(activity),activityId:xpActivityKey(activity),curriculumLevel:1,roundId:activity.roundId,world:activity.worldId,mode:activity.mode,difficulty:'gentle'});
-test('all XP activities have unique numeric host IDs across worlds and modes',()=>{
+const context=(activity)=>({levelNumber:xpActivityNumber(activity),activityId:xpActivityKey(activity),curriculumLevel:1,roundId:activity.roundId||'1',world:activity.worldId||'dream',mode:activity.mode,difficulty:activity.difficulty});
+test('six XP activities have unique IDs, independent of theme or board',()=>{
   const ids=[];
-  for(const worldId of XP_WORLD_IDS)for(const roundId of XP_ROUND_IDS)for(const mode of Object.keys(XP_REWARDS))ids.push(xpActivityNumber({worldId,roundId,mode}));
+  for(const difficulty of Object.keys(XP_REWARDS))for(const mode of ['practice','challenge'])ids.push(xpActivityNumber({difficulty,mode}));
   assert.equal(new Set(ids).size,ids.length);assert.deepEqual([...ids].sort((a,b)=>a-b),Array.from({length:ids.length},(_,i)=>i+1));
 });
 test('cross-world reports sum to the same cumulative XP as the game without reporting lifetime XP as a new award',async()=>{
   const received=[];const f=hostFixture(payload=>received.push(payload));
   try{
     const save={xp:0,xpClaims:[]};
-    for(const worldId of XP_WORLD_IDS)for(const mode of ['practice','challenge']){
-      const activity={worldId,roundId:XP_ROUND_IDS[0],mode};
+    for(const difficulty of Object.keys(XP_REWARDS))for(const mode of ['practice','challenge']){
+      const activity={difficulty,worldId:'dream',roundId:XP_ROUND_IDS[0],mode};
       const award=awardXP(save,activity),analytics=createGameAnalytics('shape-friends');
       analytics.start(context(activity));analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});
       await flushPending();
@@ -60,7 +60,7 @@ test('cross-world reports sum to the same cumulative XP as the game without repo
     assert.equal(received.reduce((sum,p)=>sum+p.xpEarned,0),save.xp);
     assert.equal(received.at(-1).journeyXpTotal,save.xp);
     assert.ok(received.every(p=>p.xpEarnedTotal===p.xpEarned));
-    const replay={worldId:XP_WORLD_IDS[0],roundId:XP_ROUND_IDS[0],mode:'practice'};
+    const replay={worldId:'neon',roundId:XP_ROUND_IDS[0],difficulty:'gentle',mode:'practice'};
     const award=awardXP(save,replay),analytics=createGameAnalytics('shape-friends');
     analytics.start(context(replay));analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});await flushPending();
     assert.equal(received.at(-1).xpEarned,0);assert.equal(received.at(-1).journeyXpTotal,save.xp);
@@ -96,20 +96,20 @@ test('concurrent flushes do not send the same report twice or lose a newly queue
 });
 test('resuming a legacy run upgrades its activity number but preserves run identity',async()=>{
   const analytics=createGameAnalytics('test');analytics.start({levelNumber:1,roundId:XP_ROUND_IDS[0],world:'neon',mode:'challenge'});
-  const saved=analytics.snapshot(),activity={worldId:'neon',roundId:XP_ROUND_IDS[0],mode:'challenge'};
+  const saved=analytics.snapshot(),activity={worldId:'neon',roundId:XP_ROUND_IDS[0],difficulty:'clever',mode:'challenge'};
   analytics.start(context(activity),saved);
   assert.equal(analytics.snapshot().runId,saved.runId);assert.equal(analytics.snapshot().levelNumber,xpActivityNumber(activity));
   analytics.complete({xpEarned:6,totalXP:44});await flushPending();
 });
-test('only this game’s unsent legacy reports are reindexed, without awarding extra XP',async()=>{
+test('queued legacy reports retain their identity and award amounts during the XP rule change',async()=>{
   const f=hostFixture(()=>false),activity={worldId:'seasons',roundId:XP_ROUND_IDS[0],mode:'practice'};
   try{
     const old={gameId:'test',runId:'old-run',xpEarned:10,xpEarnedTotal:10,level:{levelId:'1',levelNumber:1,xpEarned:10},rawData:[{key:'world',value:activity.worldId},{key:'round_id',value:activity.roundId},{key:'mode',value:activity.mode},{key:'journey_xp_total',value:'44'}]};
     f.values.set(ANALYTICS_QUEUE_KEY,JSON.stringify([old,{...old,gameId:'another-game',runId:'foreign'},null]));
     createGameAnalytics('test',{activityNumber:xpActivityNumber});
     const queue=JSON.parse(f.values.get(ANALYTICS_QUEUE_KEY));
-    assert.equal(queue[0].runId,'old-run');assert.equal(queue[0].level.levelNumber,xpActivityNumber(activity));
-    assert.equal(queue[0].xpEarned,10);assert.equal(queue[0].journeyXpTotal,44);
+    assert.equal(queue[0].runId,'old-run');assert.equal(queue[0].level.levelNumber,1);
+    assert.equal(queue[0].xpEarned,10);assert.deepEqual(queue[0],old);
     assert.equal(queue[1].level.levelNumber,1);
     globalThis.window.myJsAnalytics.trackGameSession=()=>true;await flushPending();
   }finally{f.restore();}

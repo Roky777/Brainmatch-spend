@@ -66,6 +66,6 @@ test('later phonics boards use clear rendered objects for their initial sounds',
 test('the Body & Sound Match XP journey totals exactly 200',()=>{
   const activities=Object.keys(manifest.worlds).length*manifest.rounds.length;
   const xp=manifest.progression.xp;
-  assert.ok(xp.rewards.practice>xp.rewards.challenge);
-  assert.equal(activities*(xp.rewards.practice+xp.rewards.challenge)+xp.completionBonus,200);
+  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice>reward.challenge));
+  assert.equal(Object.values(xp.rewards).reduce((sum,reward)=>sum+reward.practice+reward.challenge,0),200);
 });

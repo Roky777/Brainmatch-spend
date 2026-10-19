@@ -29,8 +29,8 @@ test('hard boards show different currency combinations without total cards',()=>
 test('all money art exists and its XP journey totals 200',async()=>{
   for(const item of Object.values(manifest.items))await access(new URL(`../money-match/assets/cards/${item.asset}`,import.meta.url));
   const xp=manifest.progression.xp;
-  assert.equal(3*6*(xp.rewards.practice+xp.rewards.challenge)+xp.completionBonus,200);
-  assert.ok(xp.rewards.practice>xp.rewards.challenge);
+  assert.equal(Object.values(xp.rewards).reduce((sum,reward)=>sum+reward.practice+reward.challenge,0),200);
+  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice>reward.challenge));
 });
 test('currency cards embed real currency images rather than schematic drawings',async()=>{
   for(const item of Object.values(manifest.items)){

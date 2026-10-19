@@ -3,8 +3,8 @@ import {deliveryURL} from './delivery-map.js?v=2';
 import { MatchBoard, shuffle } from './engine.js?v=2';
 import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
-import { readSave, writeSave, discover, continuableSession } from './save.js?v=8';
-import { createGameAnalytics } from './analytics.js?v=2';
+import { readSave, writeSave, discover, continuableSession } from './save.js?v=9';
+import { createGameAnalytics } from './analytics.js?v=3';
 import { GameAudio } from './audio.js?v=4';
 import { Narration, sparkyVoiceMoment } from './narration.js?v=3';
 import { MusicLoop } from './music.js';
@@ -15,7 +15,7 @@ import { icon } from './art.js';
 import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
 import { CloudReveal } from './cloud-reveal.js?v=3';
-import { awardXP, XP_LIMIT, XP_REWARDS, xpActivityKey, xpActivityNumber } from './xp.js?v=6';
+import { awardXP, XP_LIMIT, xpActivityKey, xpActivityNumber } from './xp.js?v=7';
 import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=8';
 
 const $ = id => document.getElementById(id);
@@ -32,7 +32,7 @@ save.effects = save.music;
 const audio = new GameAudio(save,{prepareVoice:()=>sparky.prepareSpeech()}), music = new MusicLoop(save), timeline = new Timeline();
 const narration=new Narration(audio);
 let reactionEpoch=0;
-const analytics=createGameAnalytics(new URLSearchParams(location.search).get('gameId')||VARIANT.id,{activityNumber:xpActivityNumber});
+const analytics=createGameAnalytics(new URLSearchParams(location.search).get('gameId')||VARIANT.id);
 const sparky = new Sparky($('sparky'), { seated: true });
 $('app').dataset.sparkyReady = 'true';
 const menuSparky = new Sparky($('menu-sparky'), { seated: true });
@@ -77,7 +77,7 @@ function renderXP(award=null) {
   $('result-xp').setAttribute('aria-label',award.earned
     ? `${award.earned} XP earned. ${award.total} of ${XP_LIMIT} total XP.`
     : award.reason==='replay'
-      ? `XP already earned for this board and mode. ${award.total} of ${XP_LIMIT} total XP.`
+      ? `XP already earned for this difficulty and mode. ${award.total} of ${XP_LIMIT} total XP.`
       : `XP journey complete. ${XP_LIMIT} of ${XP_LIMIT} total XP.`);
 }
 function themeProgress(id = theme.id) { return id === 'neon' ? save.neonStars : id === 'seasons' ? save.seasonStars : save.dreamStars; }
@@ -116,7 +116,7 @@ function applyTheme() {
   document.querySelector('.setup-kicker').textContent = theme.menuKicker;
   $('level-objective').textContent = pack.objective;
   $('menu-caption').textContent = VARIANT.menuGreeting||'Welcome, friend! Let’s find matching pairs together.';
-  document.querySelector('.xp-rules').textContent=`First clear in each mode · Practice ${XP_REWARDS.practice} · Beat Sparky ${XP_REWARDS.challenge}`;
+  document.querySelector('.xp-rules').textContent='First clear per difficulty and mode · Themes share XP';
   $('play-again').querySelector('span').textContent='Play again';
   $('theme-open').setAttribute('aria-label', `Change world. Current world: ${theme.title}`);
   $('theme-open-label').textContent = 'Worlds';
@@ -294,7 +294,7 @@ async function startRound(id,resuming=null) {
     return;
   }
   board = resuming?MatchBoard.restore(resuming.board):new MatchBoard(cardsFor({ pairs: activePairs }), { mode: options.mode });
-  const activity={worldId:theme.id,roundId:round.id,mode:options.mode};
+  const activity={difficulty:options.level,mode:options.mode};
   analytics.start({levelNumber:xpActivityNumber(activity),activityId:xpActivityKey(activity),curriculumLevel:pack.rounds.indexOf(round)+1,roundId:round.id,world:theme.id,mode:options.mode,difficulty:options.level},resuming?.analytics);
   memory = new CompanionMemory({ capacity: level.capacity, accuracy: level.accuracy }); guideMemory = new CompanionMemory();
   // Rebuild only observations already visible to the child, never hidden cards.
@@ -623,7 +623,7 @@ function finishRound() {
   if (theme.id === 'neon') save.neonStars = completed;
   else if (theme.id === 'seasons') save.seasonStars = completed;
   else save.dreamStars = completed;
-  const xpAward=awardXP(save,{worldId:theme.id,roundId:round.id,mode:options.mode});
+  const xpAward=awardXP(save,{difficulty:options.level,mode:options.mode});
   analytics.complete({xpEarned:xpAward.earned,totalXP:save.xp,score:board.scores.child,pairCount:board.pairCount});
   save.session=null;
   persist(); audio.effect('finish');

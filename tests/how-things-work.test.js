@@ -36,6 +36,6 @@ test('all science difficulties are playable with 4, 6 and 8 cards in both modes'
   }
 });
 test('science journey totals 200 XP and floating bottle is explicitly capped',()=>{
-  const xp=m.progression.xp;assert.equal(3*3*(xp.rewards.practice+xp.rewards.challenge)+xp.completionBonus,200);
-  assert.ok(xp.rewards.practice>xp.rewards.challenge);assert.match(m.items.picture_bottle.name,/capped/);
+  const xp=m.progression.xp;assert.equal(Object.values(xp.rewards).reduce((sum,reward)=>sum+reward.practice+reward.challenge,0),200);
+  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice>reward.challenge));assert.match(m.items.picture_bottle.name,/capped/);
 });

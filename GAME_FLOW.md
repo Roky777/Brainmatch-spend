@@ -23,6 +23,12 @@ Continue appears only for a valid unfinished board in that world. Clicking it
 restores the card order, matches, score, mode and difficulty. The mode cards still
 open difficulty selection and create a fresh board. XP and world unlocks are kept.
 
+XP is shared across themes and hidden boards. First completions award
+Easy 30/20, Medium 40/25, Hard 50/35 (Practice/Beat Sparky), totalling 200.
+Only difficulty and mode determine whether XP is already claimed. Existing XP
+is retained as proportional credit against these rewards, never erased or
+reported as another award. No theme-based XP or completion bonus remains.
+
 ## Interruptions
 
 An accepted card flip stops current guidance and resets the mouth. Requested help

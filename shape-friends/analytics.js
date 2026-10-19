@@ -66,26 +66,8 @@ function install(){
   });
   window.setTimeout(flushPending,2000);
 }
-export function createGameAnalytics(gameId,{activityNumber}={}){
-  // Only upgrade this game's still-unsent legacy reports. Never replay a report
-  // already handed to the bridge or reinterpret another game's shared queue.
-  if(activityNumber){
-    const queue=readQueue().map(payload=>{
-      if(payload.gameId!==gameId||payload.reportingVersion===2||!payload.level)return payload;
-      const fields=Object.fromEntries((payload.rawData||[]).map(field=>[field.key,field.value]));
-      const activity={worldId:fields.world,roundId:fields.round_id,mode:fields.mode};
-      const number=activityNumber(activity);if(!number)return payload;
-      const next=copy(payload),oldNumber=next.level.levelNumber;
-      next.activityId=`${activity.worldId}:${activity.roundId}:${activity.mode}`;
-      next.level={...next.level,levelId:String(number),levelNumber:number};
-      next.highestLevelPlayed=number;next.reportingVersion=2;
-      next.journeyXpTotal=Math.max(0,Math.min(200,Number(fields.journey_xp_total)||0));next.campaignXpCap=200;
-      next.rawData=Object.entries({...fields,level:number,curriculum_level:fields.curriculum_level||oldNumber,activity_id:next.activityId}).map(([key,value])=>({key,value:String(value)}));
-      if(next.diagnostics?.levels)next.diagnostics.levels=next.diagnostics.levels.map(level=>level.levelNumber===oldNumber?{...level,levelId:String(number),levelNumber:number}:level);
-      return next;
-    });
-    if(queue.length)storeQueue(queue);
-  }
+export function createGameAnalytics(gameId){
+  // Keep queued historical reports unchanged: same run, same identity, same XP.
   install();let state=null,last=clock(),paused=false;
   const tick=()=>{const next=clock();if(state&&!paused)state.elapsedMs+=Math.max(0,next-last);last=next;};
   return {
@@ -110,11 +92,12 @@ export function createGameAnalytics(gameId,{activityNumber}={}){
       const xp=Math.max(0,Math.trunc(xpEarned||0));
       if(successful.length)successful.forEach((task,index)=>task.xpEarned=Math.floor(xp*(index+1)/successful.length)-Math.floor(xp*index/successful.length));
       else if(xp)tasks.push({taskId:'completion',question:'Complete the board',options:'[]',correctChoice:'complete',choiceMade:'complete',successful:true,timeTaken:0,xpEarned:xp});
-      const level={levelId:String(state.levelNumber),levelNumber:state.levelNumber,completed:true,successful:true,timeTaken:Math.round(state.elapsedMs),timeDirection:false,xpEarned:xp,tasks};
+      const activityId=state.activityId||`${state.difficulty}:${state.mode}`;
+      const level={levelId:`difficulty:${activityId}`,levelNumber:state.levelNumber,completed:true,successful:true,timeTaken:Math.round(state.elapsedMs),timeDirection:false,xpEarned:xp,tasks};
       const accuracy=state.tasks.length?successful.length/state.tasks.length:0;
       const journeyXpTotal=Math.max(0,Math.min(200,Math.trunc(totalXP||0)));
-      const fields={level:state.levelNumber,activity_id:state.activityId||`${state.world}:${state.roundId}:${state.mode}`,curriculum_level:state.curriculumLevel||state.levelNumber,stars:accuracy>=.9?3:accuracy>=.7?2:1,round_id:state.roundId,world:state.world,mode:state.mode,difficulty:state.difficulty,attempts:state.tasks.length,accuracy,score,xp_earned:xp,journey_xp_total:journeyXpTotal,object_count:pairCount,campaign_xp_cap:200};
-      const payload={gameId,name:state.runId,runId:state.runId,activityId:fields.activity_id,highestLevelPlayed:state.levelNumber,level,xpEarned:xp,xpEarnedTotal:xp,journeyXpTotal,campaignXpCap:200,reportingVersion:2,rawData:Object.entries(fields).map(([key,value])=>({key,value:String(value)})),diagnostics:{levels:[level]},timestamp:new Date().toISOString()};
+      const fields={level:state.levelNumber,activity_id:activityId,xp_rule_version:2,curriculum_level:state.curriculumLevel||state.levelNumber,stars:accuracy>=.9?3:accuracy>=.7?2:1,round_id:state.roundId,world:state.world,mode:state.mode,difficulty:state.difficulty,attempts:state.tasks.length,accuracy,score,xp_earned:xp,journey_xp_total:journeyXpTotal,object_count:pairCount,campaign_xp_cap:200};
+      const payload={gameId,name:state.runId,runId:state.runId,activityId:fields.activity_id,highestLevelPlayed:state.levelNumber,level,xpEarned:xp,xpEarnedTotal:xp,journeyXpTotal,campaignXpCap:200,reportingVersion:3,rawData:Object.entries(fields).map(([key,value])=>({key,value:String(value)})),diagnostics:{levels:[level]},timestamp:new Date().toISOString()};
       // Persist BEFORE touching the host bridge. Keep the original run ID when
       // retrying; never turn the saved cumulative total into another XP award.
       const queue=readQueue();

@@ -40,16 +40,36 @@ Lifetime journey XP is in `rawData.journey_xp_total` (maximum 200).
 It is also available as numeric `journeyXpTotal` with `campaignXpCap: 200`.
 These cumulative fields are informational, NOT another XP award to add.
 
-Reporting version 2 assigns a distinct numeric activity number to every
-`world:round:mode` XP claim. Both `level.levelId` and `level.levelNumber` use this
-number; `highestLevelPlayed` uses the same numbering. They no longer restart at
-1 for each theme or mode. The original curriculum board number remains in
-`rawData.curriculum_level`, and `activityId` identifies the stable XP claim.
-Difficulty does not change the identity because it does not create another XP
-claim. Resumed legacy runs keep their run ID but adopt the new activity numbering.
-On startup, still-unsent legacy reports for this game are reindexed using their
-world/round/mode metadata, retaining the original run IDs and award amounts.
-Reports belonging to other games in the shared queue are left unchanged.
+Reporting version 3 follows XP rule version 2: only `difficulty:mode` identifies
+an XP claim. Themes and hidden curriculum boards never create another reward.
+`activityId` is e.g. `gentle:practice`; `level.levelId` is namespaced as
+`difficulty:gentle:practice` to distinguish it from old theme-based reporting.
+`level.levelNumber` and `highestLevelPlayed` use the six numeric activity IDs
+1–6 (Easy Practice, Easy Beat Sparky, Medium Practice, Medium Beat Sparky,
+Hard Practice, Hard Beat Sparky). The curriculum board remains in
+`rawData.curriculum_level`. Theme and board are informational only.
+
+| Difficulty | Practice | Beat Sparky |
+| --- | ---: | ---: |
+| Easy | 30 | 20 |
+| Medium | 40 | 25 |
+| Hard | 50 | 35 |
+
+All six first completions total 200 with no completion bonus. Replays in any
+theme or on another hidden board award zero for that same difficulty/mode.
+Old totals are preserved as proportional credit across the six new rewards:
+for each slot, credit is the difference of consecutive cumulative floors of
+`oldTotal × cumulativeReward / 200`. This preserves every integer total exactly.
+The next first clear awards only the unearned part of that slot; completing all
+six reaches exactly 200. Old claims cannot reveal the played difficulty, so they
+are not fabricated into difficulty completions. Credits and new claims are saved
+under `xpRuleVersion: 2`, `xpCredits`, and `xpClaims`; migration itself emits no
+new analytics award. Old manifests' rewards are retained under `legacyXP` only
+for inferring totals from saves that predate an explicit XP total.
+
+Resumed legacy runs keep their run ID but adopt the new activity identity when
+they next finish. Already queued historical reports retain their original
+identity and award amounts; rewriting or replaying them could double count XP.
 
 Game IDs default to the variant IDs. If PW has catalog IDs, launch with
 `?gameId=<PW-catalog-id>`; the game's local save key stays variant-specific.
