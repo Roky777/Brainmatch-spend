@@ -1,8 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {createGameAnalytics,deliver,flushPending,ANALYTICS_QUEUE_KEY,ANALYTICS_HISTORY_KEY} from '../shape-friends/analytics.js';
 import {xpActivityNumber,xpActivityKey,XP_WORLD_IDS,XP_ROUND_IDS,XP_REWARDS,awardXP} from '../shape-friends/xp.js';
 test('PW payload preserves schema, actual XP, task choices and resume run ID',async()=>{
+  const f=hostFixture(()=>true);
+  try{
   const analytics=createGameAnalytics('number-friends');
   analytics.start({levelNumber:2,roundId:'2',world:'dream',mode:'practice',difficulty:'gentle'});
   analytics.recordTask({items:['3','4 dots'],correctChoice:'3 dots',match:false});
@@ -16,6 +19,7 @@ test('PW payload preserves schema, actual XP, task choices and resume run ID',as
   assert.equal(payload.xpEarned,10);assert.equal(payload.diagnostics.levels[0],payload.level);
   assert.equal(resumed.complete({xpEarned:10}),null);
   await flushPending();
+  }finally{f.restore();}
 });
 test('PW delivery uses one host bridge, queues offline and retries without blocking play',async()=>{
   const previousWindow=globalThis.window,previousStorage=globalThis.localStorage;
@@ -40,6 +44,28 @@ function hostFixture(bridge){
   globalThis.window={addEventListener(){},setTimeout(){},myJsAnalytics:{trackGameSession:bridge}};
   return {values,restore(){globalThis.window=previousWindow;globalThis.localStorage=previousStorage;}};
 }
+test('level and task payload fields match the provided sorter analytics contract',async t=>{
+  let source;try{source=await readFile(new URL('../Mini-s-Market-Sorter/src/core/analytics.js',import.meta.url),'utf8');}
+  catch(error){if(error.code==='ENOENT'){t.skip('Reference folder is not shipped in standalone game exports');return;}throw error;}
+  const reference=await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+  const f=hostFixture(()=>true);
+  globalThis.window.dispatchEvent=()=>{};
+  try{
+    const sorter=reference.createGameAnalytics({gameId:'reference',levelCount:6,levels:[{goal:1}]});
+    sorter.startLevel(1);sorter.recordTask({itemName:'frog',correctChoice:'HOP',choiceMade:'HOP',successful:true});
+    const expected=sorter.completeLevel({levelNumber:1,stars:3,attempts:1,firstTryCorrect:1,score:1});
+    const game=createGameAnalytics('contract-game');game.start({levelNumber:1,difficulty:'gentle',mode:'practice'});
+    game.recordTask({items:['frog','HOP'],correctChoice:'HOP',match:true});
+    const actual=game.complete({xpEarned:expected.xpEarned,totalXP:expected.xpEarned,score:1,pairCount:1});
+    for(const key of Object.keys(expected))assert.equal(typeof actual[key],typeof expected[key],key);
+    for(const key of Object.keys(expected.level))assert.equal(typeof actual.level[key],typeof expected.level[key],`level.${key}`);
+    for(const key of Object.keys(expected.level.tasks[0]))assert.equal(typeof actual.level.tasks[0][key],typeof expected.level.tasks[0][key],`task.${key}`);
+    assert.equal(actual.level.levelId,expected.level.levelId);
+    assert.equal(actual.xpEarnedTotal,actual.level.tasks.reduce((sum,task)=>sum+task.xpEarned,0));
+    assert.deepEqual(actual.diagnostics.levels,[actual.level]);
+    await flushPending();
+  }finally{f.restore();}
+});
 const context=(activity)=>({levelNumber:xpActivityNumber(activity),activityId:xpActivityKey(activity),curriculumLevel:1,roundId:activity.roundId||'1',world:activity.worldId||'dream',mode:activity.mode,difficulty:activity.difficulty});
 test('six XP activities have unique IDs, independent of theme or board',()=>{
   const ids=[];
@@ -49,21 +75,25 @@ test('six XP activities have unique IDs, independent of theme or board',()=>{
 test('cross-world reports sum to the same cumulative XP as the game without reporting lifetime XP as a new award',async()=>{
   const received=[];const f=hostFixture(payload=>received.push(payload));
   try{
-    const save={xp:0,xpClaims:[]};
+    const save={xp:0,xpClaims:[]},analytics=createGameAnalytics('shape-friends');
     for(const difficulty of Object.keys(XP_REWARDS))for(const mode of ['practice','challenge']){
       const activity={difficulty,worldId:'dream',roundId:XP_ROUND_IDS[0],mode};
-      const award=awardXP(save,activity),analytics=createGameAnalytics('shape-friends');
+      const award=awardXP(save,activity);
       analytics.start(context(activity));analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});
       await flushPending();
     }
     assert.equal(new Set(received.map(p=>p.level.levelId)).size,6);
+    assert.equal(new Set(received.map(p=>p.runId)).size,1);
+    assert.deepEqual(received.map(p=>p.level.levelId),['1','2','3','4','5','6']);
+    assert.ok(received.every(p=>p.name===p.runId&&p.diagnostics.levels.length===1&&p.level.score===2));
     assert.equal(received.reduce((sum,p)=>sum+p.xpEarned,0),save.xp);
     assert.equal(received.at(-1).journeyXpTotal,save.xp);
     assert.ok(received.every(p=>p.xpEarnedTotal===p.xpEarned));
     const replay={worldId:'neon',roundId:XP_ROUND_IDS[0],difficulty:'gentle',mode:'practice'};
-    const award=awardXP(save,replay),analytics=createGameAnalytics('shape-friends');
-    analytics.start(context(replay));analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});await flushPending();
-    assert.equal(received.at(-1).xpEarned,0);assert.equal(received.at(-1).journeyXpTotal,save.xp);
+    const award=awardXP(save,replay);
+    analytics.start(context(replay));const replayPayload=analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});await flushPending();
+    assert.equal(received.length,7);assert.equal(replayPayload.xpEarned,0);assert.notEqual(replayPayload.runId,received[0].runId);
+    assert.equal(received.at(-1).journeyXpTotal,save.xp);assert.equal(received.reduce((sum,p)=>sum+p.xpEarned,0),200);
   }finally{f.restore();}
 });
 test('reports are durable before the bridge call and false or rejected calls stay queued',async()=>{
@@ -101,16 +131,17 @@ test('resuming a legacy run upgrades its activity number but preserves run ident
   assert.equal(analytics.snapshot().runId,saved.runId);assert.equal(analytics.snapshot().levelNumber,xpActivityNumber(activity));
   analytics.complete({xpEarned:6,totalXP:44});await flushPending();
 });
-test('queued legacy reports retain their identity and award amounts during the XP rule change',async()=>{
+test('XP reset removes only this game and its alias old reports, preserving current and unrelated reports',async()=>{
   const f=hostFixture(()=>false),activity={worldId:'seasons',roundId:XP_ROUND_IDS[0],mode:'practice'};
   try{
     const old={gameId:'test',runId:'old-run',xpEarned:10,xpEarnedTotal:10,level:{levelId:'1',levelNumber:1,xpEarned:10},rawData:[{key:'world',value:activity.worldId},{key:'round_id',value:activity.roundId},{key:'mode',value:activity.mode},{key:'journey_xp_total',value:'44'}]};
-    f.values.set(ANALYTICS_QUEUE_KEY,JSON.stringify([old,{...old,gameId:'another-game',runId:'foreign'},null]));
-    createGameAnalytics('test',{activityNumber:xpActivityNumber});
+    const current={...old,runId:'current',reportingVersion:4};
+    f.values.set(ANALYTICS_QUEUE_KEY,JSON.stringify([old,{...old,gameId:'alias'},current,{...old,gameId:'another-game',runId:'foreign'},null]));
+    f.values.set(ANALYTICS_HISTORY_KEY,JSON.stringify([{payload:old},{payload:current}]));
+    createGameAnalytics('test',{legacyGameIds:['alias']});
     const queue=JSON.parse(f.values.get(ANALYTICS_QUEUE_KEY));
-    assert.equal(queue[0].runId,'old-run');assert.equal(queue[0].level.levelNumber,1);
-    assert.equal(queue[0].xpEarned,10);assert.deepEqual(queue[0],old);
-    assert.equal(queue[1].level.levelNumber,1);
+    assert.deepEqual(queue,[current,{...old,gameId:'another-game',runId:'foreign'}]);
+    assert.deepEqual(JSON.parse(f.values.get(ANALYTICS_HISTORY_KEY)),[{payload:current}]);
     globalThis.window.myJsAnalytics.trackGameSession=()=>true;await flushPending();
   }finally{f.restore();}
 });

@@ -25,9 +25,15 @@ open difficulty selection and create a fresh board. XP and world unlocks are kep
 
 XP is shared across themes and hidden boards. First completions award
 Easy 30/20, Medium 40/25, Hard 50/35 (Practice/Beat Sparky), totalling 200.
-Only difficulty and mode determine whether XP is already claimed. Existing XP
-is retained as proportional credit against these rewards, never erased or
-reported as another award. No theme-based XP or completion bonus remains.
+Only difficulty and mode determine whether XP is already claimed. Old local XP
+resets once for XP rule version 3; new XP persists normally. Unlocks, themes,
+settings and saved boards stay intact. No theme-based XP or completion bonus remains.
+
+When PW injects userInfo, saves are isolated by user and catalog game. App/local
+highest-level progress selects the initial difficulty focus, never opens a board
+automatically and never fabricates XP claims. A continuous analytics run shares
+one ID across levels; new launches/home/replays start new runs. Explicit Continue
+retains the unfinished board's run ID, and retries retain the original report ID.
 
 ## Interruptions
 

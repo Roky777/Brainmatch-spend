@@ -1,7 +1,8 @@
-// PW host contract adapted from Mini-s-Market-Sorter/src/core/analytics.js.
+// PW level-wise contract from BrainMatch-main/js-analytics-bridge.
 // Never send personal data, and never let telemetry block gameplay.
 export const ANALYTICS_QUEUE_KEY='ignite_pending_sessions_jsplugin';
 export const ANALYTICS_HISTORY_KEY='brainmatch:analytics-delivery:v1';
+export const REPORTING_VERSION=4;
 const copy=value=>JSON.parse(JSON.stringify(value));
 const clock=()=>globalThis.performance?.now?.()??Date.now();
 function readQueue(){try{const value=JSON.parse(globalThis.localStorage?.getItem(ANALYTICS_QUEUE_KEY)||'[]');return Array.isArray(value)?value.filter(item=>item&&typeof item.gameId==='string'&&(typeof item.runId==='string'||typeof item.name==='string')):[];}catch{return [];}}
@@ -25,6 +26,11 @@ async function bridgeResult(call){
 }
 export async function deliver(payload){
   if(typeof window==='undefined')return false;
+  // Queue ownership stays local; never deliver one child's report in another
+  // child's WebView session, and never send this private marker to the host.
+  if(payload._brainmatchOwner&&window.userInfo?.UserID!==payload._brainmatchOwner)return false;
+  const {_brainmatchOwner,...hostPayload}=payload;
+  payload=hostPayload;
   // Prefer one bridge: delivering through every bridge duplicates sessions.
   try{if(typeof window.myJsAnalytics?.trackGameSession==='function')return await bridgeResult(()=>window.myJsAnalytics.trackGameSession(payload));}catch{return false;}
   try{if(typeof window.ReactNativeWebView?.postMessage==='function')return await bridgeResult(()=>window.ReactNativeWebView.postMessage(JSON.stringify(payload)));}catch{return false;}
@@ -66,16 +72,30 @@ function install(){
   });
   window.setTimeout(flushPending,2000);
 }
-export function createGameAnalytics(gameId){
-  // Keep queued historical reports unchanged: same run, same identity, same XP.
+export function createGameAnalytics(gameId,{legacyGameIds=[],ownerId=null}={}){
+  const ids=new Set([gameId,...legacyGameIds]);
+  // Discard only these games' old pending XP, before any delivery listener runs.
+  storeQueue(readQueue().filter(payload=>!ids.has(payload.gameId)||payload.reportingVersion===REPORTING_VERSION));
+  try{
+    const history=JSON.parse(globalThis.localStorage?.getItem(ANALYTICS_HISTORY_KEY)||'[]');
+    if(Array.isArray(history))globalThis.localStorage?.setItem(ANALYTICS_HISTORY_KEY,JSON.stringify(history.filter(entry=>!ids.has(entry?.payload?.gameId)||entry?.payload?.reportingVersion===REPORTING_VERSION)));
+  }catch{}
+  const newRun=()=>({gameId,runId:globalThis.crypto?.randomUUID?.()||`${gameId}_${Date.now()}_${Math.random().toString(36).slice(2)}`,levels:[]});
+  let campaign=newRun();
   install();let state=null,last=clock(),paused=false;
   const tick=()=>{const next=clock();if(state&&!paused)state.elapsedMs+=Math.max(0,next-last);last=next;};
   return {
-    start({levelNumber,roundId,world,mode,difficulty,activityId,curriculumLevel},restored=null){
-      state=restored&&restored.gameId===gameId&&typeof restored.runId==='string'&&Array.isArray(restored.tasks)&&Number.isFinite(restored.elapsedMs)&&Number.isFinite(restored.taskElapsedMs)&&restored.tasks.every(task=>typeof task.successful==='boolean'&&Number.isFinite(task.timeTaken))
+    resetRun(){campaign=newRun();state=null;},
+    start({levelNumber,roundId,world,mode,difficulty,activityId,curriculumLevel,highestLevelPlayed},restored=null){
+      const canResume=restored&&restored.gameId===gameId&&restored.reportingVersion===REPORTING_VERSION&&typeof restored.runId==='string'&&!restored.submitted&&Array.isArray(restored.tasks)&&Number.isFinite(restored.elapsedMs)&&Number.isFinite(restored.taskElapsedMs)&&restored.tasks.every(task=>typeof task.successful==='boolean'&&Number.isFinite(task.timeTaken));
+      if(canResume)campaign={gameId,runId:restored.runId,levels:[]};
+      else if(levelNumber===1||campaign.levels.some(level=>level.levelNumber===levelNumber))campaign=newRun();
+      state=canResume
         ? copy(restored)
-        : {gameId,runId:globalThis.crypto?.randomUUID?.()||`${gameId}_${Date.now()}_${Math.random().toString(36).slice(2)}`,levelNumber,roundId,world,mode,difficulty,tasks:[],elapsedMs:0,taskElapsedMs:0,submitted:false};
-      // Migrate an unfinished legacy run without changing its run ID or tasks.
+        : {gameId,levelNumber,roundId,world,mode,difficulty,tasks:[],elapsedMs:0,taskElapsedMs:0,submitted:false};
+      state.runId=campaign.runId;state.reportingVersion=REPORTING_VERSION;
+      state.highestLevelPlayed=Math.max(Number.isInteger(highestLevelPlayed)?highestLevelPlayed:1,state.highestLevelPlayed||1);
+      // Use the six difficulty/mode levels in the supplied sorter's schema.
       if(activityId){state.activityId=activityId;state.levelNumber=levelNumber;state.curriculumLevel=curriculumLevel;}
       last=clock();paused=false;
     },
@@ -93,16 +113,21 @@ export function createGameAnalytics(gameId){
       if(successful.length)successful.forEach((task,index)=>task.xpEarned=Math.floor(xp*(index+1)/successful.length)-Math.floor(xp*index/successful.length));
       else if(xp)tasks.push({taskId:'completion',question:'Complete the board',options:'[]',correctChoice:'complete',choiceMade:'complete',successful:true,timeTaken:0,xpEarned:xp});
       const activityId=state.activityId||`${state.difficulty}:${state.mode}`;
-      const level={levelId:`difficulty:${activityId}`,levelNumber:state.levelNumber,completed:true,successful:true,timeTaken:Math.round(state.elapsedMs),timeDirection:false,xpEarned:xp,tasks};
+      const level={levelId:String(state.levelNumber),levelNumber:state.levelNumber,completed:true,successful:true,timeTaken:Math.round(state.elapsedMs),timeDirection:false,xpEarned:xp,score, pairCount,tasks};
+      // A repeated completion callback must not submit the same level twice.
+      if(campaign.levels.some(previous=>previous.levelId===level.levelId))return null;
+      campaign.levels.push(copy(level));
       const accuracy=state.tasks.length?successful.length/state.tasks.length:0;
       const journeyXpTotal=Math.max(0,Math.min(200,Math.trunc(totalXP||0)));
-      const fields={level:state.levelNumber,activity_id:activityId,xp_rule_version:2,curriculum_level:state.curriculumLevel||state.levelNumber,stars:accuracy>=.9?3:accuracy>=.7?2:1,round_id:state.roundId,world:state.world,mode:state.mode,difficulty:state.difficulty,attempts:state.tasks.length,accuracy,score,xp_earned:xp,journey_xp_total:journeyXpTotal,object_count:pairCount,campaign_xp_cap:200};
-      const payload={gameId,name:state.runId,runId:state.runId,activityId:fields.activity_id,highestLevelPlayed:state.levelNumber,level,xpEarned:xp,xpEarnedTotal:xp,journeyXpTotal,campaignXpCap:200,reportingVersion:3,rawData:Object.entries(fields).map(([key,value])=>({key,value:String(value)})),diagnostics:{levels:[level]},timestamp:new Date().toISOString()};
+      const fields={level:state.levelNumber,activity_id:activityId,xp_rule_version:3,curriculum_level:state.curriculumLevel||state.levelNumber,stars:accuracy>=.9?3:accuracy>=.7?2:1,round_id:state.roundId,world:state.world,mode:state.mode,difficulty:state.difficulty,attempts:state.tasks.length,accuracy,score,xp_earned:xp,journey_xp_total:journeyXpTotal,object_count:pairCount,campaign_xp_cap:200};
+      const levels=copy(campaign.levels).sort((a,b)=>a.levelNumber-b.levelNumber);
+      const payload={gameId,name:state.runId,runId:state.runId,activityId:fields.activity_id,highestLevelPlayed:Math.max(state.highestLevelPlayed,...levels.map(level=>level.levelNumber)),level,xpEarned:xp,xpEarnedTotal:xp,journeyXpTotal,campaignXpCap:200,reportingVersion:REPORTING_VERSION,rawData:Object.entries(fields).map(([key,value])=>({key,value:String(value)})),diagnostics:{levels:[level]},timestamp:new Date().toISOString()};
       // Persist BEFORE touching the host bridge. Keep the original run ID when
       // retrying; never turn the saved cumulative total into another XP award.
       const queue=readQueue();
-      const stored=queue.some(item=>reportKey(item)===reportKey(payload))||storeQueue([...queue,payload]);
-      void Promise.resolve().then(()=>stored?flushPending():deliver(payload));
+      const pending=ownerId?{...payload,_brainmatchOwner:ownerId}:payload;
+      const stored=queue.some(item=>reportKey(item)===reportKey(payload))||storeQueue([...queue,pending]);
+      void Promise.resolve().then(()=>stored?flushPending():deliver(pending));
       return payload;
     },
   };

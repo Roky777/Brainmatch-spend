@@ -19,25 +19,28 @@ test('themes and hidden board IDs never create another XP claim',()=>{
   assert.equal(xpActivityKey({difficulty:'gentle',mode:'practice',worldId:'neon'}),'gentle:practice');
   assert.equal(xpActivityNumber({difficulty:'clever',mode:'challenge'}),6);
 });
-test('every old earned total is preserved and can reach exactly 200',()=>{
+test('every old earned total resets once and can earn exactly 200 again',()=>{
   for(let total=0;total<=200;total++){
     const save={xp:total,xpClaims:['dream:1:practice']};Object.assign(save,migrateXP(save));
-    assert.equal(save.xp,total);assert.deepEqual(migrateXP(save),migrateXP(migrateXP(save)));
+    assert.equal(save.xp,0);assert.deepEqual(migrateXP(save),migrateXP(migrateXP(save)));
     let earned=0;for(const key of XP_KEYS){const [difficulty,mode]=key.split(':');earned+=awardXP(save,{difficulty,mode}).earned;}
-    assert.equal(save.xp,200);assert.equal(earned,200-total);
+    assert.equal(save.xp,200);assert.equal(earned,200);
   }
 });
-test('legacy credits survive save reload without awarding XP twice',()=>{
+test('legacy XP resets but newly earned XP survives reload without a second reset',()=>{
   let save=sanitizeSave({version:6,xp:44,xpClaims:['dream:1:practice']});
-  assert.equal(save.xp,44);assert.deepEqual(save.xpClaims,[]);
+  assert.equal(save.xp,0);assert.deepEqual(save.xpClaims,[]);
   const result=awardXP(save,{difficulty:'gentle',mode:'practice'});
-  assert.equal(result.earned,24);save=sanitizeSave(JSON.parse(JSON.stringify(save)));
-  assert.equal(save.xp,68);assert.equal(awardXP(save,{difficulty:'gentle',mode:'practice'}).earned,0);
-  assert.equal(sanitizeSave({version:6,xp:999}).xp,200);assert.equal(sanitizeSave({version:6,xp:-10}).xp,0);
+  assert.equal(result.earned,30);save=sanitizeSave(JSON.parse(JSON.stringify(save)));
+  assert.equal(save.xp,30);assert.equal(awardXP(save,{difficulty:'gentle',mode:'practice'}).earned,0);
+  assert.equal(sanitizeSave({version:6,xp:999}).xp,0);assert.equal(sanitizeSave({version:6,xp:-10}).xp,0);
+  const version2=sanitizeSave({version:7,xpRuleVersion:2,xp:200,xpCredits:Object.fromEntries(XP_KEYS.map(key=>[key,200])),xpClaims:XP_KEYS});
+  assert.equal(version2.xp,0);assert.deepEqual(version2.xpClaims,[]);
 });
-test('very old saves infer their original rewards, not difficulty completions',()=>{
+test('old stars remain unlocked without inferring or re-awarding old XP',()=>{
   const save=sanitizeSave({version:5,dreamStars:['1','2','3'],seasonStars:['1']});
-  assert.equal(save.xp,40);assert.deepEqual(save.xpClaims,[]);
+  assert.equal(save.xp,0);assert.deepEqual(save.xpClaims,[]);
+  assert.deepEqual(save.dreamStars,['1','2','3']);assert.deepEqual(save.seasonStars,['1']);
 });
 test('invalid claims cannot create XP or mutate the journey',()=>{
   const save=emptySave();assert.equal(awardXP(save,{difficulty:'unknown',mode:'practice'}).earned,0);assert.equal(save.xp,0);

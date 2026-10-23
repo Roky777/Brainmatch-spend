@@ -1,6 +1,6 @@
-import { GAME_CONTENT, PACK, WORLDS } from './content.js?v=5';
+import { PACK, WORLDS } from './content.js?v=5';
 
-export const XP_LIMIT=200, XP_RULE_VERSION=2, XP_ACTIVITY_COUNT=6, XP_JOURNEY_BONUS=0;
+export const XP_LIMIT=200, XP_RULE_VERSION=3, XP_ACTIVITY_COUNT=6, XP_JOURNEY_BONUS=0;
 export const XP_REWARDS=Object.freeze({
   gentle:Object.freeze({practice:30,challenge:20}),
   growing:Object.freeze({practice:40,challenge:25}),
@@ -23,21 +23,9 @@ export function migrateXP(raw={}){
     const credits=Object.fromEntries(XP_KEYS.map(key=>[key,claims.includes(key)?xpReward(key):Math.max(0,Math.min(xpReward(key),Math.trunc(Number(raw.xpCredits?.[key])||0))) ]));
     return {xpRuleVersion:XP_RULE_VERSION,xpCredits:credits,xpClaims:claims,xp:XP_KEYS.reduce((sum,key)=>sum+credits[key],0),xpJourneyBonus:false};
   }
-  // Legacy claims did not store difficulty. Preserve their actual earned total
-  // as proportional credit, not fabricated difficulty completions.
-  const legacyRewards=GAME_CONTENT.progression?.legacyXP?.rewards||{practice:10,challenge:6};
-  const legacyClaims=[...new Set(Array.isArray(raw.xpClaims)?raw.xpClaims:[])].filter(key=>{
-    if(typeof key!=='string')return false;
-    const [world,round,mode,...rest]=key.split(':');return !rest.length&&XP_WORLD_IDS.includes(world)&&XP_ROUND_IDS.includes(round)&&modes.includes(mode);
-  });
-  const inferred=legacyClaims.reduce((sum,key)=>sum+(legacyRewards[key.split(':')[2]]||0),0)+(raw.xpJourneyBonus?(GAME_CONTENT.progression?.legacyXP?.completionBonus??8):0);
-  const total=Math.max(0,Math.min(XP_LIMIT,Number.isInteger(raw.xp)?raw.xp:inferred));
-  let cumulative=0;
-  const credits=Object.fromEntries(XP_KEYS.map(key=>{
-    const before=Math.floor(total*cumulative/XP_LIMIT);cumulative+=xpReward(key);
-    return [key,Math.floor(total*cumulative/XP_LIMIT)-before];
-  }));
-  return {xpRuleVersion:XP_RULE_VERSION,xpCredits:credits,xpClaims:[],xp:total,xpJourneyBonus:false};
+  // User-requested one-time reset. Never infer XP from old stars or carry
+  // proportional legacy credits into this clean six-level journey.
+  return {xpRuleVersion:XP_RULE_VERSION,xpCredits:Object.fromEntries(XP_KEYS.map(key=>[key,0])),xpClaims:[],xp:0,xpJourneyBonus:false};
 }
 
 export function awardXP(save,activity){

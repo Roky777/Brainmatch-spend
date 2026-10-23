@@ -1,8 +1,8 @@
 import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=5';
-import { migrateXP, XP_RULE_VERSION } from './xp.js?v=7';
+import { migrateXP, XP_RULE_VERSION } from './xp.js?v=8';
 import { MatchBoard } from './engine.js?v=2';
 export const SAVE_KEY = `brainmatch:${VARIANT.id}:v1`;
-export const emptySave = () => ({ version: 7, session:null, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpRuleVersion:XP_RULE_VERSION,xpCredits:migrateXP({xp:0}).xpCredits, xpClaims: [], xpJourneyBonus: false });
+export const emptySave = () => ({ version: 7, highestLevelPlayed:1, session:null, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpRuleVersion:XP_RULE_VERSION,xpCredits:migrateXP({xp:0}).xpCredits, xpClaims: [], xpJourneyBonus: false });
 export function sanitizeSession(raw){
   try{
     if(!raw||!['dream','seasons','neon'].includes(raw.world)||!['gentle','growing','clever'].includes(raw.difficulty)||!['practice','challenge'].includes(raw.mode))return null;
@@ -40,12 +40,8 @@ export function sanitizeSave(raw) {
   save.seasonStars = rawSeason.length > 0 ? rawSeason : validSeasonRounds.filter(id => save.seasonCompleted.includes(id));
   const validNeonRounds=NEON_PACK.rounds.map(round=>round.id);
   save.neonStars = Array.isArray(raw.neonStars) ? raw.neonStars.filter(id => typeof id === 'string' && validNeonRounds.includes(id)) : [];
-  const inferredClaims=[
-    ...save.dreamStars.map(id=>`dream:${id}:practice`),
-    ...save.seasonStars.map(id=>`seasons:${id}:practice`),
-    ...save.neonStars.map(id=>`neon:${id}:practice`),
-  ];
-  Object.assign(save,migrateXP({...raw,xpClaims:Array.isArray(raw.xpClaims)?raw.xpClaims:inferredClaims}));
+  Object.assign(save,migrateXP(raw));
+  save.highestLevelPlayed=Number.isInteger(raw.highestLevelPlayed)?Math.max(1,Math.min(6,raw.highestLevelPlayed)):1;
   const seasonsGoal=Math.min(3,validRounds.length);
   const neonGoal=Math.min(5,validRounds.length+validSeasonRounds.length);
   const neonUnlocked=save.dreamStars.length+save.seasonStars.length>=neonGoal;
@@ -57,14 +53,15 @@ export function sanitizeSave(raw) {
   save.activeRound = validRounds.includes(raw.activeRound) ? raw.activeRound : '1';
   save.gardenWater = Number.isInteger(raw.gardenWater) ? Math.max(0, Math.min(3, raw.gardenWater)) : 0;
   save.session=sanitizeSession(raw.session);
+  if(save.session&&raw.xpRuleVersion!==XP_RULE_VERSION)save.session.analytics=null;
   if(save.session&&save.session.world!==save.theme)save.session=null;
   return save;
 }
-export function readSave(storage) {
-  try { return sanitizeSave(JSON.parse((storage || globalThis.localStorage).getItem(SAVE_KEY))); } catch { return emptySave(); }
+export function readSave(storage,key=SAVE_KEY) {
+  try { return sanitizeSave(JSON.parse((storage || globalThis.localStorage).getItem(key))); } catch { return emptySave(); }
 }
-export function writeSave(save, storage) {
-  try { (storage || globalThis.localStorage).setItem(SAVE_KEY, JSON.stringify(save)); return true; } catch { return false; }
+export function writeSave(save, storage,key=SAVE_KEY) {
+  try { (storage || globalThis.localStorage).setItem(key, JSON.stringify(save)); return true; } catch { return false; }
 }
 export function discover(save, items) {
   const added = items.filter(item => !save.discoveries.includes(item));

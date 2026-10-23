@@ -1,11 +1,26 @@
 # PW Games app integration
 
+## Fresh-data release reset
+
+Release `fresh-start-2026-10` performs one local reset per variant before the
+runtime reads saves or starts analytics. It removes that variant's previous
+anonymous/account saves (including XP, unlocks, settings and unfinished boards),
+campaign records, and identifiable old outbox/history entries. It does not use
+`localStorage.clear()` or touch unrelated apps. A release marker makes the reset
+one-time, so newly earned progress persists normally. Cache-busted entrypoints
+load this reset before the game. Backend records and app-injected progress are
+not erased by a browser-side reset; resetting those requires the app/backend.
+
 All ten variants share `shape-friends/save.js`, `engine.js`, and `analytics.js`.
 
 ## Local save and resume
 
-Each game uses `brainmatch:<variant-id>:v1` in localStorage. Existing XP, unlocks,
-discoveries and sound settings remain compatible. In-progress saves add the
+Browser-only games use `brainmatch:<variant-id>:v1` in localStorage. When the app
+injects valid `window.userInfo`, saves are scoped by variant, app game ID and user
+ID (`brainmatch:<variant>:user:<encoded-user>:game:<encoded-game>:v1`). Anonymous
+progress is not automatically attributed to a signed-in child. Unlocks,
+discoveries and sound settings remain compatible. Old XP resets once under
+XP rule version 3, as requested; new XP then persists normally. In-progress saves add the
 exact shuffled deck, matches, scores, turn, first child pick, observed cards,
 world, board, difficulty, mode and analytics session. Reopening shows the last-used
 theme's home screen. Only Continue restores the saved board; choosing a mode and
@@ -17,12 +32,23 @@ Saves happen on reveals, resolved pairs, turn changes, visibility changes and
 pagehide. Corrupt or outdated decks are ignored. Storage errors never crash play.
 Persistence is per browser/WebView origin, not a cloud or cross-device save.
 The PW app must enable DOM storage and retain its WebView storage between launches.
-If multiple children share a WebView profile, their storage must be separated by
-the host; no PW user identifier was supplied to these games.
+`window.userInfo.UserID` and `.GameID` map to `userId` and `gameId`; display names
+are ignored. Injection is re-read at home, before choosing a mode or continuing,
+and after native message notifications (from the actual global, not message data).
+App identity takes precedence over the query-string game ID. Valid app/local
+`highestLevelPlayed` values are merged with `Math.max` and clamped to 1–6. The
+home screen remains visible; the corresponding difficulty receives focus when
+the child opens the picker. Progress alone never creates an XP claim. Existing
+explicit Continue restores only this child's saved board. Account changes on
+native notification checkpoint the old account and return to the new account's home.
 
 ## Analytics contract
 
-Adapted from `Mini-s-Market-Sorter/src/core/analytics.js`. Delivery preference:
+Uses the level-wise contract in
+`BrainMatch-main/js-analytics-bridge/analytics-bridge.esm.js` (`submitLevel` and
+`validateLevelPayload`), also compatible with the supplied sorter. Older Markdown
+examples describe cumulative reports and conflict with this executable contract.
+Delivery preference:
 
 1. `window.myJsAnalytics.trackGameSession(payload)`
 2. `window.ReactNativeWebView.postMessage(JSON.stringify(payload))`
@@ -40,10 +66,10 @@ Lifetime journey XP is in `rawData.journey_xp_total` (maximum 200).
 It is also available as numeric `journeyXpTotal` with `campaignXpCap: 200`.
 These cumulative fields are informational, NOT another XP award to add.
 
-Reporting version 3 follows XP rule version 2: only `difficulty:mode` identifies
+Reporting version 4 follows XP rule version 3: only `difficulty:mode` identifies
 an XP claim. Themes and hidden curriculum boards never create another reward.
-`activityId` is e.g. `gentle:practice`; `level.levelId` is namespaced as
-`difficulty:gentle:practice` to distinguish it from old theme-based reporting.
+`activityId` is e.g. `gentle:practice`; `level.levelId` is a numeric string,
+like the supplied sorter's `"1"` through `"6"`.
 `level.levelNumber` and `highestLevelPlayed` use the six numeric activity IDs
 1–6 (Easy Practice, Easy Beat Sparky, Medium Practice, Medium Beat Sparky,
 Hard Practice, Hard Beat Sparky). The curriculum board remains in
@@ -57,23 +83,28 @@ Hard Practice, Hard Beat Sparky). The curriculum board remains in
 
 All six first completions total 200 with no completion bonus. Replays in any
 theme or on another hidden board award zero for that same difficulty/mode.
-Old totals are preserved as proportional credit across the six new rewards:
-for each slot, credit is the difference of consecutive cumulative floors of
-`oldTotal × cumulativeReward / 200`. This preserves every integer total exactly.
-The next first clear awards only the unearned part of that slot; completing all
-six reaches exactly 200. Old claims cannot reveal the played difficulty, so they
-are not fabricated into difficulty completions. Credits and new claims are saved
-under `xpRuleVersion: 2`, `xpCredits`, and `xpClaims`; migration itself emits no
-new analytics award. Old manifests' rewards are retained under `legacyXP` only
-for inferring totals from saves that predate an explicit XP total.
+Old local XP totals, claims and credits reset to zero once. New claims are saved
+under `xpRuleVersion: 3`, `xpCredits`, and `xpClaims`; reloads never reset these
+new awards. Migration sends no award. Old pending reports and delivery history
+for this game (including its default variant-ID alias) are removed so stale XP
+cannot be sent after the reset. Other games' reports are untouched. Old board
+state remains available, but its obsolete analytics snapshot is discarded.
 
-Resumed legacy runs keep their run ID but adopt the new activity identity when
-they next finish. Already queued historical reports retain their original
-identity and award amounts; rewriting or replaying them could double count XP.
+As in the supplied sorter, a report describes one completed level:
+`diagnostics.levels` contains just that `level`, with tasks and their allocated XP.
+The score is recorded in `level.score` and `rawData.score`. A continuous run uses
+one game-generated ID across different completed levels. Reloading/new launches,
+returning home, starting level 1, or replaying an already-submitted level creates
+a new run, as in the reference integration. Explicit Continue restores the
+unfinished board's saved run ID. Repeated completion callbacks do not resubmit.
+Replays may report performance with zero XP; the saved six XP claims still prevent
+any repeat reward. Retried reports always keep their original run/level identity.
 
-Game IDs default to the variant IDs. If PW has catalog IDs, launch with
+Game IDs use injected `GameID` first, then a query-string override, then the
+variant ID. If no identity is injected and PW has catalog IDs, launch with
 `?gameId=<PW-catalog-id>`; the game's local save key stays variant-specific.
-Sessions retain their `runId` across resume. The host should deduplicate by
+Sessions retain their `runId` across resume. The host should merge levels under
+`gameId` + `runId`, and deduplicate by
 `gameId` + `runId` + `level.levelId`, since a bridge call is not a server receipt.
 Completions are written to the sorter's shared localStorage queue
 `ignite_pending_sessions_jsplugin` BEFORE delivery. A false bridge return,
@@ -93,7 +124,10 @@ cannot safely be backfilled merely by subtracting the app screenshot total from
 the game's local total: there is no account-scoped server receipt or reconciliation
 API in the supplied bridge. Host-side deduplication remains necessary when a
 timed-out async bridge later accepts a retried run.
-No child names, account identifiers or other personal data are collected.
+No display names or user IDs are added to analytics payloads or logs. The
+app-provided user ID is used locally for save keys and an outbox ownership marker;
+that marker is stripped before delivery. Reports owned by another child remain
+queued until that child's app session is active, rather than being misattributed.
 
 For an iframe, send `{type:'ANALYTICS_CONFIG', parentOrigin: location.origin}`
 from the parent to configure the target origin. Only messages from the parent
@@ -101,3 +135,6 @@ whose declared origin matches the actual message origin are accepted. Until
 configuration arrives, the compatibility fallback is `'*'`, as in the supplied
 game. Native WebView DOM storage and receipt/deduplication need validation in PW;
 browser/unit tests cannot verify the app's server-side analytics ingestion.
+This client reset cannot delete existing backend records or reset the app's XP.
+Whether the host creates a ticket per call is controlled by its handler; the
+game now supplies stable run and level IDs for merging, not new session IDs.

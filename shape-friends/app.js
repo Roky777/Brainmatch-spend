@@ -3,8 +3,9 @@ import {deliveryURL} from './delivery-map.js?v=2';
 import { MatchBoard, shuffle } from './engine.js?v=2';
 import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
-import { readSave, writeSave, discover, continuableSession } from './save.js?v=9';
-import { createGameAnalytics } from './analytics.js?v=3';
+import { readSave, writeSave, discover, continuableSession } from './save.js?v=11';
+import { createGameAnalytics } from './analytics.js?v=5';
+import {readHostContext,progressSaveKey,resolveProgress,difficultyForProgress} from './host-progress.js?v=1';
 import { GameAudio } from './audio.js?v=4';
 import { Narration, sparkyVoiceMoment } from './narration.js?v=3';
 import { MusicLoop } from './music.js';
@@ -15,7 +16,7 @@ import { icon } from './art.js';
 import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
 import { CloudReveal } from './cloud-reveal.js?v=3';
-import { awardXP, XP_LIMIT, xpActivityKey, xpActivityNumber } from './xp.js?v=7';
+import { awardXP, XP_LIMIT, xpActivityKey, xpActivityNumber } from './xp.js?v=8';
 import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=8';
 
 const $ = id => document.getElementById(id);
@@ -25,14 +26,17 @@ $('app').append($('hint'));
 // Keep the compact XP HUD anchored to the stage, outside the transformed
 // menu-content block that would otherwise pull it over the title.
 $('setup-view').append($('xp-meter'));
-const save = readSave();
+let host=readHostContext(),saveKey=progressSaveKey(VARIANT.id,host);
+const save = readSave(undefined,saveKey);
+save.highestLevelPlayed=resolveProgress(save.highestLevelPlayed,host?.highestLevelPlayed);
 let theme = getWorld(save.theme), pack = theme.pack;
 // The child-facing Music control is the single master switch for all non-voice audio.
 save.effects = save.music;
 const audio = new GameAudio(save,{prepareVoice:()=>sparky.prepareSpeech()}), music = new MusicLoop(save), timeline = new Timeline();
 const narration=new Narration(audio);
 let reactionEpoch=0;
-const analytics=createGameAnalytics(new URLSearchParams(location.search).get('gameId')||VARIANT.id);
+const analyticsId=()=>host?.gameId||new URLSearchParams(location.search).get('gameId')||VARIANT.id;
+let analytics=createGameAnalytics(analyticsId(),{legacyGameIds:[VARIANT.id],ownerId:host?.userId});
 const sparky = new Sparky($('sparky'), { seated: true });
 $('app').dataset.sparkyReady = 'true';
 const menuSparky = new Sparky($('menu-sparky'), { seated: true });
@@ -57,7 +61,23 @@ const picnic = new Picnic($('picnic'), {
   progress: save.gardenWater, onProgress: value => { save.gardenWater = value; persist(); },
 });
 
-function persist() { $('save-notice').hidden = writeSave(save); }
+function persist() { $('save-notice').hidden = writeSave(save,undefined,saveKey); }
+function syncHostProgress(){
+  // Re-read the injected global at interaction time: native injection can be late.
+  // Never copy identity from an arbitrary iframe postMessage.
+  const next=readHostContext();if(!next)return;
+  const key=progressSaveKey(VARIANT.id,next);
+  if(key!==saveKey){
+    persist();saveKey=key;host=next;
+    for(const key of Object.keys(save))delete save[key];
+    Object.assign(save,readSave(undefined,saveKey));
+    analytics=createGameAnalytics(analyticsId(),{legacyGameIds:[VARIANT.id],ownerId:host?.userId});
+    board=null;round=null;
+    save.effects=save.music;applyTheme();renderXP();settingsUI();setupUI();
+  }else host=next;
+  save.highestLevelPlayed=resolveProgress(save.highestLevelPlayed,host.highestLevelPlayed);
+  persist();
+}
 function checkpoint(){
   if(mode!=='match'||!board||!round)return;
   save.session={world:theme.id,roundId:round.id,difficulty:options.level,mode:options.mode,board:board.exportState(),memory:[...memory.seen.keys()],guideMemory:[...guideMemory.seen.keys()],analytics:analytics.snapshot()};
@@ -295,7 +315,7 @@ async function startRound(id,resuming=null) {
   }
   board = resuming?MatchBoard.restore(resuming.board):new MatchBoard(cardsFor({ pairs: activePairs }), { mode: options.mode });
   const activity={difficulty:options.level,mode:options.mode};
-  analytics.start({levelNumber:xpActivityNumber(activity),activityId:xpActivityKey(activity),curriculumLevel:pack.rounds.indexOf(round)+1,roundId:round.id,world:theme.id,mode:options.mode,difficulty:options.level},resuming?.analytics);
+  analytics.start({levelNumber:xpActivityNumber(activity),activityId:xpActivityKey(activity),curriculumLevel:pack.rounds.indexOf(round)+1,roundId:round.id,world:theme.id,mode:options.mode,difficulty:options.level,highestLevelPlayed:save.highestLevelPlayed},resuming?.analytics);
   memory = new CompanionMemory({ capacity: level.capacity, accuracy: level.accuracy }); guideMemory = new CompanionMemory();
   // Rebuild only observations already visible to the child, never hidden cards.
   if(resuming){
@@ -625,6 +645,7 @@ function finishRound() {
   else save.dreamStars = completed;
   const xpAward=awardXP(save,{difficulty:options.level,mode:options.mode});
   analytics.complete({xpEarned:xpAward.earned,totalXP:save.xp,score:board.scores.child,pairCount:board.pairCount});
+  save.highestLevelPlayed=resolveProgress(save.highestLevelPlayed,xpActivityNumber({difficulty:options.level,mode:options.mode}));
   save.session=null;
   persist(); audio.effect('finish');
   renderXP(xpAward);
@@ -768,21 +789,31 @@ function setupUI() {
 }
 function showSetup() {
   checkpoint();
+  analytics.resetRun();
   run++; timeline.cancel(); narration.stop(); clearEffects(); picnic.cancelDrag(); busy = false;
   if($('level-dialog').open)$('level-dialog').close();
   sparky.set('idle');
   hideCloudCurtain();
   dockSparkyAtBoard();
   mode = 'setup'; $('app').dataset.mode = mode;
+  syncHostProgress();
   $('setup-view').hidden = false; $('play-layout').hidden = true; $('explore-view').hidden = true;
   $('result-view').hidden = true; $('discovery-strip').hidden = true;
   $('setup-view').dataset.step = 'menu'; $('mode-panel').hidden = false;
   applyTheme(); renderXP(); setupUI(); updatePause(); menuSparky.set('idle');
   document.querySelector('button[data-play-mode="practice"]').focus({ preventScroll:true });
 }
+function refreshInjectedProgress(){
+  const next=readHostContext();if(!next)return;
+  if(progressSaveKey(VARIANT.id,next)!==saveKey)showSetup();
+  else syncHostProgress();
+}
+window.addEventListener('message',refreshInjectedProgress);
+document.addEventListener('message',refreshInjectedProgress);
 async function showLevels(playMode) {
+  syncHostProgress();
   void preloadBackground(['easy','medium','hard'].map(level=>`assets/difficulty-${level}.svg`));
-  options = playOptions(playMode, options.level); setupUI();
+  options = playOptions(playMode, difficultyForProgress(save.highestLevelPlayed)); setupUI();
   $('level-mode-label').textContent = options.mode === 'practice' ? 'Practice' : 'Beat Sparky';
   const groups=difficultyGroups();
   if(groups.length){
@@ -815,9 +846,12 @@ async function showLevels(playMode) {
   if(!$('level-dialog').open)$('level-dialog').showModal();
   $('level-dialog').tabIndex=-1;
   $('level-dialog').focus({preventScroll:true});
+  const recommended=$('level-dialog').querySelector(`[data-level="${options.level}"], [data-difficulty-group="${options.level}"]`);
+  recommended?.focus({preventScroll:true});
 }
 document.querySelectorAll('button[data-play-mode]').forEach(button => button.addEventListener('click', () => showLevels(button.dataset.playMode)));
 $('continue-game').addEventListener('click',async()=>{
+  syncHostProgress();
   const session=continuableSession(save);if(!session)return;
   $('continue-game').disabled=true;
   try{
@@ -870,6 +904,7 @@ $('unlock-visit').addEventListener('click',async()=>{
 $('unlock-later').addEventListener('click',()=>{$('theme-unlock-dialog').close();$('play-again').focus({preventScroll:true});});
 document.querySelector('.home-button').addEventListener('click', event => { event.preventDefault(); if ($('settings-dialog').open) $('settings-dialog').close(); showSetup(); });
 applyTheme(); renderXP(); settingsUI(); showSetup();
+persist(); // Commit the one-time XP reset before any board is played.
 // Reopening always lands on this world's home screen. Only Continue restores
 // the saved board; opening the app must not start a timer or Sparky's turn.
 // Entry needs only the current scene. Cards and animations warm while the
