@@ -1,8 +1,8 @@
 import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=5';
-import { migrateXP, XP_RULE_VERSION } from './xp.js?v=9';
+import { migrateXP, XP_RULE_VERSION, XP_RESET_VERSION } from './xp.js?v=10';
 import { MatchBoard } from './engine.js?v=2';
 export const SAVE_KEY = `brainmatch:${VARIANT.id}:v1`;
-export const emptySave = () => ({ version: 7, highestLevelPlayed:1, session:null, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpRuleVersion:XP_RULE_VERSION,xpCredits:migrateXP({xp:0}).xpCredits, xpClaims: [], xpCompletionIds:[], xpJourneyBonus: false });
+export const emptySave = () => ({ version: 7, highestLevelPlayed:1, session:null, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpRuleVersion:XP_RULE_VERSION,xpResetVersion:XP_RESET_VERSION,xpCredits:migrateXP({xp:0}).xpCredits, xpClaims: [], xpCompletionIds:[], xpJourneyBonus: false });
 export function sanitizeSession(raw){
   try{
     if(!raw||!['dream','seasons','neon'].includes(raw.world)||!['gentle','growing','clever'].includes(raw.difficulty)||!['practice','challenge'].includes(raw.mode))return null;
@@ -53,7 +53,7 @@ export function sanitizeSave(raw) {
   save.activeRound = validRounds.includes(raw.activeRound) ? raw.activeRound : '1';
   save.gardenWater = Number.isInteger(raw.gardenWater) ? Math.max(0, Math.min(3, raw.gardenWater)) : 0;
   save.session=sanitizeSession(raw.session);
-  if(save.session&&raw.xpRuleVersion!==XP_RULE_VERSION)save.session.analytics=null;
+  if(save.session&&(raw.xpRuleVersion!==XP_RULE_VERSION||raw.xpResetVersion!==XP_RESET_VERSION))save.session.analytics=null;
   if(save.session&&save.session.world!==save.theme)save.session=null;
   return save;
 }

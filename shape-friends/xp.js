@@ -1,6 +1,7 @@
 import { PACK, WORLDS } from './content.js?v=5';
 
 export const XP_LIMIT=200, XP_RULE_VERSION=4, XP_ACTIVITY_COUNT=6, XP_JOURNEY_BONUS=0;
+export const XP_RESET_VERSION=1;
 export const XP_REWARDS=Object.freeze({
   gentle:Object.freeze({practice:10,challenge:15}),
   growing:Object.freeze({practice:10,challenge:15}),
@@ -18,10 +19,9 @@ export function xpActivityNumber(activity){const index=XP_KEYS.indexOf(xpActivit
 export const xpReward=key=>{const [difficulty,mode]=String(key).split(':');return XP_REWARDS[difficulty]?.[mode]||0;};
 
 export function migrateXP(raw={}){
-  // Keep real previously earned totals; obsolete difficulty claims no longer
-  // block future completed boards. Never emit a migration/backfill award.
-  const current=raw.xpRuleVersion===XP_RULE_VERSION;
-  return {xpRuleVersion:XP_RULE_VERSION,xp:Math.max(0,Math.min(XP_LIMIT,Math.trunc(Number(raw.xp)||0))),xpClaims:[],xpCredits:{},xpJourneyBonus:false,
+  // User-requested XP-only refresh. Preserve new test earnings on every reload.
+  const current=raw.xpRuleVersion===XP_RULE_VERSION&&raw.xpResetVersion===XP_RESET_VERSION;
+  return {xpRuleVersion:XP_RULE_VERSION,xpResetVersion:XP_RESET_VERSION,xp:current?Math.max(0,Math.min(XP_LIMIT,Math.trunc(Number(raw.xp)||0))):0,xpClaims:[],xpCredits:{},xpJourneyBonus:false,
     xpCompletionIds:current&&Array.isArray(raw.xpCompletionIds)?[...new Set(raw.xpCompletionIds.filter(id=>typeof id==='string'&&id.length>0))].slice(-200):[]};
 }
 

@@ -1,5 +1,13 @@
 # PW Games app integration
 
+## XP-only test refresh
+
+`xpResetVersion: 1` refreshes old local XP and completion reward IDs to zero once
+per save/profile. Themes, unlocks, preferences, reporting progression and saved
+boards remain intact. New earnings persist on reload. Before delivery, analytics
+discards this game's old queue/history entries without the matching reset version;
+new test reports and unrelated games' reports remain. Backend/app XP is not reset.
+
 ## Fresh-data release reset
 
 Release `fresh-start-2026-10` performs one local reset per variant before the

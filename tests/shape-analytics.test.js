@@ -145,7 +145,7 @@ test('XP reset removes only this game and its alias old reports, preserving curr
   const f=hostFixture(()=>false),activity={worldId:'seasons',roundId:XP_ROUND_IDS[0],mode:'practice'};
   try{
     const old={gameId:'test',runId:'old-run',xpEarned:10,xpEarnedTotal:10,level:{levelId:'1',levelNumber:1,xpEarned:10},rawData:[{key:'world',value:activity.worldId},{key:'round_id',value:activity.roundId},{key:'mode',value:activity.mode},{key:'journey_xp_total',value:'44'}]};
-    const current={...old,runId:'current',reportingVersion:4};
+    const current={...old,runId:'current',reportingVersion:4,xpResetVersion:1};
     f.values.set(ANALYTICS_QUEUE_KEY,JSON.stringify([old,{...old,gameId:'alias'},current,{...old,gameId:'another-game',runId:'foreign'},null]));
     f.values.set(ANALYTICS_HISTORY_KEY,JSON.stringify([{payload:old},{payload:current}]));
     createGameAnalytics('test',{legacyGameIds:['alias']});

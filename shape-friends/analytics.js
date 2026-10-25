@@ -3,6 +3,7 @@
 export const ANALYTICS_QUEUE_KEY='ignite_pending_sessions_jsplugin';
 export const ANALYTICS_HISTORY_KEY='brainmatch:analytics-delivery:v1';
 export const REPORTING_VERSION=4;
+const XP_RESET_VERSION=1;
 const copy=value=>JSON.parse(JSON.stringify(value));
 const clock=()=>globalThis.performance?.now?.()??Date.now();
 function readQueue(){try{const value=JSON.parse(globalThis.localStorage?.getItem(ANALYTICS_QUEUE_KEY)||'[]');return Array.isArray(value)?value.filter(item=>item&&typeof item.gameId==='string'&&(typeof item.runId==='string'||typeof item.name==='string')):[];}catch{return [];}}
@@ -75,10 +76,10 @@ function install(){
 export function createGameAnalytics(gameId,{legacyGameIds=[],ownerId=null}={}){
   const ids=new Set([gameId,...legacyGameIds]);
   // Discard only these games' old pending XP, before any delivery listener runs.
-  storeQueue(readQueue().filter(payload=>!ids.has(payload.gameId)||payload.reportingVersion===REPORTING_VERSION));
+  storeQueue(readQueue().filter(payload=>!ids.has(payload.gameId)||(payload.reportingVersion===REPORTING_VERSION&&payload.xpResetVersion===XP_RESET_VERSION)));
   try{
     const history=JSON.parse(globalThis.localStorage?.getItem(ANALYTICS_HISTORY_KEY)||'[]');
-    if(Array.isArray(history))globalThis.localStorage?.setItem(ANALYTICS_HISTORY_KEY,JSON.stringify(history.filter(entry=>!ids.has(entry?.payload?.gameId)||entry?.payload?.reportingVersion===REPORTING_VERSION)));
+    if(Array.isArray(history))globalThis.localStorage?.setItem(ANALYTICS_HISTORY_KEY,JSON.stringify(history.filter(entry=>!ids.has(entry?.payload?.gameId)||(entry?.payload?.reportingVersion===REPORTING_VERSION&&entry?.payload?.xpResetVersion===XP_RESET_VERSION))));
   }catch{}
   const newRun=()=>({gameId,runId:globalThis.crypto?.randomUUID?.()||`${gameId}_${Date.now()}_${Math.random().toString(36).slice(2)}`,levels:[]});
   let campaign=newRun();
@@ -121,7 +122,7 @@ export function createGameAnalytics(gameId,{legacyGameIds=[],ownerId=null}={}){
       const journeyXpTotal=Math.max(0,Math.min(200,Math.trunc(totalXP||0)));
       const fields={level:state.levelNumber,activity_id:activityId,xp_rule_version:4,curriculum_level:state.curriculumLevel||state.levelNumber,stars:accuracy>=.9?3:accuracy>=.7?2:1,round_id:state.roundId,world:state.world,mode:state.mode,difficulty:state.difficulty,attempts:state.tasks.length,accuracy,score,xp_earned:xp,journey_xp_total:journeyXpTotal,object_count:pairCount,campaign_xp_cap:200};
       const levels=copy(campaign.levels).sort((a,b)=>a.levelNumber-b.levelNumber);
-      const payload={gameId,name:state.runId,runId:state.runId,activityId:fields.activity_id,highestLevelPlayed:Math.max(state.highestLevelPlayed,...levels.map(level=>level.levelNumber)),level,xpEarned:xp,xpEarnedTotal:xp,journeyXpTotal,campaignXpCap:200,reportingVersion:REPORTING_VERSION,rawData:Object.entries(fields).map(([key,value])=>({key,value:String(value)})),diagnostics:{levels:[level]},timestamp:new Date().toISOString()};
+      const payload={gameId,name:state.runId,runId:state.runId,activityId:fields.activity_id,highestLevelPlayed:Math.max(state.highestLevelPlayed,...levels.map(level=>level.levelNumber)),level,xpEarned:xp,xpEarnedTotal:xp,journeyXpTotal,campaignXpCap:200,reportingVersion:REPORTING_VERSION,xpResetVersion:XP_RESET_VERSION,rawData:Object.entries(fields).map(([key,value])=>({key,value:String(value)})),diagnostics:{levels:[level]},timestamp:new Date().toISOString()};
       // Persist BEFORE touching the host bridge. Keep the original run ID when
       // retrying; never turn the saved cumulative total into another XP award.
       const queue=readQueue();
