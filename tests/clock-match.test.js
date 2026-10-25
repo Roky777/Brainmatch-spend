@@ -39,8 +39,8 @@ test('all eight clock assets have mathematically correct hands and twelve numera
 });
 test('Clock Match journey totals 200 XP with a smaller Sparky reward',()=>{
   const xp=manifest.progression.xp;
-  assert.equal(Object.values(xp.rewards).reduce((sum,reward)=>sum+reward.practice+reward.challenge,0),200);
-  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice>reward.challenge));
+  assert.equal(xp.cap,200);assert.equal(xp.replayRewards,true);
+  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice===10&&reward.challenge===15));
 });
 test('all difficulties produce playable 4, 6 and 8 card boards in both modes',()=>{
   for(const group of manifest.play.difficultyGroups){

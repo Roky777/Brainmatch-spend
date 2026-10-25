@@ -3,9 +3,9 @@ import {deliveryURL} from './delivery-map.js?v=2';
 import { MatchBoard, shuffle } from './engine.js?v=2';
 import { CompanionMemory } from './companion.js';
 import { Timeline } from './timeline.js';
-import { readSave, writeSave, discover, continuableSession } from './save.js?v=11';
-import { createGameAnalytics } from './analytics.js?v=5';
-import {readHostContext,progressSaveKey,resolveProgress,difficultyForProgress} from './host-progress.js?v=1';
+import { readSave, writeSave, discover, continuableSession } from './save.js?v=12';
+import { createGameAnalytics } from './analytics.js?v=6';
+import {readHostContext,progressSaveKey,resolveProgress,difficultyForProgress} from './host-progress.js?v=2';
 import { GameAudio } from './audio.js?v=4';
 import { Narration, sparkyVoiceMoment } from './narration.js?v=3';
 import { MusicLoop } from './music.js';
@@ -16,7 +16,7 @@ import { icon } from './art.js';
 import { LEVELS, playOptions, resultFor } from './play-options.js';
 import { Dialogue } from './dialogue.js';
 import { CloudReveal } from './cloud-reveal.js?v=3';
-import { awardXP, XP_LIMIT, xpActivityKey, xpActivityNumber } from './xp.js?v=8';
+import { awardXP, XP_LIMIT, xpActivityKey } from './xp.js?v=9';
 import { loadImage, finishStartup, readyScreen, worldAssets, preloadBackground } from './loading.js?v=8';
 
 const $ = id => document.getElementById(id);
@@ -136,7 +136,7 @@ function applyTheme() {
   document.querySelector('.setup-kicker').textContent = theme.menuKicker;
   $('level-objective').textContent = pack.objective;
   $('menu-caption').textContent = VARIANT.menuGreeting||'Welcome, friend! Let’s find matching pairs together.';
-  document.querySelector('.xp-rules').textContent='First clear per difficulty and mode · Themes share XP';
+  document.querySelector('.xp-rules').textContent='Every board · Practice 10 XP · Beat Sparky 15 XP';
   $('play-again').querySelector('span').textContent='Play again';
   $('theme-open').setAttribute('aria-label', `Change world. Current world: ${theme.title}`);
   $('theme-open-label').textContent = 'Worlds';
@@ -315,7 +315,8 @@ async function startRound(id,resuming=null) {
   }
   board = resuming?MatchBoard.restore(resuming.board):new MatchBoard(cardsFor({ pairs: activePairs }), { mode: options.mode });
   const activity={difficulty:options.level,mode:options.mode};
-  analytics.start({levelNumber:xpActivityNumber(activity),activityId:xpActivityKey(activity),curriculumLevel:pack.rounds.indexOf(round)+1,roundId:round.id,world:theme.id,mode:options.mode,difficulty:options.level,highestLevelPlayed:save.highestLevelPlayed},resuming?.analytics);
+  const reportLevel=resuming?.analytics?.levelNumber||resolveProgress(save.highestLevelPlayed,host?.highestLevelPlayed)+1;
+  analytics.start({levelNumber:reportLevel,activityId:xpActivityKey(activity),curriculumLevel:pack.rounds.indexOf(round)+1,roundId:round.id,world:theme.id,mode:options.mode,difficulty:options.level,highestLevelPlayed:save.highestLevelPlayed},resuming?.analytics);
   memory = new CompanionMemory({ capacity: level.capacity, accuracy: level.accuracy }); guideMemory = new CompanionMemory();
   // Rebuild only observations already visible to the child, never hidden cards.
   if(resuming){
@@ -636,6 +637,9 @@ function confetti() {
   $('effects-layer').innerHTML = Array.from({ length: 24 }, (_, i) => `<i class="confetti-bit" style="--x:${i * 4.2}%;--delay:${i % 5 * .08}s;--c:${['#eab867', '#9cc493', '#df9c99', '#88bfc0'][i % 4]};--rot:${i * 47}deg"></i>`).join('');
 }
 function finishRound() {
+  if(mode!=='match'||!board||board.phase!=='complete')return;
+  const report=analytics.snapshot();
+  if(!report||report.submitted)return;
   const seasonsWereUnlocked=themeUnlocked('seasons');
   const neonWasUnlocked=themeUnlocked('neon');
   const completed = themeProgress();
@@ -643,9 +647,9 @@ function finishRound() {
   if (theme.id === 'neon') save.neonStars = completed;
   else if (theme.id === 'seasons') save.seasonStars = completed;
   else save.dreamStars = completed;
-  const xpAward=awardXP(save,{difficulty:options.level,mode:options.mode});
+  const xpAward=awardXP(save,{difficulty:options.level,mode:options.mode,completionId:`${report.runId}:${report.levelNumber}`});
   analytics.complete({xpEarned:xpAward.earned,totalXP:save.xp,score:board.scores.child,pairCount:board.pairCount});
-  save.highestLevelPlayed=resolveProgress(save.highestLevelPlayed,xpActivityNumber({difficulty:options.level,mode:options.mode}));
+  save.highestLevelPlayed=resolveProgress(save.highestLevelPlayed,report.levelNumber);
   save.session=null;
   persist(); audio.effect('finish');
   renderXP(xpAward);

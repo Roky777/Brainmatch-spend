@@ -1,10 +1,10 @@
 import { PACK, WORLDS } from './content.js?v=5';
 
-export const XP_LIMIT=200, XP_RULE_VERSION=3, XP_ACTIVITY_COUNT=6, XP_JOURNEY_BONUS=0;
+export const XP_LIMIT=200, XP_RULE_VERSION=4, XP_ACTIVITY_COUNT=6, XP_JOURNEY_BONUS=0;
 export const XP_REWARDS=Object.freeze({
-  gentle:Object.freeze({practice:30,challenge:20}),
-  growing:Object.freeze({practice:40,challenge:25}),
-  clever:Object.freeze({practice:50,challenge:35}),
+  gentle:Object.freeze({practice:10,challenge:15}),
+  growing:Object.freeze({practice:10,challenge:15}),
+  clever:Object.freeze({practice:10,challenge:15}),
 });
 // Retained only for validating/migrating pre-difficulty saves and reports.
 export const XP_WORLD_IDS=Object.freeze(Object.keys(WORLDS));
@@ -18,22 +18,20 @@ export function xpActivityNumber(activity){const index=XP_KEYS.indexOf(xpActivit
 export const xpReward=key=>{const [difficulty,mode]=String(key).split(':');return XP_REWARDS[difficulty]?.[mode]||0;};
 
 export function migrateXP(raw={}){
-  const claims=normalizeXPClaims(raw.xpClaims);
-  if(raw.xpRuleVersion===XP_RULE_VERSION){
-    const credits=Object.fromEntries(XP_KEYS.map(key=>[key,claims.includes(key)?xpReward(key):Math.max(0,Math.min(xpReward(key),Math.trunc(Number(raw.xpCredits?.[key])||0))) ]));
-    return {xpRuleVersion:XP_RULE_VERSION,xpCredits:credits,xpClaims:claims,xp:XP_KEYS.reduce((sum,key)=>sum+credits[key],0),xpJourneyBonus:false};
-  }
-  // User-requested one-time reset. Never infer XP from old stars or carry
-  // proportional legacy credits into this clean six-level journey.
-  return {xpRuleVersion:XP_RULE_VERSION,xpCredits:Object.fromEntries(XP_KEYS.map(key=>[key,0])),xpClaims:[],xp:0,xpJourneyBonus:false};
+  // Keep real previously earned totals; obsolete difficulty claims no longer
+  // block future completed boards. Never emit a migration/backfill award.
+  const current=raw.xpRuleVersion===XP_RULE_VERSION;
+  return {xpRuleVersion:XP_RULE_VERSION,xp:Math.max(0,Math.min(XP_LIMIT,Math.trunc(Number(raw.xp)||0))),xpClaims:[],xpCredits:{},xpJourneyBonus:false,
+    xpCompletionIds:current&&Array.isArray(raw.xpCompletionIds)?[...new Set(raw.xpCompletionIds.filter(id=>typeof id==='string'&&id.length>0))].slice(-200):[]};
 }
 
 export function awardXP(save,activity){
   Object.assign(save,migrateXP(save));
-  const before=save.xp,key=xpActivityKey(activity);
+  const before=save.xp,key=xpActivityKey(activity),id=activity.completionId;
   if(before===XP_LIMIT)return {earned:0,total:before,max:XP_LIMIT,complete:true,bonus:0,reason:'complete'};
-  if(!validXPClaim(key)||save.xpClaims.includes(key))return {earned:0,total:before,max:XP_LIMIT,complete:false,bonus:0,reason:'replay'};
-  const earned=xpReward(key)-save.xpCredits[key];
-  save.xpCredits[key]=xpReward(key);save.xpClaims.push(key);save.xp=before+earned;
+  if(!validXPClaim(key)||typeof id!=='string'||!id)return {earned:0,total:before,max:XP_LIMIT,complete:false,bonus:0,reason:'invalid'};
+  if(save.xpCompletionIds.includes(id))return {earned:0,total:before,max:XP_LIMIT,complete:false,bonus:0,reason:'duplicate'};
+  const earned=Math.min(xpReward(key),XP_LIMIT-before);
+  save.xpCompletionIds.push(id);save.xp=before+earned;
   return {earned,total:save.xp,max:XP_LIMIT,complete:save.xp===XP_LIMIT,bonus:0,reason:'earned'};
 }

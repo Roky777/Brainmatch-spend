@@ -50,24 +50,24 @@
   },
   "progression": {
     "xp": {
-      "ruleVersion": 3,
+      "ruleVersion": 4,
       "cap": 200,
       "claimBy": [
-        "difficulty",
-        "mode"
+        "completionId"
       ],
+      "replayRewards": true,
       "rewards": {
         "gentle": {
-          "practice": 30,
-          "challenge": 20
+          "practice": 10,
+          "challenge": 15
         },
         "growing": {
-          "practice": 40,
-          "challenge": 25
+          "practice": 10,
+          "challenge": 15
         },
         "clever": {
-          "practice": 50,
-          "challenge": 35
+          "practice": 10,
+          "challenge": 15
         }
       },
       "completionBonus": 0

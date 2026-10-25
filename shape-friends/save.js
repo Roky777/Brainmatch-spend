@@ -1,8 +1,8 @@
 import { PACK, SEASON_PACK, NEON_PACK, VARIANT, hasItem } from './content.js?v=5';
-import { migrateXP, XP_RULE_VERSION } from './xp.js?v=8';
+import { migrateXP, XP_RULE_VERSION } from './xp.js?v=9';
 import { MatchBoard } from './engine.js?v=2';
 export const SAVE_KEY = `brainmatch:${VARIANT.id}:v1`;
-export const emptySave = () => ({ version: 7, highestLevelPlayed:1, session:null, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpRuleVersion:XP_RULE_VERSION,xpCredits:migrateXP({xp:0}).xpCredits, xpClaims: [], xpJourneyBonus: false });
+export const emptySave = () => ({ version: 7, highestLevelPlayed:1, session:null, discoveries: [], completed: [], seasonCompleted: [], dreamStars: [], seasonStars: [], neonStars: [], theme: 'dream', voice: true, effects: true, music: true, activeRound: '1', gardenWater: 0, xp: 0, xpRuleVersion:XP_RULE_VERSION,xpCredits:migrateXP({xp:0}).xpCredits, xpClaims: [], xpCompletionIds:[], xpJourneyBonus: false });
 export function sanitizeSession(raw){
   try{
     if(!raw||!['dream','seasons','neon'].includes(raw.world)||!['gentle','growing','clever'].includes(raw.difficulty)||!['practice','challenge'].includes(raw.mode))return null;
@@ -41,7 +41,7 @@ export function sanitizeSave(raw) {
   const validNeonRounds=NEON_PACK.rounds.map(round=>round.id);
   save.neonStars = Array.isArray(raw.neonStars) ? raw.neonStars.filter(id => typeof id === 'string' && validNeonRounds.includes(id)) : [];
   Object.assign(save,migrateXP(raw));
-  save.highestLevelPlayed=Number.isInteger(raw.highestLevelPlayed)?Math.max(1,Math.min(6,raw.highestLevelPlayed)):1;
+  save.highestLevelPlayed=Number.isSafeInteger(raw.highestLevelPlayed)?Math.max(1,raw.highestLevelPlayed):1;
   const seasonsGoal=Math.min(3,validRounds.length);
   const neonGoal=Math.min(5,validRounds.length+validSeasonRounds.length);
   const neonUnlocked=save.dreamStars.length+save.seasonStars.length>=neonGoal;

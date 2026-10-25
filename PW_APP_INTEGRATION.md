@@ -20,7 +20,7 @@ injects valid `window.userInfo`, saves are scoped by variant, app game ID and us
 ID (`brainmatch:<variant>:user:<encoded-user>:game:<encoded-game>:v1`). Anonymous
 progress is not automatically attributed to a signed-in child. Unlocks,
 discoveries and sound settings remain compatible. Old XP resets once under
-XP rule version 3, as requested; new XP then persists normally. In-progress saves add the
+the fresh-data release, as requested; new XP then persists normally. In-progress saves add the
 exact shuffled deck, matches, scores, turn, first child pick, observed cards,
 world, board, difficulty, mode and analytics session. Reopening shows the last-used
 theme's home screen. Only Continue restores the saved board; choosing a mode and
@@ -36,7 +36,7 @@ The PW app must enable DOM storage and retain its WebView storage between launch
 are ignored. Injection is re-read at home, before choosing a mode or continuing,
 and after native message notifications (from the actual global, not message data).
 App identity takes precedence over the query-string game ID. Valid app/local
-`highestLevelPlayed` values are merged with `Math.max` and clamped to 1–6. The
+`highestLevelPlayed` values are positive safe integers merged with `Math.max`. The
 home screen remains visible; the corresponding difficulty receives focus when
 the child opens the picker. Progress alone never creates an XP claim. Existing
 explicit Continue restores only this child's saved board. Account changes on
@@ -66,29 +66,27 @@ Lifetime journey XP is in `rawData.journey_xp_total` (maximum 200).
 It is also available as numeric `journeyXpTotal` with `campaignXpCap: 200`.
 These cumulative fields are informational, NOT another XP award to add.
 
-Reporting version 4 follows XP rule version 3: only `difficulty:mode` identifies
-an XP claim. Themes and hidden curriculum boards never create another reward.
-`activityId` is e.g. `gentle:practice`; `level.levelId` is a numeric string,
-like the supplied sorter's `"1"` through `"6"`.
-`level.levelNumber` and `highestLevelPlayed` use the six numeric activity IDs
-1–6 (Easy Practice, Easy Beat Sparky, Medium Practice, Medium Beat Sparky,
-Hard Practice, Hard Beat Sparky). The curriculum board remains in
-`rawData.curriculum_level`. Theme and board are informational only.
+Reporting version 4 retains the supplied wire format and now uses XP rule 4.
+Every completed board is eligible, including replaying the same board/difficulty.
+`activityId` (e.g. `gentle:practice`) describes the chosen mode; it is NOT a claim
+or backend deduplication key. The numeric reporting level advances on every
+completion, starting above the maximum of saved and injected progress, rather
+than recycling six difficulty IDs. `levelId` is that number as a string;
+`levelNumber` and `highestLevelPlayed` are numbers with no six-level clamp.
+Curriculum board, theme, mode and difficulty remain metadata.
 
 | Difficulty | Practice | Beat Sparky |
 | --- | ---: | ---: |
-| Easy | 30 | 20 |
-| Medium | 40 | 25 |
-| Hard | 50 | 35 |
+| Easy | 10 | 15 |
+| Medium | 10 | 15 |
+| Hard | 10 | 15 |
 
-All six first completions total 200 with no completion bonus. Replays in any
-theme or on another hidden board award zero for that same difficulty/mode.
-Old local XP totals, claims and credits reset to zero once. New claims are saved
-under `xpRuleVersion: 3`, `xpCredits`, and `xpClaims`; reloads never reset these
-new awards. Migration sends no award. Old pending reports and delivery history
-for this game (including its default variant-ID alias) are removed so stale XP
-cannot be sent after the reset. Other games' reports are untouched. Old board
-state remains available, but its obsolete analytics snapshot is discarded.
+The existing 200-XP cap remains. The last reward is limited to the remaining XP;
+after 200, performance reports still submit with zero XP. Completed-board IDs
+(`runId:levelNumber`) are stored in `xpCompletionIds` to prevent duplicate callbacks
+from paying twice. A new replay uses a new reporting level and can earn again.
+Migration preserves previously earned totals and clears obsolete six-slot claims;
+it sends no backfill reward and does not introduce another fresh-data reset.
 
 As in the supplied sorter, a report describes one completed level:
 `diagnostics.levels` contains just that `level`, with tasks and their allocated XP.
@@ -97,8 +95,8 @@ one game-generated ID across different completed levels. Reloading/new launches,
 returning home, starting level 1, or replaying an already-submitted level creates
 a new run, as in the reference integration. Explicit Continue restores the
 unfinished board's saved run ID. Repeated completion callbacks do not resubmit.
-Replays may report performance with zero XP; the saved six XP claims still prevent
-any repeat reward. Retried reports always keep their original run/level identity.
+Replays receive the same mode reward until the cap. Retried reports always keep
+their original run/level identity and exact XP delta; never regenerate IDs on retry.
 
 Game IDs use injected `GameID` first, then a query-string override, then the
 variant ID. If no identity is injected and PW has catalog IDs, launch with

@@ -43,6 +43,6 @@ test('all plant pools produce playable 4, 6 and 8 card boards in both modes',()=
 });
 test('Plant Match offers exactly 200 XP with lower Sparky rewards',()=>{
   const xp=m.progression.xp;
-  assert.equal(Object.values(xp.rewards).reduce((sum,reward)=>sum+reward.practice+reward.challenge,0),200);
-  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice>reward.challenge));
+  assert.equal(xp.cap,200);assert.equal(xp.replayRewards,true);
+  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice===10&&reward.challenge===15));
 });

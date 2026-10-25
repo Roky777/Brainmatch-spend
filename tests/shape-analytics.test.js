@@ -76,23 +76,33 @@ test('cross-world reports sum to the same cumulative XP as the game without repo
   const received=[];const f=hostFixture(payload=>received.push(payload));
   try{
     const save={xp:0,xpClaims:[]},analytics=createGameAnalytics('shape-friends');
-    for(const difficulty of Object.keys(XP_REWARDS))for(const mode of ['practice','challenge']){
-      const activity={difficulty,worldId:'dream',roundId:XP_ROUND_IDS[0],mode};
-      const award=awardXP(save,activity);
-      analytics.start(context(activity));analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});
+    for(let i=0;i<16;i++){
+      const activity={difficulty:'gentle',worldId:i%2?'dream':'neon',roundId:XP_ROUND_IDS[0],mode:i%2?'challenge':'practice'};
+      analytics.start({...context(activity),levelNumber:i+2});
+      const report=analytics.snapshot();
+      const award=awardXP(save,{...activity,completionId:`${report.runId}:${report.levelNumber}`});
+      analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});
+      assert.equal(analytics.complete({xpEarned:award.earned}),null);
       await flushPending();
     }
-    assert.equal(new Set(received.map(p=>p.level.levelId)).size,6);
+    assert.equal(new Set(received.map(p=>p.level.levelId)).size,16);
     assert.equal(new Set(received.map(p=>p.runId)).size,1);
-    assert.deepEqual(received.map(p=>p.level.levelId),['1','2','3','4','5','6']);
+    assert.deepEqual(received.map(p=>p.level.levelNumber),Array.from({length:16},(_,i)=>i+2));
     assert.ok(received.every(p=>p.name===p.runId&&p.diagnostics.levels.length===1&&p.level.score===2));
     assert.equal(received.reduce((sum,p)=>sum+p.xpEarned,0),save.xp);
+    // Reproduce a host that only credits newly completed progression levels.
+    let backendHighest=1,backendXP=0;
+    for(const payload of received){
+      if(payload.level.levelNumber>backendHighest){backendXP+=payload.xpEarned;backendHighest=payload.highestLevelPlayed;}
+    }
+    assert.equal(backendXP,200);assert.equal(backendHighest,17);
     assert.equal(received.at(-1).journeyXpTotal,save.xp);
     assert.ok(received.every(p=>p.xpEarnedTotal===p.xpEarned));
     const replay={worldId:'neon',roundId:XP_ROUND_IDS[0],difficulty:'gentle',mode:'practice'};
-    const award=awardXP(save,replay);
-    analytics.start(context(replay));const replayPayload=analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});await flushPending();
-    assert.equal(received.length,7);assert.equal(replayPayload.xpEarned,0);assert.notEqual(replayPayload.runId,received[0].runId);
+    analytics.resetRun();analytics.start({...context(replay),levelNumber:18});
+    const report=analytics.snapshot(),award=awardXP(save,{...replay,completionId:`${report.runId}:18`});
+    const replayPayload=analytics.complete({xpEarned:award.earned,totalXP:award.total,score:2,pairCount:2});await flushPending();
+    assert.equal(received.length,17);assert.equal(replayPayload.xpEarned,0);assert.notEqual(replayPayload.runId,received[0].runId);
     assert.equal(received.at(-1).journeyXpTotal,save.xp);assert.equal(received.reduce((sum,p)=>sum+p.xpEarned,0),200);
   }finally{f.restore();}
 });

@@ -1,58 +1,51 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {awardXP,migrateXP,XP_KEYS,XP_REWARDS,XP_LIMIT,XP_ACTIVITY_COUNT,xpActivityKey,xpActivityNumber} from '../shape-friends/xp.js';
+import {awardXP,migrateXP,XP_KEYS,XP_REWARDS,XP_LIMIT} from '../shape-friends/xp.js';
 import {emptySave,sanitizeSave} from '../shape-friends/save.js';
-test('six difficulty/mode rewards total exactly 200 without themes or bonuses',()=>{
-  assert.equal(XP_LIMIT,200);assert.equal(XP_ACTIVITY_COUNT,6);
-  assert.deepEqual(XP_REWARDS,{gentle:{practice:30,challenge:20},growing:{practice:40,challenge:25},clever:{practice:50,challenge:35}});
-  const save=emptySave();let sum=0;
-  for(const key of XP_KEYS){const [difficulty,mode]=key.split(':');const result=awardXP(save,{difficulty,mode});sum+=result.earned;assert.equal(result.bonus,0);}
-  assert.equal(sum,200);assert.equal(save.xp,200);
-});
-test('themes and hidden board IDs never create another XP claim',()=>{
+const activity=(completionId,mode='practice',difficulty='gentle')=>({completionId,mode,difficulty});
+test('every board earns 10 Practice or 15 Beat Sparky, independent of difficulty and theme',()=>{
   const save=emptySave();
-  assert.equal(awardXP(save,{worldId:'dream',roundId:'1',difficulty:'gentle',mode:'practice'}).earned,30);
-  assert.equal(awardXP(save,{worldId:'neon',roundId:'4',difficulty:'gentle',mode:'practice'}).earned,0);
-  assert.equal(awardXP(save,{worldId:'dream',roundId:'1',difficulty:'clever',mode:'practice'}).earned,50);
-  assert.equal(save.xp,80);assert.equal(save.xpClaims.length,2);
-  assert.equal(xpActivityKey({difficulty:'gentle',mode:'practice',worldId:'neon'}),'gentle:practice');
-  assert.equal(xpActivityNumber({difficulty:'clever',mode:'challenge'}),6);
-});
-test('every old earned total resets once and can earn exactly 200 again',()=>{
-  for(let total=0;total<=200;total++){
-    const save={xp:total,xpClaims:['dream:1:practice']};Object.assign(save,migrateXP(save));
-    assert.equal(save.xp,0);assert.deepEqual(migrateXP(save),migrateXP(migrateXP(save)));
-    let earned=0;for(const key of XP_KEYS){const [difficulty,mode]=key.split(':');earned+=awardXP(save,{difficulty,mode}).earned;}
-    assert.equal(save.xp,200);assert.equal(earned,200);
+  for(const [i,key] of XP_KEYS.entries()){
+    const [difficulty,mode]=key.split(':');
+    assert.equal(awardXP(save,activity(`board-${i}`,mode,difficulty)).earned,mode==='practice'?10:15);
   }
+  assert.equal(save.xp,75);assert.equal(XP_LIMIT,200);
+  assert.ok(Object.values(XP_REWARDS).every(reward=>reward.practice===10&&reward.challenge===15));
 });
-test('legacy XP resets but newly earned XP survives reload without a second reset',()=>{
-  let save=sanitizeSave({version:6,xp:44,xpClaims:['dream:1:practice']});
-  assert.equal(save.xp,0);assert.deepEqual(save.xpClaims,[]);
-  const result=awardXP(save,{difficulty:'gentle',mode:'practice'});
-  assert.equal(result.earned,30);save=sanitizeSave(JSON.parse(JSON.stringify(save)));
-  assert.equal(save.xp,30);assert.equal(awardXP(save,{difficulty:'gentle',mode:'practice'}).earned,0);
-  assert.equal(sanitizeSave({version:6,xp:999}).xp,0);assert.equal(sanitizeSave({version:6,xp:-10}).xp,0);
-  const version2=sanitizeSave({version:7,xpRuleVersion:2,xp:200,xpCredits:Object.fromEntries(XP_KEYS.map(key=>[key,200])),xpClaims:XP_KEYS});
-  assert.equal(version2.xp,0);assert.deepEqual(version2.xpClaims,[]);
+test('replays earn again, but the same completion callback never earns twice',()=>{
+  let save=emptySave();
+  assert.equal(awardXP(save,activity('play-1')).earned,10);
+  assert.equal(awardXP(save,activity('play-1')).earned,0);
+  save=sanitizeSave(JSON.parse(JSON.stringify(save)));
+  assert.equal(awardXP(save,activity('play-1')).earned,0);
+  assert.equal(awardXP(save,activity('play-2')).earned,10);
+  assert.equal(awardXP(save,activity('play-3','challenge')).earned,15);
+  assert.equal(save.xp,35);
 });
-test('old stars remain unlocked without inferring or re-awarding old XP',()=>{
-  const save=sanitizeSave({version:5,dreamStars:['1','2','3'],seasonStars:['1']});
-  assert.equal(save.xp,0);assert.deepEqual(save.xpClaims,[]);
-  assert.deepEqual(save.dreamStars,['1','2','3']);assert.deepEqual(save.seasonStars,['1']);
+test('existing totals survive without backfill or old claim restrictions',()=>{
+  let save=sanitizeSave({xpRuleVersion:3,xp:44,xpClaims:XP_KEYS});
+  assert.equal(save.xp,44);assert.deepEqual(save.xpClaims,[]);
+  assert.equal(awardXP(save,activity('new')).earned,10);
+  save=sanitizeSave(JSON.parse(JSON.stringify(save)));assert.equal(save.xp,54);
+  assert.deepEqual(migrateXP(save),migrateXP(migrateXP(save)));
 });
-test('invalid claims cannot create XP or mutate the journey',()=>{
-  const save=emptySave();assert.equal(awardXP(save,{difficulty:'unknown',mode:'practice'}).earned,0);assert.equal(save.xp,0);
-  const loaded=sanitizeSave({...emptySave(),xp:999,xpCredits:{'gentle:practice':999},xpClaims:['neon:1:practice','oops']});
-  assert.equal(loaded.xp,30);assert.deepEqual(loaded.xpClaims,[]);
+test('repeat play reaches 200 without exceeding the cap, including partial final rewards',()=>{
+  const save=emptySave();let earned=0;
+  for(let i=0;i<20;i++)earned+=awardXP(save,activity(`play-${i}`,'challenge')).earned;
+  assert.equal(earned,200);assert.equal(save.xp,200);
+  const near=sanitizeSave({xp:195});assert.equal(awardXP(near,activity('last','challenge')).earned,5);
 });
-test('UI and award calls describe difficulty rewards, not themes',async()=>{
+test('invalid activities cannot award XP, and local progress stays intact',()=>{
+  const save=emptySave();
+  for(const input of [{mode:'practice',difficulty:'gentle'},activity('bad','unknown'),activity('bad','practice','unknown')])assert.equal(awardXP(save,input).earned,0);
+  const loaded=sanitizeSave({xp:44,dreamStars:['1'],highestLevelPlayed:29});
+  assert.equal(loaded.xp,44);assert.deepEqual(loaded.dreamStars,['1']);assert.equal(loaded.highestLevelPlayed,29);
+});
+test('UI and completion logic use per-board rewards with stable completion identity',async()=>{
   const app=await readFile(new URL('../shape-friends/app.js',import.meta.url),'utf8');
   const html=await readFile(new URL('../shape-friends/index.html',import.meta.url),'utf8');
-  assert.match(app,/awardXP\(save,\{difficulty:options.level,mode:options.mode\}\)/);
-  assert.match(html,/First clear per difficulty and mode · Themes share XP/);
-  assert.doesNotMatch(app,/awardXP\(save,\{worldId/);
-  const css=await readFile(new URL('../shape-friends/prototype.css',import.meta.url),'utf8');
-  assert.match(css,/\.result-xp strong\{[^}]*white-space:normal/);
+  assert.match(app,/completionId:`\$\{report.runId\}:\$\{report.levelNumber\}`/);
+  assert.match(html,/Every board · Practice 10 XP · Beat Sparky 15 XP/);
+  assert.match(app,/resolveProgress\(save.highestLevelPlayed,host\?\.highestLevelPlayed\)\+1/);
 });

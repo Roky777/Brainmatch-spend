@@ -9,7 +9,7 @@ test('WebView identity mapping validates injected progress without copying the p
   assert.deepEqual(readHostContext({UserID:'child',GameID:'catalog',Name:'not collected',highestLevelPlayed:4}),{userId:'child',gameId:'catalog',highestLevelPlayed:4});
   for(const value of [undefined,{}, {UserID:'child'}, {UserID:42,GameID:'catalog'}])assert.equal(readHostContext(value),null);
   for(const highestLevelPlayed of ['4',NaN,0,-1,1.5])assert.equal(readHostContext({UserID:'child',GameID:'catalog',highestLevelPlayed}).highestLevelPlayed,1);
-  assert.equal(resolveProgress(5,3),5);assert.equal(resolveProgress(1,4),4);assert.equal(resolveProgress(100,1),6);
+  assert.equal(resolveProgress(5,3),5);assert.equal(resolveProgress(1,4),4);assert.equal(resolveProgress(100,1),100);
   assert.deepEqual([1,2,3,4,5,6].map(difficultyForProgress),['gentle','gentle','growing','growing','clever','clever']);
 });
 test('app user/game saves are isolated from each other and from anonymous progress',()=>{

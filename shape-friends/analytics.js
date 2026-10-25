@@ -95,7 +95,7 @@ export function createGameAnalytics(gameId,{legacyGameIds=[],ownerId=null}={}){
         : {gameId,levelNumber,roundId,world,mode,difficulty,tasks:[],elapsedMs:0,taskElapsedMs:0,submitted:false};
       state.runId=campaign.runId;state.reportingVersion=REPORTING_VERSION;
       state.highestLevelPlayed=Math.max(Number.isInteger(highestLevelPlayed)?highestLevelPlayed:1,state.highestLevelPlayed||1);
-      // Use the six difficulty/mode levels in the supplied sorter's schema.
+      // Difficulty/mode describe the activity; levelNumber advances per board.
       if(activityId){state.activityId=activityId;state.levelNumber=levelNumber;state.curriculumLevel=curriculumLevel;}
       last=clock();paused=false;
     },
@@ -119,7 +119,7 @@ export function createGameAnalytics(gameId,{legacyGameIds=[],ownerId=null}={}){
       campaign.levels.push(copy(level));
       const accuracy=state.tasks.length?successful.length/state.tasks.length:0;
       const journeyXpTotal=Math.max(0,Math.min(200,Math.trunc(totalXP||0)));
-      const fields={level:state.levelNumber,activity_id:activityId,xp_rule_version:3,curriculum_level:state.curriculumLevel||state.levelNumber,stars:accuracy>=.9?3:accuracy>=.7?2:1,round_id:state.roundId,world:state.world,mode:state.mode,difficulty:state.difficulty,attempts:state.tasks.length,accuracy,score,xp_earned:xp,journey_xp_total:journeyXpTotal,object_count:pairCount,campaign_xp_cap:200};
+      const fields={level:state.levelNumber,activity_id:activityId,xp_rule_version:4,curriculum_level:state.curriculumLevel||state.levelNumber,stars:accuracy>=.9?3:accuracy>=.7?2:1,round_id:state.roundId,world:state.world,mode:state.mode,difficulty:state.difficulty,attempts:state.tasks.length,accuracy,score,xp_earned:xp,journey_xp_total:journeyXpTotal,object_count:pairCount,campaign_xp_cap:200};
       const levels=copy(campaign.levels).sort((a,b)=>a.levelNumber-b.levelNumber);
       const payload={gameId,name:state.runId,runId:state.runId,activityId:fields.activity_id,highestLevelPlayed:Math.max(state.highestLevelPlayed,...levels.map(level=>level.levelNumber)),level,xpEarned:xp,xpEarnedTotal:xp,journeyXpTotal,campaignXpCap:200,reportingVersion:REPORTING_VERSION,rawData:Object.entries(fields).map(([key,value])=>({key,value:String(value)})),diagnostics:{levels:[level]},timestamp:new Date().toISOString()};
       // Persist BEFORE touching the host bridge. Keep the original run ID when

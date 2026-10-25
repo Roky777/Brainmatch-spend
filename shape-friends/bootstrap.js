@@ -3,7 +3,7 @@
 const entry=document.querySelector('script[data-game-variant]');
 const variant=entry.dataset.gameVariant;
 const manifestURL=new URL(`../${variant}/game-content.json`,import.meta.url);
-manifestURL.searchParams.set('v','difficulty-xp-3');
+manifestURL.searchParams.set('v','board-xp-4');
 document.documentElement.dataset.contentManifest=manifestURL.href;
 try {
   const {resetGameData}=await import('./reset-data.js?v=1');
@@ -34,7 +34,7 @@ try {
     template.getElementById('game-loading')?.remove();
     document.body.replaceChildren(loader,...template.body.childNodes);
   }
-  await import('./app.js?v=41');
+  await import('./app.js?v=42');
 } catch(error) {
   const screen=document.getElementById('game-loading');
   screen.querySelector('p').textContent='A little hiccup. Shall we try again?';

@@ -23,11 +23,12 @@ Continue appears only for a valid unfinished board in that world. Clicking it
 restores the card order, matches, score, mode and difficulty. The mode cards still
 open difficulty selection and create a fresh board. XP and world unlocks are kept.
 
-XP is shared across themes and hidden boards. First completions award
-Easy 30/20, Medium 40/25, Hard 50/35 (Practice/Beat Sparky), totalling 200.
-Only difficulty and mode determine whether XP is already claimed. Old local XP
-resets once for XP rule version 3; new XP persists normally. Unlocks, themes,
-settings and saved boards stay intact. No theme-based XP or completion bonus remains.
+Every completed board earns Practice 10 XP or Beat Sparky 15 XP, including
+replays, regardless of difficulty or theme. The existing 200-XP cap remains;
+the last award is limited to the remaining XP. A completion ID prevents the
+same callback from paying twice. Previously earned XP and progress are preserved.
+Each completion advances the reported level above app/local highest progress,
+so subsequent boards are not misidentified as the same six difficulty levels.
 
 When PW injects userInfo, saves are isolated by user and catalog game. App/local
 highest-level progress selects the initial difficulty focus, never opens a board

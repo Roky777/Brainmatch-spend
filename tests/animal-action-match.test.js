@@ -43,6 +43,6 @@ test('4, 6 and 8 card boards finish correctly in Practice and Beat Sparky',()=>{
 });
 test('animal action XP journey totals 200 with smaller Beat Sparky rewards',()=>{
   const xp=manifest.progression.xp;
-  assert.equal(Object.values(xp.rewards).reduce((sum,reward)=>sum+reward.practice+reward.challenge,0),200);
-  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice>reward.challenge));
+  assert.equal(xp.cap,200);assert.equal(xp.replayRewards,true);
+  assert.ok(Object.values(xp.rewards).every(reward=>reward.practice===10&&reward.challenge===15));
 });

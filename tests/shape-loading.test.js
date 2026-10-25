@@ -26,7 +26,7 @@ test('all variants load the shared loading screen and versioned runtime', async 
     try {html=await readFile(new URL(`../${folder}/index.html`,import.meta.url),'utf8');}
     catch(error){if(error.code==='ENOENT'&&folder!=='shape-friends')continue;throw error;}
     assert.match(html,/loading.css\?v=4/);
-    assert.match(html,/bootstrap.js\?v=15/);
+    assert.match(html,/bootstrap.js\?v=16/);
     assert.match(html,/id="loading-critical"/);
     assert.match(html,/class="loading-mascot"/);
     assert.match(html,/data-art-ready="true"/);
